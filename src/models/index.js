@@ -4,8 +4,7 @@ const sequelize = new Sequelize("postgres://postgres:[PASSWORD]@localhost:5432/p
     },
 );
 const models = {
-    User: sequelize.import('./user'),
-    Message: sequelize.import('./message'),
+    Student: sequelize.import('./student')
 };
 Object.keys(models).forEach(key => {
     if ('associate' in models[key]) {

@@ -12,3 +12,6 @@ sequelize.sync().then(() => {
         console.log(`Example app listening on port 3000!`)
     });
 }).catch(e => console.log(e));
+
+
+// https://github.com/makinhs/rest-api-tutorial
