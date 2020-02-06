@@ -53,9 +53,9 @@ const student = (sequelize, DataTypes) => {
             unique: false,
         },
     });
-    // Student.associate = models => {
-    //     Student.hasMany(models.Course, { onDelete: 'CASCADE' });
-    // };
+    Student.associate = models => {
+        Student.hasMany(models.Course, { onDelete: 'CASCADE' });
+    };
     Student.findByNUID = async nuid => {
         return await student.findOne({
             where: { NUID: nuid },
