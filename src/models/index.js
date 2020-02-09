@@ -1,12 +1,20 @@
 import Sequelize from 'sequelize';
-const sequelize = new Sequelize("postgres://postgres:password123!@localhost:5432/pharmdDB", {
-    dialect: 'postgres',
-    },
+
+const sequelize = new Sequelize(
+    'postgres',
+    process.env.DB_USERNAME,
+    process.env.DB_PASSWORD,
+    {
+        host: process.env.DB,
+        port: process.env.DB_PORT,
+        dialect: 'postgres'
+    }
 );
+
 const models = {
     Student: sequelize.import('./student'),
     Course: sequelize.import('./course'),
-    Exam: sequelize.import('./exam')
+    Exam: sequelize.import('./exam'),
 };
 Object.keys(models).forEach(key => {
     if ('associate' in models[key]) {

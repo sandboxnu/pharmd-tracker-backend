@@ -66,10 +66,18 @@ const student = (sequelize, DataTypes) => {
             where: { firstName: firstName, lastName: lastName},
         });
     };
-    Student.updateStudent = async (nuid, updateData) => {
-        let studentToUpdate = Student.findByNUID(nuid)
-        return await studentToUpdate.update(updateData);
-    };
+
+    Student.addNewStudent = async (student) => Student.create({
+        ...student
+    });
+
+    Student.updateStudent = async (NUID, studentInfo) => Student.update({
+        ...studentInfo
+    }, {
+        where: {
+            NUID
+        }
+    });
     return Student;
 };
 export default student;

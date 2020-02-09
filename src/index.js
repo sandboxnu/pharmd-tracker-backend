@@ -1,17 +1,38 @@
 import express from 'express';
-// Express related imports
-// other node package imports
-
+import cors from 'cors';
+import routes from './controllers';
 import models, { sequelize } from './models';
+
 const app = express();
 
-// additional Express stuff: middleware, routes, ...
-console.log("HERE")
-sequelize.sync().then(() => {
-    app.listen(3000, () => {
-        console.log(`Example app listening on port 3000!`)
+app.use(async (req, res, next) => {
+    req.context = {
+        models: models,
+        me: await models.User.findByLogin('cmyers'),
+    };
+    next();
+});
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+// APP ROUTES
+app.use('/sessions', routes.sessionsRoutes);
+app.use('/students', routes.studentRoutes);
+app.use('/exams', routes.examsRoutes);
+
+// set this to true to wipe the whole database on load
+const eraseDatabaseOnSync = false;
+
+sequelize.sync({force: eraseDatabaseOnSync}).then(() => {
+    app.listen(process.env.DB_PORT, () => {
+        console.log(`Example app listening on port ${process.env.DB_PORT}!`)
     });
 }).catch(e => console.log(e));
 
+app.listen(process.env.BACKEND_PORT, () =>
+    console.log('Example app listening on port ' + process.env.BACKEND_PORT),
+);
 
 // https://github.com/makinhs/rest-api-tutorial
