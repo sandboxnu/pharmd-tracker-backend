@@ -21,6 +21,11 @@ const exam = (sequelize, DataTypes) => {
         }
     });
 
+    Exam.findById = async examId => {
+        return exam.findOne({
+            where: {examId: examId}
+        });
+    };
 
     /**
      * Queries all exams for a provided student in their provided course

@@ -22,6 +22,21 @@ const course = (sequelize, DataTypes) => {
     Course.associate = models => {
         Course.hasMany(models.Exam, { onDelete: 'CASCADE' });
     };
+    Course.associate = models => {
+        Course.belongsToMany(models.Student, {})
+    };
+
+    Course.findById = async courseID => {
+        return course.findOne({
+            where: {courseID: courseID}
+        });
+    };
+
+    Course.findByName = async (courseName) => {
+        return course.findOne({
+            where: {courseName: courseName},
+        });
+    };
 
     // TODO update method to have correct fields in a course
     /**

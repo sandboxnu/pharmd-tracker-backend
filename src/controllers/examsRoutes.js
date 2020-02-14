@@ -3,6 +3,26 @@ import { Router } from 'express';
 const router = Router();
 
 // Gets all the exams in DB
+router.get('/exams', async (req, res) => {
+    try {
+        const exams = await req.context.models.Exam.findAll();
+        return res.send(exams);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
+// Gets an exam with the given id
+router.get('/exams/:examID', async (req, res) => {
+    try {
+        const exam = await req.context.models.Exam.findById(req.params.examId);
+        return res.send(exam);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Gets all exams from the given class
 
