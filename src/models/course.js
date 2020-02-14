@@ -10,13 +10,6 @@ const course = (sequelize, DataTypes) => {
         courseName: {
             type: DataTypes.STRING,
             unique: true,
-        },
-        examList: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
-            unique: false,
-        },
-        credits: {
-            type: DataTypes
         }
     });
     Course.associate = models => {
@@ -32,8 +25,6 @@ const course = (sequelize, DataTypes) => {
     Course.addNewCourse = async (courseInfo) => Course.create({
         courseId: uuidv4(),
         courseName: courseInfo.courseName,
-        examList: [],
-        credits: courseInfo.credits
     });
 
     /**
