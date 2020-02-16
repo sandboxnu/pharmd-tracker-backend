@@ -9,7 +9,7 @@ const router = Router();
 // Gets all exams for the given student
 
 // Gets all exams from given students for given class
-router.get('/:studentId/:courseId', async (req, res) => {
+router.get('/:NUID/:courseId', async (req, res) => {
     try {
         const exams = await req.context.models.Exam.getStudentExamsFromClass(req.params.studentId, req.params.courseId);
         return res.send(exams);
@@ -31,9 +31,9 @@ router.post('/', async (req, res) => {
 });
 
 // Updates the exam with given ID in the DB
-router.put('/:examId', async (req, res) => {
+router.put('/:examID', async (req, res) => {
     try {
-        const updateExam = await req.context.models.Exam.updateExam(req.params.examId, req.body);
+        const updateExam = await req.context.models.Exam.updateExam(req.params.examID, req.body);
         return res.send(updateExam);
     } catch (e) {
         console.log(e);

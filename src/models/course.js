@@ -12,9 +12,6 @@ const course = (sequelize, DataTypes) => {
             unique: true,
         }
     });
-    Course.associate = models => {
-        Course.hasMany(models.Exam, { onDelete: 'CASCADE' });
-    };
 
     // TODO update method to have correct fields in a course
     /**

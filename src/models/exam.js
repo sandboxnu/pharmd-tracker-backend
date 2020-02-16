@@ -3,7 +3,7 @@ import uuidv4 from 'uuid/v4';
 
 const exam = (sequelize, DataTypes) => {
     const Exam = sequelize.define('exam', {
-        examId: {
+        examID: {
             type: DataTypes.STRING,
             unique: true,
             primaryKey: true
@@ -12,12 +12,13 @@ const exam = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             unique: true,
         },
-        course: {
+        courseID: {
             type: DataTypes.STRING,
             unique: false,
         },
-        studentId: {
-            type: DataTypes.STRING
+        type: {
+            type: DataTypes.STRING,
+            unique: false
         }
     });
 
@@ -28,15 +29,14 @@ const exam = (sequelize, DataTypes) => {
      * @param course the course to look for exams in
      * @returns {Promise<Model[]>} a promise providing the requested exams
      */
-    Exam.getStudentExamsFromClass = async (studentId, course) =>
-        await Exam.findAll({
-            where: {
-                [Op.and]: [
-                    {studentId},
-                    {course}
-                ]
-            }
-        });
+    // Exam.getStudentExamsFromClass = async (studentId, course) =>
+    //     await Exam.findAll({
+    //         where: {
+    //             [Op.and]: [
+    //                 {course}
+    //             ]
+    //         }
+    //     });
 
     /**
      * Adds a new exam to this DB
@@ -46,7 +46,7 @@ const exam = (sequelize, DataTypes) => {
     Exam.addNewExam = async (exam) =>
         Exam.create({
             ...exam,
-            examId: uuidv4()
+            examID: uuidv4()
         });
 
     /**
@@ -55,12 +55,12 @@ const exam = (sequelize, DataTypes) => {
      * @param exam an object with the fields to update
      * @returns {Promise<[number, Model[]]>} A promise with status of update
      */
-    Exam.updateExam = async (examId, exam) =>
+    Exam.updateExam = async (examID, exam) =>
         Exam.update({
             ...exam
         }, {
             where: {
-                examId
+                examID
             }
         });
 

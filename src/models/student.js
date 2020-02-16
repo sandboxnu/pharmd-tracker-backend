@@ -2,7 +2,7 @@ const student = (sequelize, DataTypes) => {
     const Student = sequelize.define('student', {
         NUID: {
             type: DataTypes.STRING,
-            unique: true,
+            primaryKey: true,
         },
         firstName: {
             type: DataTypes.STRING,
@@ -52,17 +52,18 @@ const student = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             unique: false,
         },
+        notes: {
+            type: DataTypes.STRING,
+            unique: false,
+        }
     });
-    Student.associate = models => {
-        Student.hasMany(models.Course, { onDelete: 'CASCADE' });
-    };
     Student.findByNUID = async nuid => {
-        return await student.findOne({
+        return await Student.findOne({
             where: { NUID: nuid },
         });
     };
     Student.findByFirstLastName = async (firstName, lastName) => {
-        return await student.findOne({
+        return await Student.findOne({
             where: { firstName: firstName, lastName: lastName},
         });
     };

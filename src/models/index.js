@@ -29,6 +29,14 @@ const models = {
 
 };
 
+models.Student.belongsToMany(models.Course, {through: 'StudentCourse', foreignKey:'NUID', sourceKey:'NUID'});
+models.Course.belongsToMany(models.Student, {through: 'StudentCourse', foreignKey:'courseId', sourceKey:'courseId'});
+models.Student.belongsToMany(models.Exam, {through: 'StudentExam', foreignKey:'NUID',
+sourceKey:'NUID'});
+models.Exam.belongsToMany(models.Student, {through: 'StudentExam', foreignKey:'examID',
+sourceKey:'examID'});
+
+
 Object.keys(models).forEach(key => {
 
     if ('associate' in models[key]) {

@@ -8,7 +8,7 @@ const app = express();
 app.use(async (req, res, next) => {
     req.context = {
         models: models,
-        me: await models.User.findByLogin('cmyers'),
+        me: await models.Student.findByNUID('cmyers'),
     };
     next();
 });
@@ -23,7 +23,7 @@ app.use('/students', routes.studentRoutes);
 app.use('/exams', routes.examsRoutes);
 
 // set this to true to wipe the whole database on load
-const eraseDatabaseOnSync = false;
+const eraseDatabaseOnSync = true;
 
 sequelize.sync({force: eraseDatabaseOnSync}).then(() => {
     app.listen(process.env.DB_PORT, () => {
