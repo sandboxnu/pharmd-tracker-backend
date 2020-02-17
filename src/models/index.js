@@ -25,16 +25,16 @@ const models = {
 
     Course: sequelize.import('./course'),
 
-    Exam: sequelize.import('./exam'),
+    Assessment: sequelize.import('./assessment'),
 
 };
 
 models.Student.belongsToMany(models.Course, {through: 'StudentCourse', foreignKey:'NUID', sourceKey:'NUID'});
-models.Course.belongsToMany(models.Student, {through: 'StudentCourse', foreignKey:'courseId', sourceKey:'courseId'});
-models.Student.belongsToMany(models.Exam, {through: 'StudentExam', foreignKey:'NUID',
+models.Course.belongsToMany(models.Student, {through: 'StudentCourse', foreignKey:'courseID', sourceKey:'courseID'});
+models.Student.belongsToMany(models.Assessment, {through: 'StudentAssessment', foreignKey:'NUID',
 sourceKey:'NUID'});
-models.Exam.belongsToMany(models.Student, {through: 'StudentExam', foreignKey:'examID',
-sourceKey:'examID'});
+models.Assessment.belongsToMany(models.Student, {through: 'StudentAssessment', foreignKey:'assessmentID',
+sourceKey:'assessmentID'});
 
 
 Object.keys(models).forEach(key => {

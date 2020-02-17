@@ -7,64 +7,110 @@ const student = (sequelize, DataTypes) => {
         firstName: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull: false
         },
         lastName: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull: false
         },
         preferredName: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull:false
         },
         visa: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull: true
         },
         entryType: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull: false
         },
         entryToP1: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull: false
         },
         originalGradDate: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull: false
         },
         adjustedGradDate: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull: true
         },
         gradDateChange: {
             type: DataTypes.ARRAY(DataTypes.STRING),
             unique: false,
+            allowNull:true
         },
         dualDegree: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull: true
         },
         leftProgram: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull: true
         },
         GPA: {
             type: DataTypes.INTEGER,
             unique: false,
+            allowNull:true
         },
         notes: {
             type: DataTypes.STRING,
             unique: false,
+            allowNull:true
         }
     });
-    Student.findByNUID = async nuid => {
-        return await Student.findOne({
-            where: { NUID: nuid },
+
+    /**
+     * Gets all students in the DB
+     * @returns {Promise<<Model[]>>} a promise to respond query
+     */
+    Student.getAllStudents = async () => {
+        return Student.findAll();
+    };
+    /**
+     * Gets all students with the given cohort
+     * @param cohort the requested cohort
+     * @returns {Promise<<Model[]>>}
+     */
+    Student.getCohort = async (cohort) => {
+        return Student.findAll({
+            where: {adjustedGradDate: cohort}
         });
     };
+    Student.getCourses = async (nuid) => {
+        const student = Student.findOne({where: {NUID: nuid}});
+        return student.getCourses();
+    };
+    /**
+     * Finds a student with the given NUID
+     * @param nuid the requested NUID
+     * @returns {Promise<<Model<any, any> | null>|<Model<any, any>>>}
+     */
+    Student.findByNUID = async nuid => {
+        return Student.findOne({
+            where: {NUID: nuid}
+        });
+    };
+    /**
+     * Finds a student with the given first and last name
+     * @param firstName the requested first name
+     * @param lastName the requested last name
+     * @returns {Promise<<Model<any, any> | null>|<Model<any, any>>>}
+     */
     Student.findByFirstLastName = async (firstName, lastName) => {
-        return await Student.findOne({
-            where: { firstName: firstName, lastName: lastName},
+        return Student.findOne({
+            where: {firstName: firstName, lastName: lastName},
         });
     };
 

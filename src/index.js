@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended: true}));
 // APP ROUTES
 app.use('/sessions', routes.sessionsRoutes);
 app.use('/students', routes.studentRoutes);
-app.use('/exams', routes.examsRoutes);
+app.use('/assessments', routes.assessmentsRoutes);
 
 // set this to true to wipe the whole database on load
 const eraseDatabaseOnSync = true;

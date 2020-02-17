@@ -1,29 +1,29 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const StudentCourse = sequelize.define('StudentCourse', {
+  const StudentAssessment = sequelize.define('StudentAssessment', {
+    assessmentID: {
+      type: DataTypes.STRING,
+      primaryKey: true
+    },
     NUID: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    courseID: {
+    assessmentName: {
       type: DataTypes.STRING,
       allowNull: false
     },
     percentage: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.STRING,
       allowNull: true
     },
     letterGrade: {
       type: DataTypes.STRING,
       allowNull: true
-    },
-    term: {
-      type: DataTypes.STRING,
-      allowNull: false
     }
   }, {});
-  StudentCourse.associate = function(models) {
+  StudentAssessment.associate = function(models) {
     // associations can be defined here
   };
-  return StudentCourse;
+  return StudentAssessment;
 };

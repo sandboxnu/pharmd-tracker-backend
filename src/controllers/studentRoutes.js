@@ -3,14 +3,60 @@ import { Router } from 'express';
 const router = Router();
 
 // Gets all the students in the DB
+router.get('/students', async (req, res) => {
+    try {
+        const students = await req.context.models.Student.findAll();
+        return res.send(students);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Gets a single student by their NUID
+router.get('/students/:NUID', async (req, res) => {
+    try {
+        const student = await req.context.models.Student.findByNUID(req.params.NUID);
+        return res.send(student);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Gets a single student by their first and last name
+router.get('/students/:firstName-:lastName', async (req, res) => {
+    try {
+        const student = await req.context.models.Student.findByFirstLastName(req.params.firstName, req.params.lastName);
+        return res.send(student);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
-// Gets all students from a given class
+// Gets all students from a given course
+router.get('/students/:NUID/courses', async (req, res) => {
+    try {
+        const courses = await req.context.models.Student.getCourses(req.params.NUID);
+        return res.send(courses);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Gets all students from a given cohort (year)
+router.get('/students/:cohort', async (req, res) => {
+    try {
+        const students = await req.context.models.Student.getCohort(req.params.adjustedGradDate);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
+
 
 // Adds a new student to the DB
 router.post('/', async (req, res) => {
@@ -24,9 +70,9 @@ router.post('/', async (req, res) => {
 });
 
 // Updates the information for a single student
-router.put('/:nuid', async (req, res) => {
+router.put('/:NUID', async (req, res) => {
     try {
-        const updatedStudent = await req.context.models.Student.updateStudent(req.params.nuid, req.body);
+        const updatedStudent = await req.context.models.Student.updateStudent(req.params.NUID, req.body);
         return res.send(updatedStudent);
     } catch (e) {
         console.log(e);

@@ -3,13 +3,37 @@ import { Router } from 'express';
 const router = Router();
 
 // Gets all the courses in the DB
-
+router.get('/courses', async (req, res) => {
+    try {
+        const courses = await req.context.models.Course.findAll();
+        return res.send(courses);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Gets the course the provided id
-
+router.get('/courses/:courseID', async (req, res) => {
+    try {
+        const course = await req.context.models.Course.findById(req.params.courseID);
+        return res.send(course);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Gets the course with the given name
-
+router.get('/courses/:courseName', async (req, res) => {
+    try {
+        const course = await req.context.models.Course.findByName(req.params.courseName);
+        return res.send(course);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Adds a new course to the database
 router.post('/', async (req, res) => {
@@ -23,9 +47,9 @@ router.post('/', async (req, res) => {
 });
 
 // Updates the course with given ID
-router.put('/:courseId', async (req, res) => {
+router.put('/:courseID', async (req, res) => {
     try {
-        const updatedCourse = await req.context.models.Course.updateCourse(req.params.courseId, req.body);
+        const updatedCourse = await req.context.models.Course.updateCourse(req.params.courseID, req.body);
         return res.send(updatedCourse);
     } catch (e) {
         console.log(e);
