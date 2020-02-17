@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 
+require('dotenv').config();
 const sequelize = new Sequelize(
     'postgres',
     process.env.DB_USERNAME,
@@ -7,7 +8,7 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB,
         port: process.env.DB_PORT,
-        dialect: 'postgres'
+        dialect: 'postgres',
     }
 );
 
