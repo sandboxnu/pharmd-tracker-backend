@@ -25,11 +25,20 @@ const assessment = (sequelize, DataTypes) => {
         }
     });
 
+    // --------------------------- GET METHODS ---------------------------
+
+    // gets the assessment with the given id
     Assessment.findById = async assessmentID => {
         return assessment.findOne({
             where: {assessmentID: assessmentID}
         });
     };
+
+    // TODO get assessment by name
+
+    // TODO get all assessments from given course
+
+    // TODO get all of one assessment
 
     /**
      * Queries all assessments for a provided student in their provided course
@@ -46,6 +55,8 @@ const assessment = (sequelize, DataTypes) => {
     //         }
     //     });
 
+    // --------------------------- POST METHODS ---------------------------
+
     /**
      * Adds a new assessment to this DB
      * @param assessment the object holding data about assessment to be added
@@ -56,6 +67,8 @@ const assessment = (sequelize, DataTypes) => {
             ...assessment,
             assessmentID: uuidv4()
         });
+
+    // --------------------------- PUT METHODS ---------------------------
 
     /**
      *Updates the assessment with given ID in the DB

@@ -2,6 +2,10 @@ import { Router } from 'express';
 
 const router = Router();
 
+// --------------------------- GET METHODS ---------------------------
+
+// ----- groups of students -----
+
 // Gets all the students in the DB
 router.get('/students', async (req, res) => {
     try {
@@ -12,6 +16,18 @@ router.get('/students', async (req, res) => {
         return res.send(e);
     }
 });
+
+// Gets all students from a given cohort (year)
+router.get('/students/:cohort', async (req, res) => {
+    try {
+        const students = await req.context.models.Student.getCohort(req.params.adjustedGradDate);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
+// ----- one student -----
 
 // Gets a single student by their NUID
 router.get('/students/:NUID', async (req, res) => {
@@ -35,10 +51,12 @@ router.get('/students/:firstName-:lastName', async (req, res) => {
     }
 });
 
-// Gets all students from a given course
+// ----- courses from students -----
+
+// Gets all courses from a student with the given NUID
 router.get('/students/:NUID/courses', async (req, res) => {
     try {
-        const courses = await req.context.models.Student.getCourses(req.params.NUID);
+        const courses = await req.context.models.Student.getCoursesByNUID(req.params.NUID);
         return res.send(courses);
     } catch(e) {
         console.log(e);
@@ -46,17 +64,31 @@ router.get('/students/:NUID/courses', async (req, res) => {
     }
 });
 
-// Gets all students from a given cohort (year)
-router.get('/students/:cohort', async (req, res) => {
+// ----- assessments of students -----
+
+// Gets all assessments in a given course from a student with the given NUID
+router.get('/students/:NUID/:courseID/assessments', async (req, res) => {
     try {
-        const students = await req.context.models.Student.getCohort(req.params.adjustedGradDate);
+        const assessments = await req.context.models.Student.getCourseAssessmentsByNUID(req.params.NUID);
+        return res.send(assessments);
     } catch(e) {
         console.log(e);
         return res.send(e);
     }
 });
 
+// Gets all assessments from a student with the given NUID
+router.get('/students/:NUID/assessments', async (req, res) => {
+    try {
+        const assessments = await req.context.models.Student.getAssessmentsByNUID(req.params.NUID);
+        return res.send(assessments);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
+// --------------------------- POST METHODS ---------------------------
 
 // Adds a new student to the DB
 router.post('/', async (req, res) => {
@@ -68,6 +100,8 @@ router.post('/', async (req, res) => {
         return res.send(e);
     }
 });
+
+// --------------------------- PUT METHODS ---------------------------
 
 // Updates the information for a single student
 router.put('/:NUID', async (req, res) => {

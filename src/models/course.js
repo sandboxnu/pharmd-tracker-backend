@@ -1,5 +1,7 @@
 import uuidv4 from 'uuid/v4';
 
+// TODO class averages
+
 const course = (sequelize, DataTypes) => {
     const Course = sequelize.define('course', {
         courseID: {
@@ -14,17 +16,28 @@ const course = (sequelize, DataTypes) => {
         }
     });
 
+    // --------------------------- GET METHODS ---------------------------
+
+    // get the course with the given id
     Course.findById = async courseID => {
         return Course.findOne({
             where: {courseID: courseID}
         });
     };
 
+    // get the first course with the given name
     Course.findByName = async (courseName) => {
         return Course.findOne({
             where: {courseName: courseName},
         });
     };
+
+    // get the students in a given course
+    Course.getStudentsByCourseID = async courseID => {
+        return Course.findById(courseID).getStudents();
+    };
+
+    // --------------------------- POST METHODS ---------------------------
 
     // TODO update method to have correct fields in a course
     /**
@@ -36,6 +49,8 @@ const course = (sequelize, DataTypes) => {
         courseID: uuidv4(),
         courseName: courseInfo.courseName,
     });
+
+    // --------------------------- PUT METHODS ---------------------------
 
     /**
      * Updates a course with the given ID with given info
