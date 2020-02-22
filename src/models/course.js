@@ -1,8 +1,10 @@
 import uuidv4 from 'uuid/v4';
 
+// TODO class averages
+
 const course = (sequelize, DataTypes) => {
     const Course = sequelize.define('course', {
-        courseId: {
+        courseID: {
           type: DataTypes.STRING,
           unique: true,
           primaryKey: true
@@ -10,26 +12,32 @@ const course = (sequelize, DataTypes) => {
         courseName: {
             type: DataTypes.STRING,
             unique: true,
+            allowNull:false
         }
     });
-    Course.associate = models => {
-        Course.hasMany(models.Exam, { onDelete: 'CASCADE' });
-    };
-    Course.associate = models => {
-        Course.belongsToMany(models.Student, {})
-    };
 
+    // --------------------------- GET METHODS ---------------------------
+
+    // get the course with the given id
     Course.findById = async courseID => {
-        return course.findOne({
+        return Course.findOne({
             where: {courseID: courseID}
         });
     };
 
+    // get the first course with the given name
     Course.findByName = async (courseName) => {
-        return course.findOne({
+        return Course.findOne({
             where: {courseName: courseName},
         });
     };
+
+    // get the students in a given course
+    Course.getStudentsByCourseID = async courseID => {
+        return Course.findById(courseID).getStudents();
+    };
+
+    // --------------------------- POST METHODS ---------------------------
 
     // TODO update method to have correct fields in a course
     /**
@@ -38,9 +46,11 @@ const course = (sequelize, DataTypes) => {
      * @returns {Promise<Model> | Model}
      */
     Course.addNewCourse = async (courseInfo) => Course.create({
-        courseId: uuidv4(),
+        courseID: uuidv4(),
         courseName: courseInfo.courseName,
     });
+
+    // --------------------------- PUT METHODS ---------------------------
 
     /**
      * Updates a course with the given ID with given info
@@ -48,11 +58,11 @@ const course = (sequelize, DataTypes) => {
      * @param courseInfo the info to update
      * @returns {Promise<[number, Model[]]>}
      */
-    Course.updateCourse = async (courseId, courseInfo) => Course.update({
+    Course.updateCourse = async (courseID, courseInfo) => Course.update({
         ...courseInfo
     }, {
         where: {
-            courseId
+            courseID
         }
     });
 

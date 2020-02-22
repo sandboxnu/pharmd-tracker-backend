@@ -3,3 +3,9 @@
 .env
 
 .idea
+
+/models
+
+/config
+
+Relations.sql

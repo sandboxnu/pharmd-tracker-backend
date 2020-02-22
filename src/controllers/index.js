@@ -1,11 +1,11 @@
 import courseRoutes from './courseRoutes';
-import examsRoutes from './examsRoutes';
+import assessmentsRoutes from './assessmentsRoutes';
 import sessionsRoutes from './sessionsRoutes';
 import studentRoutes from './studentRoutes';
 
 export default {
     courseRoutes,
-    examsRoutes,
+    assessmentsRoutes,
     sessionsRoutes,
     studentRoutes
 }

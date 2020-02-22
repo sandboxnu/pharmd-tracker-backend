@@ -47,9 +47,9 @@ router.post('/', async (req, res) => {
 });
 
 // Updates the course with given ID
-router.put('/:courseId', async (req, res) => {
+router.put('/:courseID', async (req, res) => {
     try {
-        const updatedCourse = await req.context.models.Course.updateCourse(req.params.courseId, req.body);
+        const updatedCourse = await req.context.models.Course.updateCourse(req.params.courseID, req.body);
         return res.send(updatedCourse);
     } catch (e) {
         console.log(e);
