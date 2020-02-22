@@ -10,17 +10,25 @@ const course = (sequelize, DataTypes) => {
         courseName: {
             type: DataTypes.STRING,
             unique: true,
-        },
-        examList: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
-            unique: false,
-        },
-        credits: {
-            type: DataTypes
         }
     });
     Course.associate = models => {
         Course.hasMany(models.Exam, { onDelete: 'CASCADE' });
+    };
+    Course.associate = models => {
+        Course.belongsToMany(models.Student, {})
+    };
+
+    Course.findById = async courseID => {
+        return course.findOne({
+            where: {courseID: courseID}
+        });
+    };
+
+    Course.findByName = async (courseName) => {
+        return course.findOne({
+            where: {courseName: courseName},
+        });
     };
 
     // TODO update method to have correct fields in a course
@@ -32,8 +40,6 @@ const course = (sequelize, DataTypes) => {
     Course.addNewCourse = async (courseInfo) => Course.create({
         courseId: uuidv4(),
         courseName: courseInfo.courseName,
-        examList: [],
-        credits: courseInfo.credits
     });
 
     /**

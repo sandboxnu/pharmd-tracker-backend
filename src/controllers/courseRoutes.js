@@ -3,13 +3,37 @@ import { Router } from 'express';
 const router = Router();
 
 // Gets all the courses in the DB
-
+router.get('/', async (req, res) => {
+    try {
+        const courses = await req.context.models.Course.findAll();
+        return res.send(courses);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Gets the course the provided id
-
+router.get('/:courseID', async (req, res) => {
+    try {
+        const course = await req.context.models.Course.findById(req.params.courseID);
+        return res.send(course);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Gets the course with the given name
-
+router.get('/:courseName', async (req, res) => {
+    try {
+        const course = await req.context.models.Course.findByName(req.params.courseName);
+        return res.send(course);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // Adds a new course to the database
 router.post('/', async (req, res) => {
