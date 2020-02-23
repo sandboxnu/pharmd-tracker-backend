@@ -97,7 +97,6 @@ const student = (sequelize, DataTypes) => {
             },
             unique: false,
         }
-        // TODO move to a model
     });
 
     // --------------------------- GET METHODS ---------------------------
@@ -116,7 +115,12 @@ const student = (sequelize, DataTypes) => {
         });
     };
 
-    // TODO all international students
+    // get all international students (students with an 'F1' visa
+    Student.getInternational = async () => {
+        return Student.findAll({
+            where: {visa: 'F1'}
+        });
+    };
 
     // ----- one student -----
 
@@ -134,6 +138,11 @@ const student = (sequelize, DataTypes) => {
         });
     };
     // TODO would it be necessary to have method that returns all students with given name for searches?
+    Student.searchByName = async(firstName, lastName) => {
+        return Student.findAll( {
+            where: {firstName: firstName}
+        })
+    };
 
     // ----- courses from student -----
 
