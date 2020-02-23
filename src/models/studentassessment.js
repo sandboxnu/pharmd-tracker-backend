@@ -1,4 +1,6 @@
 'use strict';
+
+// TODO to match name conventions
 module.exports = (sequelize, DataTypes) => {
   const StudentAssessment = sequelize.define('StudentAssessment', {
     assessmentID: {

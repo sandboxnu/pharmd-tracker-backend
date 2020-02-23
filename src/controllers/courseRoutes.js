@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router();
 
 // Gets all the courses in the DB
-router.get('/courses', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const courses = await req.context.models.Course.findAll();
         return res.send(courses);
@@ -14,7 +14,7 @@ router.get('/courses', async (req, res) => {
 });
 
 // Gets the course the provided id
-router.get('/courses/:courseID', async (req, res) => {
+router.get('/:courseID', async (req, res) => {
     try {
         const course = await req.context.models.Course.findById(req.params.courseID);
         return res.send(course);
@@ -25,7 +25,7 @@ router.get('/courses/:courseID', async (req, res) => {
 });
 
 // Gets the course with the given name
-router.get('/courses/:courseName', async (req, res) => {
+router.get('/:courseName', async (req, res) => {
     try {
         const course = await req.context.models.Course.findByName(req.params.courseName);
         return res.send(course);

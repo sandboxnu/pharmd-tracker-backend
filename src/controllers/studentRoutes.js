@@ -1,13 +1,11 @@
-import { Router } from 'express';
-
-const router = Router();
+const router = express.Router();
 
 // --------------------------- GET METHODS ---------------------------
 
 // ----- groups of students -----
 
 // Gets all the students in the DB
-router.get('/students', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const students = await req.context.models.Student.findAll();
         return res.send(students);
@@ -18,7 +16,17 @@ router.get('/students', async (req, res) => {
 });
 
 // Gets all students from a given cohort (year)
-router.get('/students/:cohort', async (req, res) => {
+router.get('/:cohort', async (req, res) => {
+    try {
+        const students = await req.context.models.Student.getCohort(req.params.adjustedGradDate);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
+// Gets all students with F1 visas
+router.get('/:f1', async (req, res) => {
     try {
         const students = await req.context.models.Student.getCohort(req.params.adjustedGradDate);
     } catch(e) {
@@ -30,7 +38,7 @@ router.get('/students/:cohort', async (req, res) => {
 // ----- one student -----
 
 // Gets a single student by their NUID
-router.get('/students/:NUID', async (req, res) => {
+router.get('/:NUID', async (req, res) => {
     try {
         const student = await req.context.models.Student.findByNUID(req.params.NUID);
         return res.send(student);
@@ -41,7 +49,7 @@ router.get('/students/:NUID', async (req, res) => {
 });
 
 // Gets a single student by their first and last name
-router.get('/students/:firstName-:lastName', async (req, res) => {
+router.get('/:firstName-:lastName', async (req, res) => {
     try {
         const student = await req.context.models.Student.findByFirstLastName(req.params.firstName, req.params.lastName);
         return res.send(student);
@@ -54,7 +62,7 @@ router.get('/students/:firstName-:lastName', async (req, res) => {
 // ----- courses from students -----
 
 // Gets all courses from a student with the given NUID
-router.get('/students/:NUID/courses', async (req, res) => {
+router.get('/:NUID/courses', async (req, res) => {
     try {
         const courses = await req.context.models.Student.getCoursesByNUID(req.params.NUID);
         return res.send(courses);
@@ -67,7 +75,7 @@ router.get('/students/:NUID/courses', async (req, res) => {
 // ----- assessments of students -----
 
 // Gets all assessments in a given course from a student with the given NUID
-router.get('/students/:NUID/:courseID/assessments', async (req, res) => {
+router.get('/:NUID/:courseID/assessments', async (req, res) => {
     try {
         const assessments = await req.context.models.Student.getCourseAssessmentsByNUID(req.params.NUID);
         return res.send(assessments);
@@ -78,7 +86,7 @@ router.get('/students/:NUID/:courseID/assessments', async (req, res) => {
 });
 
 // Gets all assessments from a student with the given NUID
-router.get('/students/:NUID/assessments', async (req, res) => {
+router.get('/:NUID/assessments', async (req, res) => {
     try {
         const assessments = await req.context.models.Student.getAssessmentsByNUID(req.params.NUID);
         return res.send(assessments);
