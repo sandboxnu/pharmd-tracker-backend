@@ -1,4 +1,6 @@
-const router = express.Router();
+import { Router } from 'express';
+
+const router = Router();
 
 // --------------------------- GET METHODS ---------------------------
 

@@ -3,7 +3,6 @@ import cors from 'cors';
 import routes from './controllers';
 import models, { sequelize } from './models';
 
-const express = require('express');
 const app = express();
 
 app.use(async (req, res, next) => {

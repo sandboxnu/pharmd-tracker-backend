@@ -5,9 +5,11 @@ const student = (sequelize, DataTypes) => {
     const Student = sequelize.define('student', {
         NUID: {
             type: DataTypes.STRING,
-            validate:{
-                args: [9,9],
-                msg: "ID must consist of 9 digits"
+            validate: {
+                len: {
+                    args: [9, 9],
+                    msg: "ID must consist of 9 digits"
+                }
             },
             primaryKey: true,
             allowNull: false
@@ -46,9 +48,11 @@ const student = (sequelize, DataTypes) => {
         entryToP1: {
             // should only be length of 7 (FL 2019)
             type: DataTypes.STRING,
-            validate:{
-                args: [7,7],
-                msg: "Entry to program should be 7 characters long. Example: 'FL 2019'"
+            validate: {
+                len: {
+                    args: [7, 7],
+                    msg: "Entry to program should be 7 characters long. Example: 'FL 2019'"
+                }
             },
             unique: false,
             allowNull: false
@@ -56,18 +60,22 @@ const student = (sequelize, DataTypes) => {
         originalGradDate: {
             // should only be length 5 (22/23)
             type: DataTypes.STRING,
-            validate:{
-                args: [5,5],
-                msg: "Original graduation date should be 5 characters long. Example: '22/23'"
+            validate: {
+                len: {
+                    args: [5, 5],
+                    msg: "Original graduation date should be 5 characters long. Example: '22/23'"
+                }
             },
             allowNull: false,
             unique: false,
         },
         adjustedGradDate: {
             type: DataTypes.STRING,
-            validate:{
-                args: [5,5],
-                msg: "Adjusted graduation date should be 5 characters long. Example: '22/23'"
+            validate: {
+                len: {
+                    args: [5, 5],
+                    msg: "Adjusted graduation date should be 5 characters long. Example: '22/23'"
+                }
             },
             unique: false,
             allowNull: true
@@ -75,7 +83,7 @@ const student = (sequelize, DataTypes) => {
         gradDateChange: {
             type: DataTypes.ARRAY(DataTypes.STRING),
             unique: false,
-            allowNull:true
+            allowNull: true
         },
         leftProgram: {
             type: DataTypes.STRING,
@@ -85,7 +93,7 @@ const student = (sequelize, DataTypes) => {
         status: {
             type: DataTypes.ENUM('Enrolled', "Leave", "Drop Back", "Co-Op"),
             unique: false,
-            allowNull:true
+            allowNull: true
         },
         GPA: {
             type: DataTypes.DOUBLE,
@@ -138,8 +146,8 @@ const student = (sequelize, DataTypes) => {
         });
     };
     // TODO would it be necessary to have method that returns all students with given name for searches?
-    Student.searchByName = async(firstName, lastName) => {
-        return Student.findAll( {
+    Student.searchByName = async (firstName, lastName) => {
+        return Student.findAll({
             where: {firstName: firstName}
         })
     };
