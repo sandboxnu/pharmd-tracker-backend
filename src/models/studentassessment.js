@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     NUID: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate:{
+        args: [9,9],
+        msg: "ID must consist of 9 digits"
+      },
     },
     assessmentName: {
       type: DataTypes.STRING,
@@ -15,11 +18,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     percentage: {
       type: DataTypes.STRING,
-      allowNull: true
+      validate: {
+        min: 0,
+        max: 100
+      },
     },
     letterGrade: {
-      type: DataTypes.STRING,
-      allowNull: true
+      type: DataTypes.ENUM('A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F')
     }
   }, {});
   StudentAssessment.associate = function(models) {

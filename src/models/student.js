@@ -1,12 +1,15 @@
+import Sequelize, {DataTypes} from "sequelize";
+import {sequelize} from "./index";
+
 const student = (sequelize, DataTypes) => {
     const Student = sequelize.define('student', {
         NUID: {
             type: DataTypes.STRING,
+            validate:{
+                args: [9,9],
+                msg: "ID must consist of 9 digits"
+            },
             primaryKey: true,
-        },
-        firstName: {
-            type: DataTypes.STRING,
-            unique: false,
             allowNull: false
         },
         lastName: {
@@ -14,34 +17,58 @@ const student = (sequelize, DataTypes) => {
             unique: false,
             allowNull: false
         },
-        preferredName: {
+        firstName: {
             type: DataTypes.STRING,
             unique: false,
-            allowNull:false
+            allowNull: false
         },
-        visa: {
+        preferredName: {
             type: DataTypes.STRING,
             unique: false,
             allowNull: true
         },
+        visa: {
+            type: DataTypes.ENUM("F1", ""),
+            allowNull: true,
+            unique: false,
+        },
         entryType: {
             type: DataTypes.STRING,
+            allowNull: true,
             unique: false,
-            allowNull: false
+        },
+        dualDegree: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: false,
         },
         // semester of entry
         entryToP1: {
+            // should only be length of 7 (FL 2019)
             type: DataTypes.STRING,
+            validate:{
+                args: [7,7],
+                msg: "Entry to program should be 7 characters long. Example: 'FL 2019'"
+            },
             unique: false,
             allowNull: false
         },
         originalGradDate: {
+            // should only be length 5 (22/23)
             type: DataTypes.STRING,
+            validate:{
+                args: [5,5],
+                msg: "Original graduation date should be 5 characters long. Example: '22/23'"
+            },
+            allowNull: false,
             unique: false,
-            allowNull: false
         },
         adjustedGradDate: {
             type: DataTypes.STRING,
+            validate:{
+                args: [5,5],
+                msg: "Adjusted graduation date should be 5 characters long. Example: '22/23'"
+            },
             unique: false,
             allowNull: true
         },
@@ -50,20 +77,25 @@ const student = (sequelize, DataTypes) => {
             unique: false,
             allowNull:true
         },
-        dualDegree: {
-            type: DataTypes.STRING,
-            unique: false,
-            allowNull: true
-        },
         leftProgram: {
             type: DataTypes.STRING,
             unique: false,
             allowNull: true
         },
-        GPA: {
-            type: DataTypes.INTEGER,
+        status: {
+            type: DataTypes.ENUM('Enrolled', "Leave", "Drop Back", "Co-Op"),
             unique: false,
             allowNull:true
+        },
+        GPA: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0,
+            validate: {
+                min: 0,
+                max: 4
+            },
+            unique: false,
         }
         // TODO move to a model
     });
