@@ -4,8 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     NUID: {
       type: DataTypes.STRING,
       validate:{
-        args: [9,9],
-        msg: "ID must consist of 9 digits"
+        len: {
+          args: [9, 9],
+          msg: "ID must consist of 9 digits"
+        }
       },
       allowNull: false
     },
