@@ -33,12 +33,12 @@ const student = (sequelize, DataTypes) => {
             unique: false,
         },
         entryType: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM("DE", "EA"),
             allowNull: true,
             unique: false,
         },
         dualDegree: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM("MPH", ""),
             allowNull: true,
             unique: false,
         },

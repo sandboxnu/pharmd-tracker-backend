@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     percentage: {
-      type: DataTypes.STRING,
+      type: DataTypes.DOUBLE,
       validate: {
         min: 0,
         max: 100
