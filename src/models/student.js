@@ -65,7 +65,6 @@ const student = (sequelize, DataTypes) => {
             unique: false,
             allowNull:true
         }
-        // TODO move to a model
     });
 
     // --------------------------- GET METHODS ---------------------------
@@ -78,7 +77,7 @@ const student = (sequelize, DataTypes) => {
     };
 
     // get all students in the given cohort
-    Student.getCohort = async (cohort) => {
+    Student.getFromCohort = async (cohort) => {
         return Student.findAll({
             where: {adjustedGradDate: cohort}
         });
@@ -107,7 +106,16 @@ const student = (sequelize, DataTypes) => {
 
     // gets all courses of the student with the given NUID
     Student.getCoursesByNUID = async (nuid) => {
-        return Student.findByNUID(nuid).getCourses();
+        const student  = await Student.findByNUID(nuid);
+        return Student.findOne({
+            where: {
+                NUID: nuid
+            },
+            include: [{
+                model: Course,
+                as: "Courses"
+            }]
+        })
     };
 
     // TODO get current courses of student with given NUID

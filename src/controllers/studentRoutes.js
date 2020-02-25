@@ -18,9 +18,9 @@ router.get('/', async (req, res) => {
 });
 
 // Gets all students from a given cohort (year)
-router.get('/students/:cohort', async (req, res) => {
+router.get('/fromCohort/:cohort', async (req, res) => {
     try {
-        const students = await req.context.models.Student.getCohort(req.params.adjustedGradDate);
+        const students = await req.context.models.Student.getFromCohort(req.params.cohort);
     } catch(e) {
         console.log(e);
         return res.send(e);
@@ -51,12 +51,8 @@ router.get('/:firstName-:lastName', async (req, res) => {
     }
 });
 
-// Gets all students from a given course
-router.get('/:NUID/courses', async (req, res) => {
-// ----- courses from students -----
-
 // Gets all courses from a student with the given NUID
-router.get('/students/:NUID/courses', async (req, res) => {
+router.get('/:NUID/courses', async (req, res) => {
     try {
         const courses = await req.context.models.Student.getCoursesByNUID(req.params.NUID);
         return res.send(courses);
@@ -66,56 +62,53 @@ router.get('/students/:NUID/courses', async (req, res) => {
     }
 });
 
-// Gets all students from a given cohort (year)
-router.get('cohort/:cohort', async (req, res) => {
-// ----- assessments of students -----
 
 // Gets all assessments in a given course from a student with the given NUID
-router.get('/students/:NUID/:courseID/assessments', async (req, res) => {
-    try {
-        const assessments = await req.context.models.Student.getCourseAssessmentsByNUID(req.params.NUID);
-        return res.send(assessments);
-    } catch(e) {
-        console.log(e);
-        return res.send(e);
-    }
-});
+    router.get('/students/:NUID/:courseID/assessments', async (req, res) => {
+        try {
+            const assessments = await req.context.models.Student.getCourseAssessmentsByNUID(req.params.NUID);
+            return res.send(assessments);
+        } catch (e) {
+            console.log(e);
+            return res.send(e);
+        }
+    });
 
 // Gets all assessments from a student with the given NUID
-router.get('/students/:NUID/assessments', async (req, res) => {
-    try {
-        const assessments = await req.context.models.Student.getAssessmentsByNUID(req.params.NUID);
-        return res.send(assessments);
-    } catch(e) {
-        console.log(e);
-        return res.send(e);
-    }
-});
+    router.get('/students/:NUID/assessments', async (req, res) => {
+        try {
+            const assessments = await req.context.models.Student.getAssessmentsByNUID(req.params.NUID);
+            return res.send(assessments);
+        } catch (e) {
+            console.log(e);
+            return res.send(e);
+        }
+    });
 
 // --------------------------- POST METHODS ---------------------------
 
 // Adds a new student to the DB
-router.post('/', async (req, res) => {
-    try {
-        const newStudent = await req.context.models.Student.addNewStudent(req.body);
-        return res.send(newStudent);
-    } catch (e) {
-        console.log(e);
-        return res.send(e);
-    }
-});
+    router.post('/', async (req, res) => {
+        try {
+            const newStudent = await req.context.models.Student.addNewStudent(req.body);
+            return res.send(newStudent);
+        } catch (e) {
+            console.log(e);
+            return res.send(e);
+        }
+    });
 
 // --------------------------- PUT METHODS ---------------------------
 
 // Updates the information for a single student
-router.put('/:NUID', async (req, res) => {
-    try {
-        const updatedStudent = await req.context.models.Student.updateStudent(req.params.NUID, req.body);
-        return res.send(updatedStudent);
-    } catch (e) {
-        console.log(e);
-        return res.send(e);
-    }
-});
+    router.put('/:NUID', async (req, res) => {
+        try {
+            const updatedStudent = await req.context.models.Student.updateStudent(req.params.NUID, req.body);
+            return res.send(updatedStudent);
+        } catch (e) {
+            console.log(e);
+            return res.send(e);
+        }
+    });
 
-export default router;
+    export default router
