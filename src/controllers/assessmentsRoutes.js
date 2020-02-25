@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router();
 
 // Gets all the assessments in DB
-router.get('/assessments', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const assessments = await req.context.models.Assessment.findAll();
         return res.send(assessments);
@@ -14,7 +14,7 @@ router.get('/assessments', async (req, res) => {
 });
 
 // Gets an assessment with the given id
-router.get('/assessments/:assessmentID', async (req, res) => {
+router.get('/:assessmentID', async (req, res) => {
     try {
         const assessment = await req.context.models.Assessment.findById(req.params.assessmentID);
         return res.send(assessment);
@@ -28,16 +28,7 @@ router.get('/assessments/:assessmentID', async (req, res) => {
 
 // Gets all assessments for the given student
 
-// Gets all assessments from given students for given class
-router.get('/:NUID/:courseID', async (req, res) => {
-    try {
-        const assessments = await req.context.models.Assessment.getStudentExamsFromClass(req.params.NUID, req.params.courseID);
-        return res.send(assessments);
-    } catch (e) {
-        console.log(e);
-        return res.send(e);
-    }
-});
+// Gets all assessments from the given student for given class
 
 // Adds a new assessment to the DB
 router.post('/', async (req, res) => {

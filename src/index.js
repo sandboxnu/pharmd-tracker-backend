@@ -21,6 +21,7 @@ app.use(express.urlencoded({extended: true}));
 app.use('/sessions', routes.sessionsRoutes);
 app.use('/students', routes.studentRoutes);
 app.use('/assessments', routes.assessmentsRoutes);
+app.use('/courses', routes.courseRoutes);
 
 // set this to true to wipe the whole database on load
 const eraseDatabaseOnSync = true;
@@ -34,5 +35,6 @@ sequelize.sync({force: eraseDatabaseOnSync}).then(() => {
 app.listen(process.env.BACKEND_PORT, () =>
     console.log('Example app listening on port ' + process.env.BACKEND_PORT),
 );
+
 
 // https://github.com/makinhs/rest-api-tutorial

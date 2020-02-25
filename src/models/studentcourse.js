@@ -3,6 +3,12 @@ module.exports = (sequelize, DataTypes) => {
   const StudentCourse = sequelize.define('StudentCourse', {
     NUID: {
       type: DataTypes.STRING,
+      validate:{
+        len: {
+          args: [9, 9],
+          msg: "ID must consist of 9 digits"
+        }
+      },
       allowNull: false
     },
     courseID: {
@@ -10,16 +16,27 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     percentage: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DOUBLE,
+      validate: {
+        min: 0,
+        max: 100
+      },
       allowNull: true
     },
     letterGrade: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'),
       allowNull: true
     },
     term: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    quizAverage: {
+      type: DataTypes.DOUBLE,
+      validate: {
+        min: 0,
+        max: 100
+      },
     }
   }, {});
   StudentCourse.associate = function(models) {

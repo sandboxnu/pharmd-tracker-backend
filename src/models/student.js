@@ -1,12 +1,17 @@
+import Sequelize, {DataTypes} from "sequelize";
+import {sequelize} from "./index";
+
 const student = (sequelize, DataTypes) => {
     const Student = sequelize.define('student', {
         NUID: {
             type: DataTypes.STRING,
+            validate: {
+                len: {
+                    args: [9, 9],
+                    msg: "ID must consist of 9 digits"
+                }
+            },
             primaryKey: true,
-        },
-        firstName: {
-            type: DataTypes.STRING,
-            unique: false,
             allowNull: false
         },
         lastName: {
@@ -14,44 +19,69 @@ const student = (sequelize, DataTypes) => {
             unique: false,
             allowNull: false
         },
-        preferredName: {
+        firstName: {
             type: DataTypes.STRING,
             unique: false,
-            allowNull:false
+            allowNull: false
         },
-        visa: {
+        preferredName: {
             type: DataTypes.STRING,
             unique: false,
             allowNull: true
         },
-        entryType: {
-            type: DataTypes.STRING,
+        visa: {
+            type: DataTypes.ENUM("F1", ""),
+            allowNull: true,
             unique: false,
-            allowNull: false
+        },
+        entryType: {
+            type: DataTypes.ENUM("DE", "EA"),
+            allowNull: true,
+            unique: false,
+        },
+        dualDegree: {
+            type: DataTypes.ENUM("MPH", ""),
+            allowNull: true,
+            unique: false,
         },
         // semester of entry
         entryToP1: {
+            // should only be length of 7 (FL 2019)
             type: DataTypes.STRING,
+            validate: {
+                len: {
+                    args: [7, 7],
+                    msg: "Entry to program should be 7 characters long. Example: 'FL 2019'"
+                }
+            },
             unique: false,
             allowNull: false
         },
         originalGradDate: {
+            // should only be length 5 (22/23)
             type: DataTypes.STRING,
+            validate: {
+                len: {
+                    args: [5, 5],
+                    msg: "Original graduation date should be 5 characters long. Example: '22/23'"
+                }
+            },
+            allowNull: false,
             unique: false,
-            allowNull: false
         },
         adjustedGradDate: {
             type: DataTypes.STRING,
+            validate: {
+                len: {
+                    args: [5, 5],
+                    msg: "Adjusted graduation date should be 5 characters long. Example: '22/23'"
+                }
+            },
             unique: false,
             allowNull: true
         },
         gradDateChange: {
             type: DataTypes.ARRAY(DataTypes.STRING),
-            unique: false,
-            allowNull:true
-        },
-        dualDegree: {
-            type: DataTypes.STRING,
             unique: false,
             allowNull: true
         },
@@ -60,10 +90,20 @@ const student = (sequelize, DataTypes) => {
             unique: false,
             allowNull: true
         },
-        GPA: {
-            type: DataTypes.INTEGER,
+        status: {
+            type: DataTypes.ENUM('Enrolled', "Leave", "Drop Back", "Co-Op"),
             unique: false,
-            allowNull:true
+            allowNull: true
+        },
+        GPA: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0,
+            validate: {
+                min: 0,
+                max: 4
+            },
+            unique: false,
         }
     });
 
@@ -83,7 +123,12 @@ const student = (sequelize, DataTypes) => {
         });
     };
 
-    // TODO all international students
+    // get all international students (students with an 'F1' visa
+    Student.getInternational = async () => {
+        return Student.findAll({
+            where: {visa: 'F1'}
+        });
+    };
 
     // ----- one student -----
 
@@ -101,6 +146,11 @@ const student = (sequelize, DataTypes) => {
         });
     };
     // TODO would it be necessary to have method that returns all students with given name for searches?
+    Student.searchByName = async (firstName, lastName) => {
+        return Student.findAll({
+            where: {firstName: firstName}
+        })
+    };
 
     // ----- courses from student -----
 

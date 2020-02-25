@@ -51,6 +51,8 @@ router.get('/:firstName-:lastName', async (req, res) => {
     }
 });
 
+// ----- courses from students -----
+
 // Gets all courses from a student with the given NUID
 router.get('/:NUID/courses', async (req, res) => {
     try {
@@ -62,6 +64,7 @@ router.get('/:NUID/courses', async (req, res) => {
     }
 });
 
+// ----- assessments of students -----
 
 // Gets all assessments in a given course from a student with the given NUID
     router.get('/students/:NUID/:courseID/assessments', async (req, res) => {
@@ -75,15 +78,15 @@ router.get('/:NUID/courses', async (req, res) => {
     });
 
 // Gets all assessments from a student with the given NUID
-    router.get('/students/:NUID/assessments', async (req, res) => {
-        try {
-            const assessments = await req.context.models.Student.getAssessmentsByNUID(req.params.NUID);
-            return res.send(assessments);
-        } catch (e) {
-            console.log(e);
-            return res.send(e);
-        }
-    });
+router.get('/:NUID/assessments', async (req, res) => {
+    try {
+        const assessments = await req.context.models.Student.getAssessmentsByNUID(req.params.NUID);
+        return res.send(assessments);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
 
 // --------------------------- POST METHODS ---------------------------
 

@@ -1,4 +1,6 @@
 'use strict';
+
+// TODO to match name conventions
 module.exports = (sequelize, DataTypes) => {
   const StudentAssessment = sequelize.define('StudentAssessment', {
     assessmentID: {
@@ -7,19 +9,26 @@ module.exports = (sequelize, DataTypes) => {
     },
     NUID: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate:{
+        len: {
+          args: [9, 9],
+          msg: "ID must consist of 9 digits"
+        }
+      },
     },
     assessmentName: {
       type: DataTypes.STRING,
       allowNull: false
     },
     percentage: {
-      type: DataTypes.STRING,
-      allowNull: true
+      type: DataTypes.DOUBLE,
+      validate: {
+        min: 0,
+        max: 100
+      },
     },
     letterGrade: {
-      type: DataTypes.STRING,
-      allowNull: true
+      type: DataTypes.ENUM('A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F')
     }
   }, {});
   StudentAssessment.associate = function(models) {
