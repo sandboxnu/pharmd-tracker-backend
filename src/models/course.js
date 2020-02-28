@@ -33,8 +33,15 @@ const course = (sequelize, DataTypes) => {
     };
 
     // get the students in a given course
-    Course.getStudentsByCourseID = async courseID => {
+    Course.getStudentsByCourse = async courseID => {
         return Course.findById(courseID).getStudents();
+    };
+
+    // get assessments by course id
+    Course.getAssessmentsByCourse = async courseID => {
+        return Course.findOne({
+            where: {courseID: courseID}
+        }).getAssessments()
     };
 
     // --------------------------- POST METHODS ---------------------------

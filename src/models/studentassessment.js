@@ -34,5 +34,12 @@ module.exports = (sequelize, DataTypes) => {
   StudentAssessment.associate = function(models) {
     // associations can be defined here
   };
+
+  StudentAssessment.getStudentAssessment = async (NUID, assessmentID) => {
+    return StudentAssessment.findOne({
+      where: {NUID: NUID, assessmentID: assessmentID}
+    })
+  };
+
   return StudentAssessment;
 };
