@@ -29,14 +29,20 @@ const assessment = (sequelize, DataTypes) => {
 
     // gets the assessment with the given id
     Assessment.findById = async assessmentID => {
-        return assessment.findOne({
+        return Assessment.findOne({
             where: {assessmentID: assessmentID}
         });
     };
 
-    // TODO get assessment by name
+    // gets an assessment with the given name
+    Assessment.findByName = async assessmentName => {
+
+    };
 
     // TODO get all assessments from given course
+    Assessment.getAssessmentsByCourse = async courseID => {
+        return Course.getAssessmentsByCourse(courseID);
+    };
 
     // TODO get all of one assessment
 

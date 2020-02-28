@@ -30,7 +30,7 @@ router.get('/:cohort', async (req, res) => {
 // Gets all students with F1 visas
 router.get('/:f1', async (req, res) => {
     try {
-        const students = await req.context.models.Student.getCohort(req.params.adjustedGradDate);
+        const students = await req.context.models.Student.getInternational();
     } catch(e) {
         console.log(e);
         return res.send(e);

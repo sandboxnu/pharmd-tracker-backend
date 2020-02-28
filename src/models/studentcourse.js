@@ -31,16 +31,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    quizAverage: {
-      type: DataTypes.DOUBLE,
-      validate: {
-        min: 0,
-        max: 100
-      },
-    }
   }, {});
   StudentCourse.associate = function(models) {
     // associations can be defined here
   };
+
+  // gets the StudentCourse with the given ids
+  StudentCourse.getStudentCourse = async (NUID, courseID) => {
+    return StudentCourse.findOne({
+      where: {NUID: NUID, courseID: courseID}
+    })
+  };
+
+  StudentCourse.getLetterGrade = async (NUID, courseID) => {
+    return StudentCourse.getStudentCourse(NUID, courseID).letterGrade
+  };
+
   return StudentCourse;
 };

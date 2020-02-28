@@ -1,4 +1,4 @@
-// TODO notes shold have tags, date, title, body
+// TODO notes should have tags, date, title, body
 
 const note = (sequelize, DataTypes) => {
     const Note = sequelize.define('note', {
