@@ -7,6 +7,11 @@ const note = (sequelize, DataTypes) => {
             unique: true,
             primaryKey: true
         },
+        NUID: { // this should be a foreign key
+            type: DataTypes.STRING,
+            unique: false,
+            primaryKey: true
+        },
         date: {
             type: DataTypes.DATE,
             unique: false,

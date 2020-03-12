@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
+    courseID: { // this should be a foreign key
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     assessmentName: {
       type: DataTypes.STRING,
       allowNull: false
@@ -43,9 +47,9 @@ module.exports = (sequelize, DataTypes) => {
 
   StudentAssessment.getStudentAssessmentsByCourse = async (NUID, courseID) => {
     return StudentAssessment.findAll({
-      where: {NUID: NUID}
+      where: {NUID: NUID, courseID: courseID}
     })
-  }
+  };
 
   return StudentAssessment;
 };

@@ -24,12 +24,6 @@ router.get('/:assessmentID', async (req, res) => {
     }
 });
 
-// Gets all assessments from the given class
-
-// Gets all assessments for the given student
-
-// Gets all assessments from the given student for given class
-
 // Adds a new assessment to the DB
 router.post('/', async (req, res) => {
     try {

@@ -145,6 +145,7 @@ const student = (sequelize, DataTypes) => {
             where: {firstName: firstName, lastName: lastName},
         });
     };
+
     // TODO would it be necessary to have method that returns all students with given name for searches?
     Student.searchByName = async (firstName, lastName) => {
         return Student.findAll({
@@ -159,10 +160,6 @@ const student = (sequelize, DataTypes) => {
         return Student.findByNUID(nuid).getCourses();
     };
 
-    // TODO get current courses of student with given NUID
-
-    // TODO get courses from a given semester of student with given NUID
-
     // ----- assessments from student -----
 
     // gets all assessments of the student with the given NUID
@@ -170,13 +167,10 @@ const student = (sequelize, DataTypes) => {
         return Student.findByNUID(nuid).getAssessments();
     };
 
-    // gets all assessments of the student with the given NUID in the given course
-    Student.getCourseAssessmentsByNUID = async (nuid, courseID) => {
-        return Student.getAssessmentsByNUID(nuid)
-            .findAll({where: {courseID: courseID}});
+    // gets all given students notes
+    Student.getStudentNotes = async (nuid) => {
+        return Student.findByNUID(nuid).getNotes();
     };
-
-    // TODO getting grade in assessment/course?
 
     // --------------------------- POST METHODS ---------------------------
 
