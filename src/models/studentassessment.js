@@ -41,5 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     })
   };
 
+  StudentAssessment.getStudentAssessmentsByCourse = async (NUID, courseID) => {
+    return StudentAssessment.findAll({
+      where: {NUID: NUID}
+    })
+  }
+
   return StudentAssessment;
 };

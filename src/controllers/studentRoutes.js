@@ -98,6 +98,27 @@ router.get('/:NUID/assessments', async (req, res) => {
     }
 });
 
+// get the student course
+router.get('/:NUID/:courseID', async (req, res) => {
+    try {
+        const studentCourse = await req.context.models.StudentCourse.getStudentCourse(req.params.NUID, req.params.courseID);
+        return res.send(studentCourse);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
+router.get('/:NUID/:courseID/assessments', async (req, res) => {
+    try {
+        const assessments = await req.context.models.Course.getAssessmentsByCourse(courseID)
+        return res.send(studentCourse);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 // --------------------------- POST METHODS ---------------------------
 
 // Adds a new student to the DB
