@@ -76,7 +76,7 @@ router.get('/:NUID/courses', async (req, res) => {
 });
 
 // Gets all courses from a given student in a given term
-router.get('/:NUID/courses/:term', async (req, res) => {
+router.get('/:NUID/courses/terms/:term', async (req, res) => {
     try {
         const courses = await req.context.models.StudentCourse.getStudentCoursesByTerm(req.params.NUID, req.params.term);
         return res.send(courses);
@@ -87,7 +87,7 @@ router.get('/:NUID/courses/:term', async (req, res) => {
 });
 
 // get the student course
-router.get('/:NUID/:courseID', async (req, res) => {
+router.get('/:NUID/courses/:courseID', async (req, res) => {
     try {
         const studentCourse = await req.context.models.StudentCourse.getStudentCourse(req.params.NUID, req.params.courseID);
         return res.send(studentCourse);
@@ -111,7 +111,7 @@ router.get('/:NUID/assessments', async (req, res) => {
 });
 
 // Gets all assessments in a given course from a student with the given NUID
-router.get('/:NUID/assessments/:courseID', async (req, res) => {
+router.get('/:NUID/courses/:courseID/assessments', async (req, res) => {
     try {
         const assessments = await req.context.models.StudentAssessment.getStudentAssessmentsByCourse(req.params.NUID, req.params.courseID);
         return res.send(assessments);
