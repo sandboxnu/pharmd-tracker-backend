@@ -1,5 +1,5 @@
 const pcf = (sequelize, DataTypes) => {
-    const PCF = sequelize.define('PCF', {
+    const PCF = sequelize.define('pcf', {
         NUID: {
             type: DataTypes.STRING,
             unique: true,

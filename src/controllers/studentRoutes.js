@@ -5,7 +5,6 @@ const router = Router();
 // --------------------------- GET METHODS ---------------------------
 
 // ----- groups of students -----
-
 // Gets all the students in the DB
 router.get('/', async (req, res) => {
     try {
@@ -18,9 +17,9 @@ router.get('/', async (req, res) => {
 });
 
 // Gets all students from a given cohort (year)
-router.get('/:cohort', async (req, res) => {
+router.get('/cohort/:cohort', async (req, res) => {
     try {
-        const students = await req.context.models.Student.getCohort(req.params.adjustedGradDate);
+        const students = await req.context.models.Student.getCohort(req.params.cohort);
         return res.send(students);
     } catch(e) {
         console.log(e);
@@ -29,7 +28,7 @@ router.get('/:cohort', async (req, res) => {
 });
 
 // Gets all students with F1 visas
-router.get('/:f1', async (req, res) => {
+router.get('/visa/:f1', async (req, res) => {
     try {
         const students = await req.context.models.Student.getInternational();
     } catch(e) {

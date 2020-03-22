@@ -121,6 +121,7 @@ const student = (sequelize, DataTypes) => {
         return Student.findAll({
             where: {adjustedGradDate: cohort}
         });
+
     };
 
     // get all international students (students with an 'F1' visa
@@ -136,7 +137,7 @@ const student = (sequelize, DataTypes) => {
     Student.findByNUID = async nuid => {
         return Student.findOne({
             where: {NUID: nuid}
-        });
+        }).then(student => {return student});
     };
 
     // get the first student with the given first and last name
@@ -164,7 +165,8 @@ const student = (sequelize, DataTypes) => {
 
     // gets all assessments of the student with the given NUID
     Student.getAssessmentsByNUID = async (nuid) => {
-        return Student.findByNUID(nuid).getAssessments();
+        const student = await Student.findByNUID(nuid)
+        return student.getAssessments();
     };
 
     // gets all given students notes

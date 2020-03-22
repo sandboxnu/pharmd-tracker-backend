@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const StudentCourse = sequelize.define('StudentCourse', {
+  const StudentCourse = sequelize.define('studentcourse', {
     NUID: {
       type: DataTypes.STRING,
       validate:{
