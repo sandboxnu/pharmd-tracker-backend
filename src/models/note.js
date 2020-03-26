@@ -34,5 +34,13 @@ const note = (sequelize, DataTypes) => {
         }
     });
 
+    Note.updateNote = async (noteID, body) => Note.update({
+        ...body
+    }, {
+        where: {
+            noteID: noteID
+        }
+    });
+
     return Note;
 };
