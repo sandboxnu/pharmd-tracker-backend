@@ -1,6 +1,3 @@
-import Sequelize, {DataTypes} from "sequelize";
-import {sequelize} from "./index";
-
 const student = (sequelize, DataTypes) => {
     const Student = sequelize.define('student', {
         NUID: {
@@ -137,7 +134,7 @@ const student = (sequelize, DataTypes) => {
     Student.findByNUID = async nuid => {
         return Student.findOne({
             where: {NUID: nuid}
-        }).then(student => {return student});
+        });
     };
 
     // get the first student with the given first and last name
@@ -158,20 +155,27 @@ const student = (sequelize, DataTypes) => {
 
     // gets all courses of the student with the given NUID
     Student.getCoursesByNUID = async (nuid) => {
-        return Student.findByNUID(nuid).getCourses();
+        const student = await Student.findByNUID(nuid);
+        return student.getCourses();
     };
 
     // ----- assessments from student -----
 
     // gets all assessments of the student with the given NUID
     Student.getAssessmentsByNUID = async (nuid) => {
-        const student = await Student.findByNUID(nuid)
+        const student = await Student.findByNUID(nuid);
         return student.getAssessments();
     };
 
     // gets all given students notes
     Student.getStudentNotes = async (nuid) => {
-        return Student.findByNUID(nuid).getNotes();
+        const student = await Student.findByNUID(nuid);
+        return student.getNotes();
+    };
+
+    Student.getStudentPCFs = async (nuid) => {
+        const student = await Student.findByNUID(nuid);
+        return student.getPCFs();
     };
 
     // --------------------------- POST METHODS ---------------------------

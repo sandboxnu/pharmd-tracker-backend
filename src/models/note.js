@@ -33,4 +33,6 @@ const note = (sequelize, DataTypes) => {
             allowNull: true
         }
     });
+
+    return Note;
 };

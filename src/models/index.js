@@ -21,25 +21,41 @@ const sequelize = new Sequelize(
 
 const models = {
 
-    StudentCourse: sequelize.import('./studentcourse'),
-
-    StudentAssessment: sequelize.import('./studentassessment'),
-
     Student: sequelize.import('./student'),
 
     Course: sequelize.import('./course'),
 
     Assessment: sequelize.import('./assessment'),
 
+    Note: sequelize.import('./note'),
+
+    PCF: sequelize.import('pcf'),
+
+    StudentCourse: sequelize.import('./studentcourse'),
+
+    StudentAssessment: sequelize.import('./studentassessment'),
+
+    StudentNote: sequelize.import('./studentnote')
+
 };
 
+// student - course
 models.Student.belongsToMany(models.Course, {through: models.StudentCourse, foreignKey:'NUID', sourceKey:'NUID'});
 models.Course.belongsToMany(models.Student, {through: models.StudentCourse, foreignKey:'courseID', sourceKey:'courseID'});
+// student - assessment
 models.Student.belongsToMany(models.Assessment, {through: models.StudentAssessment, foreignKey:'NUID',
 sourceKey:'NUID'});
 models.Assessment.belongsToMany(models.Student, {through: models.StudentAssessment, foreignKey:'assessmentID',
 sourceKey:'assessmentID'});
-
+// course - assessment
+models.Course.hasMany(models.Assessment, {foreignKey: 'courseID'});
+models.Assessment.belongsTo(models.Course);
+// student - note
+models.Student.hasMany(models.Note, {foreignKey:'NUID'});
+models.Note.belongsTo(models.Student);
+// student - pcf
+models.Student.hasMany(models.PCF, {foreignKey:'NUID'});
+models.PCF.belongsTo(models.Student);
 
 Object.keys(models).forEach(key => {
 

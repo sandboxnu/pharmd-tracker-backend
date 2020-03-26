@@ -46,6 +46,17 @@ router.get('/:courseID/assessments', async (req, res) => {
     }
 });
 
+// Gets the students in course the provided id
+router.get('/:courseID/students', async (req, res) => {
+    try {
+        const students = await req.context.models.Course.getStudentsByCourse(req.params.courseID);
+        return res.send(students);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 // Adds a new course to the database
 router.post('/', async (req, res) => {
     try {

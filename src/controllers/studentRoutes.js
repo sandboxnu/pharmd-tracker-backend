@@ -120,11 +120,22 @@ router.get('/:NUID/courses/:courseID/assessments', async (req, res) => {
     }
 });
 
-// Gets all assessments from a student with the given NUID
+// Gets all notes from a student with the given NUID
 router.get('/:NUID/notes', async (req, res) => {
     try {
         const notes = await req.context.models.Student.getStudentNotes(req.params.NUID);
         return res.send(notes);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
+// Gets all PCFs from a student with the given NUID
+router.get('/:NUID/pcfs', async (req, res) => {
+    try {
+        const pcfs = await req.context.models.Student.getStudentPCFs(req.params.NUID);
+        return res.send(pcfs);
     } catch(e) {
         console.log(e);
         return res.send(e);
