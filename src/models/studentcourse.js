@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const StudentCourse = sequelize.define('StudentCourse', {
+  const StudentCourse = sequelize.define('studentcourse', {
     NUID: {
       type: DataTypes.STRING,
       validate:{
@@ -36,15 +36,18 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
-  // gets the StudentCourse with the given ids
+  // gets the given student's course
   StudentCourse.getStudentCourse = async (NUID, courseID) => {
     return StudentCourse.findOne({
       where: {NUID: NUID, courseID: courseID}
     })
   };
 
-  StudentCourse.getLetterGrade = async (NUID, courseID) => {
-    return StudentCourse.getStudentCourse(NUID, courseID).letterGrade
+  // gets the given student's courses in the given term
+  StudentCourse.getStudentCoursesByTerm = async (NUID, term) => {
+    return StudentCourse.findAll({
+      where: {NUID: NUID, term: term}
+    })
   };
 
   return StudentCourse;

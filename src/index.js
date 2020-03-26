@@ -8,7 +8,6 @@ const app = express();
 app.use(async (req, res, next) => {
     req.context = {
         models: models,
-        me: await models.Student.findByNUID('cmyers'),
     };
     next();
 });

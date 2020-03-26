@@ -13,11 +13,6 @@ const assessment = (sequelize, DataTypes) => {
             unique: true,
             allowNull:false
         },
-        courseID: {
-            type: DataTypes.STRING,
-            unique: false,
-            allowNull: false
-        },
         type: {
             type: DataTypes.ENUM('Exam', 'Quiz'),
             unique: false,

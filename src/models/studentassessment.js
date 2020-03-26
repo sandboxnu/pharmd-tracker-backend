@@ -1,8 +1,7 @@
 'use strict';
 
-// TODO to match name conventions
 module.exports = (sequelize, DataTypes) => {
-  const StudentAssessment = sequelize.define('StudentAssessment', {
+  const StudentAssessment = sequelize.define('studentassessment', {
     assessmentID: {
       type: DataTypes.STRING,
       primaryKey: true
@@ -15,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
           msg: "ID must consist of 9 digits"
         }
       },
+    },
+    courseID: { // this should be a foreign key
+      type: DataTypes.STRING,
+      allowNull: false
     },
     assessmentName: {
       type: DataTypes.STRING,
@@ -38,6 +41,12 @@ module.exports = (sequelize, DataTypes) => {
   StudentAssessment.getStudentAssessment = async (NUID, assessmentID) => {
     return StudentAssessment.findOne({
       where: {NUID: NUID, assessmentID: assessmentID}
+    })
+  };
+
+  StudentAssessment.getStudentAssessmentsByCourse = async (NUID, courseID) => {
+    return StudentAssessment.findAll({
+      where: {NUID: NUID, courseID: courseID}
     })
   };
 
