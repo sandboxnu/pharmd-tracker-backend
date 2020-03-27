@@ -24,6 +24,17 @@ router.get('/:assessmentID', async (req, res) => {
     }
 });
 
+// Gets all individual student instances of assessment with the given id
+router.get('/:assessmentID/instances', async (req, res) => {
+    try {
+        const assessment = await req.context.models.StudentAssessment.getStudentAssessmentsByTestID(req.params.assessmentID);
+        return res.send(assessment);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 // Adds a new assessment to the DB
 router.post('/', async (req, res) => {
     try {
