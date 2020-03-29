@@ -10,7 +10,7 @@ Students
 | POST | .../students/ |  | Create a new student |
 | PUT | .../students/{nuid} |  | Update student with given NUID |
 | GET | .../students/cohort/{cohort} |  | Get all students in given cohort |
-| GET | .../students/f1 |  | Get all international students |
+| GET | .../students/visa/f1 |  | Get all international students |
 | GET | .../students/{firstName}-{lastName} |  | Get student with given first and last name |
 | GET | .../students/{nuid} |  | Get student with given NUID |
 | GET | .../students/{nuid}/courses |  | Get all of a student's courses|

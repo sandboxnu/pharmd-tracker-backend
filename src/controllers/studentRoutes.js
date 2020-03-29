@@ -31,6 +31,7 @@ router.get('/cohort/:cohort', async (req, res) => {
 router.get('/visa/:f1', async (req, res) => {
     try {
         const students = await req.context.models.Student.getInternational();
+        return res.send(students)
     } catch(e) {
         console.log(e);
         return res.send(e);
