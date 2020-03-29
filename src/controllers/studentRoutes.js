@@ -109,6 +109,18 @@ router.get('/:NUID/assessments', async (req, res) => {
     }
 });
 
+// Gets all assessments from a student with the given NUID
+router.get('/:NUID/assessments/:assessmentID', async (req, res) => {
+    try {
+        const assessments = await req.context.models
+            .StudentAssessment.getStudentAssessment(req.params.NUID, req.params.assessmentID);
+        return res.send(assessments);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 // Gets all assessments in a given course from a student with the given NUID
 router.get('/:NUID/courses/:courseID/assessments', async (req, res) => {
     try {

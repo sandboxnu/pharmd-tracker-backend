@@ -18,6 +18,7 @@ Students
 | GET | .../students/{nuid}/courses/terms/{term} |  | Get all of a student's courses in a term |
 | GET | .../students/{nuid}/courses/{courseID}/assessments |  | Get all student's assessment instances from a course |
 | GET | .../students/{nuid}/assessments |  | Get all of a student's assessments|
+| GET | .../students/{nuid}/assessments/{assessmentID} |  | Get a student's instance of an assessment|
 | GET | .../students/{nuid}/notes |  | Get all of a student's notes|
 | GET | .../students/{nuid}/pcfs |  | Get all of a student's PCFs|
 |  |  |  |  |
