@@ -1,4 +1,5 @@
 // TODO notes should have tags, date, title, body
+<<<<<<< HEAD
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Note = sequelize.define('note', {
