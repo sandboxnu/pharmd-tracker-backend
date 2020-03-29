@@ -31,3 +31,5 @@ router.put('/:noteID', async (req, res) => {
         return res.send(e);
     }
 });
+
+export default router;

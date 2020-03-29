@@ -4,8 +4,8 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     try {
-        const studentcourses = await req.context.models.StudentCourse.findAll();
-        return res.send(studentcourses);
+        const studentCourses = await req.context.models.StudentCourse.findAll();
+        return res.send(studentCourses);
     } catch(e) {
         console.log(e);
         return res.send(e);
@@ -14,8 +14,8 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const studentcourse = await req.context.models.StudentCourse.create(req.body);
-        return res.send(studentcourse);
+        const studentCourse = await req.context.models.StudentCourse.create(req.body);
+        return res.send(studentCourse);
     } catch (e) {
         console.log(e);
         return res.send(e);
@@ -24,11 +24,13 @@ router.post('/', async (req, res) => {
 
 router.put('/:nuid/:courseID', async (req, res) => {
     try {
-        const studentcourse = await req.context.models.StudentCourse
+        const studentCourse = await req.context.models.StudentCourse
             .updateStudentCourse(req.params.NUID, req.params.courseID, req.body);
-        return res.send(studentcourse);
+        return res.send(studentCourse);
     } catch (e) {
         console.log(e);
         return res.send(e);
     }
 });
+
+export default router;
