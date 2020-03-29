@@ -1,10 +1,10 @@
 INSERT INTO public.students(
 	"NUID", "lastName", "firstName", "preferredName", visa, "entryType", "dualDegree", "entryToP1", "originalGradDate", "adjustedGradDate", "gradDateChange", "leftProgram", status, "GPA", "createdAt", "updatedAt")
-	VALUES ('12345', 'Joe', 'Smith', 'J', null, null, null, '2020', '2020', '2021', null, null, null, 4.0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+	VALUES ('12345', 'Smith', 'Joe', 'J', null, null, null, '2020', '2020', '2021', null, null, null, 4.0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO public.students(
 	"NUID", "lastName", "firstName", "preferredName", visa, "entryType", "dualDegree", "entryToP1", "originalGradDate", "adjustedGradDate", "gradDateChange", "leftProgram", status, "GPA", "createdAt", "updatedAt")
-	VALUES ('54321', 'Susan', 'Green', 'Sue', 'F1', null, null, '2022', '2022', '2022', null, null, null, 3.9, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+	VALUES ('54321', 'Green', 'Susan', 'Sue', 'F1', null, null, '2022', '2022', '2022', null, null, null, 3.9, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO public.courses(
 	"courseID", "courseName", "createdAt", "updatedAt")
@@ -32,8 +32,8 @@ INSERT INTO public.studentcourses(
 
 INSERT INTO public.studentassessments(
 	"assessmentID", "NUID", "courseID", "assessmentName", percentage, "letterGrade", "createdAt", "updatedAt")
-	VALUES ('10', '54321', '1', 'orgo test 1', '90', 'A-', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+	VALUES ('10', '12345', '1', 'orgo test 1', '90', 'A-', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO public.studentassessments(
 	"assessmentID", "NUID", "courseID", "assessmentName", percentage, "letterGrade", "createdAt", "updatedAt")
-	VALUES ('20', '12345', '2', 'bio test 3', '99', 'A', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+	VALUES ('20', '54321', '2', 'bio test 3', '99', 'A', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
