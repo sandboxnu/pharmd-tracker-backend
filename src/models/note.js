@@ -43,4 +43,4 @@ const note = (sequelize, DataTypes) => {
     });
 
     return Note;
-};
+}
