@@ -21,15 +21,10 @@ const sequelize = new Sequelize(
 
 const models = {
 
-<<<<<<< HEAD
-=======
     StudentCourse: sequelize.import('./studentcourse'),
 
     StudentAssessment: sequelize.import('./studentassessment'),
 
-  //  CourseAssessment: sequelize.import('./courseassessment'),
-
->>>>>>> 6ee10e932ff7c43abf8968e4ef19deaf42399001
     Student: sequelize.import('./student'),
 
     Course: sequelize.import('./course'),
@@ -38,57 +33,35 @@ const models = {
 
     Note: sequelize.import('./note'),
 
-<<<<<<< HEAD
-    PCF: sequelize.import('pcf'),
-
-    StudentCourse: sequelize.import('./studentcourse'),
-
-    StudentAssessment: sequelize.import('./studentassessment'),
-
-    StudentNote: sequelize.import('./studentnote')
+    PCF: sequelize.import('./pcf'),
 
 };
 
-// student - course
-models.Student.belongsToMany(models.Course, {through: models.StudentCourse, foreignKey:'NUID', sourceKey:'NUID'});
-models.Course.belongsToMany(models.Student, {through: models.StudentCourse, foreignKey:'courseID', sourceKey:'courseID'});
-// student - assessment
-=======
-//    StudentNote: sequelize.import('./studentnote'),
-
-};
+// To create new models: npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
 
 // StudentCourse Association
 models.Student.belongsToMany(models.Course, {through: models.StudentCourse, foreignKey:'NUID', sourceKey:'NUID'});
 models.Course.belongsToMany(models.Student, {through: models.StudentCourse, foreignKey:'courseID', sourceKey:'courseID'});
 
 // StudentAssessment Association
->>>>>>> 6ee10e932ff7c43abf8968e4ef19deaf42399001
 models.Student.belongsToMany(models.Assessment, {through: models.StudentAssessment, foreignKey:'NUID',
 sourceKey:'NUID'});
 models.Assessment.belongsToMany(models.Student, {through: models.StudentAssessment, foreignKey:'assessmentID',
 sourceKey:'assessmentID'});
-<<<<<<< HEAD
-// course - assessment
-models.Course.hasMany(models.Assessment, {foreignKey: 'courseID'});
-models.Assessment.belongsTo(models.Course);
-// student - note
-models.Student.hasMany(models.Note, {foreignKey:'NUID'});
-models.Note.belongsTo(models.Student);
-// student - pcf
-models.Student.hasMany(models.PCF, {foreignKey:'NUID'});
-models.PCF.belongsTo(models.Student);
-=======
 
-// // CourseAssessment Association
+// // course - assessment
 models.Assessment.belongsTo(models.Course);
 models.Course.hasMany(models.Assessment);
 //
-// // StudentNote Association
+// // student - note
 models.Note.belongsTo(models.Student);
 models.Student.hasMany(models.Note);
 
->>>>>>> 6ee10e932ff7c43abf8968e4ef19deaf42399001
+
+// student - pcf
+models.Student.hasMany(models.PCF);
+models.PCF.belongsTo(models.Student);
+
 
 Object.keys(models).forEach(key => {
 
