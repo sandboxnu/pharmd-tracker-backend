@@ -39,10 +39,12 @@ Students
 | GET | .../student-assessments/ |  | Get all assessment instances |
 | POST | .../student-assessments/ |  | Create an assessment instance |
 | PUT | .../student-assessments/{nuid}/{assessmentID} |  | Update an assessment instance |
+| GET | .../student-assessments/{nuid}/{assessmentID} |  | Get an assessment instance |
 |  |  |  |  |
 | GET | .../student-courses/ |  | Get all course instances |
 | POST | .../student-courses/ |  | Create an course instance |
 | PUT | .../student-courses/{nuid}/{courseID} |  | Update an course instance 
+| GET | .../student-courses/{nuid}/{courseID} |  | Get a course instance 
 |  |  |  |  |
 | GET | .../notes/ |  | Get all notes |
 | POST | .../notes/ |  | Create a note |

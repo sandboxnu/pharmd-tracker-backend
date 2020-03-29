@@ -12,6 +12,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:nuid/:courseID', async (req, res) => {
+    try {
+        const studentCourse = await req.context.models
+            .StudentCourse.getStudentCourse(req.params.NUID, req.params.courseID);
+        return res.send(studentCourse);
+    } catch (e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
         const studentCourse = await req.context.models.StudentCourse.create(req.body);
