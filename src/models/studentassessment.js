@@ -56,5 +56,14 @@ module.exports = (sequelize, DataTypes) => {
     })
   };
 
+  StudentAssessment.updateStudentAssessment = async (NUID, assessmentID, body) => StudentAssessment.update({
+    ...body
+  }, {
+    where: {
+      NUID: NUID,
+      assessmentID: assessmentID
+    }
+  });
+
   return StudentAssessment;
 };

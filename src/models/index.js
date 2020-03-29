@@ -45,9 +45,9 @@ models.Course.belongsToMany(models.Student, {through: models.StudentCourse, fore
 
 // StudentAssessment Association
 models.Student.belongsToMany(models.Assessment, {through: models.StudentAssessment, foreignKey:'NUID',
-sourceKey:'NUID'});
+    sourceKey:'NUID'});
 models.Assessment.belongsToMany(models.Student, {through: models.StudentAssessment, foreignKey:'assessmentID',
-sourceKey:'assessmentID'});
+    sourceKey:'assessmentID'});
 
 // // course - assessment
 models.Assessment.belongsTo(models.Course);
