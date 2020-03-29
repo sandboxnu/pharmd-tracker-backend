@@ -46,3 +46,4 @@ Backend Endpoints
 | GET | .../notes/ | Array<Note> | Get all notes |
 | POST | .../notes/ |  | Create a note |
 | PUT | .../notes/{noteID} |  | Update a note |
+| GET | .../notes/{noteID} | NOte | Get a note with given ID |
