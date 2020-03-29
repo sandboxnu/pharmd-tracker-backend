@@ -1,6 +1,7 @@
-const pcf = (sequelize, DataTypes) => {
-    const PCF = sequelize.define('pcf', {
-        NUID: {
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+    const pcf = sequelize.define('pcf', {
+        pcfID: {
             type: DataTypes.STRING,
             unique: true,
             primaryKey: true
@@ -36,4 +37,5 @@ const pcf = (sequelize, DataTypes) => {
             allowNull: true
         }
     });
+    return pcf;
 };

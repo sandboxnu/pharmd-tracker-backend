@@ -29,7 +29,7 @@ const models = {
 
     Note: sequelize.import('./note'),
 
-    PCF: sequelize.import('pcf'),
+    PCF: sequelize.import('./pcf'),
 
     StudentCourse: sequelize.import('./studentcourse'),
 

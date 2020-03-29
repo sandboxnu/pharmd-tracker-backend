@@ -32,3 +32,5 @@ router.put('/:nuid/:courseID', async (req, res) => {
         return res.send(e);
     }
 });
+
+export default router;
