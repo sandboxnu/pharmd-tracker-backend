@@ -1,53 +1,48 @@
 
 Backend Endpoints
 
-Students
-
-| Type        | URL         | Parameters  | Description |
+| Type        | URL         | Returns  | Description |
 | ----------- | ----------- | ----------- | ----------- |
-|  |  |  |  |
-| GET | .../students/ |  | Get all students |
+| GET | .../students/ | Array<Student> | Get all students |
 | POST | .../students/ |  | Create a new student |
 | PUT | .../students/{nuid} |  | Update student with given NUID |
-| GET | .../students/cohort/{cohort} |  | Get all students in given cohort |
-| GET | .../students/f1 |  | Get all international students |
-| GET | .../students/{firstName}-{lastName} |  | Get student with given first and last name |
-| GET | .../students/{nuid} |  | Get student with given NUID |
-| GET | .../students/{nuid}/courses |  | Get all of a student's courses|
-| GET | .../students/{nuid}/courses/{courseID} |  | Get a student's instance of a course |
-| GET | .../students/{nuid}/courses/terms/{term} |  | Get all of a student's courses in a term |
-| GET | .../students/{nuid}/courses/{courseID}/assessments |  | Get all student's assessment instances from a course |
-| GET | .../students/{nuid}/assessments |  | Get all of a student's assessments|
-| GET | .../students/{nuid}/assessments/{assessmentID} |  | Get a student's instance of an assessment|
-| GET | .../students/{nuid}/notes |  | Get all of a student's notes|
-| GET | .../students/{nuid}/pcfs |  | Get all of a student's PCFs|
-|  |  |  |  |
-| GET | .../courses/ |  | Get all courses |
+| GET | .../students/cohort/{cohort} | Array<Student> | Get all students in given cohort |
+| GET | .../students/f1 | Array<Student> | Get all international students |
+| GET | .../students/{firstName}-{lastName} | Student | Get student with given first and last name |
+| GET | .../students/{nuid} | Student | Get student with given NUID |
+| GET | .../students/{nuid}/courses | Array<Course> | Get all of a student's courses|
+| GET | .../students/{nuid}/courses/{courseID} | StudentCourse | Get a student's instance of a course |
+| GET | .../students/{nuid}/courses/terms/{term} | Array<StudentCourse> | Get all of a student's course instances in a term |
+| GET | .../students/{nuid}/courses/{courseID}/assessments | Array<StudentAssessment> | Get all student's assessment instances from a course |
+| GET | .../students/{nuid}/assessments | Array<Assessment> | Get all of a student's assessments|
+| GET | .../students/{nuid}/assessments/{assessmentID} | StudentAssessment | Get a student's instance of an assessment|
+| GET | .../students/{nuid}/notes | Array<Note> | Get all of a student's notes|
+| GET | .../students/{nuid}/pcfs | Array<PCF> | Get all of a student's PCFs|
+|||||
+| GET | .../courses/ | Array<Course> | Get all courses |
 | POST | .../courses/ |  | Create a course |
 | PUT | .../courses/{courseID} |  | Update course with the given ID |
-| GET | .../courses/{courseName} |  | Get course with the given name |
-| GET | .../courses/{courseID} |  | Get course with the given ID |
-| GET | .../courses/{courseID}/assessments |  | Get a course's assessments |
-| GET | .../courses/{courseID}/students |  | Get a course's students |
-|  |  |  |  |
-| GET | .../assessments/ |  | Get all assessments |
+| GET | .../courses/{courseName} | Course | Get course with the given name |
+| GET | .../courses/{courseID} | Course | Get course with the given ID |
+| GET | .../courses/{courseID}/assessments | Array<Assessment> | Get a course's assessments |
+| GET | .../courses/{courseID}/students | Array<Student> | Get a course's students |
+|||||
+| GET | .../assessments/ | Array<Assessment> | Get all assessments |
 | POST | .../assessments/ |  | Create an assessment |
 | PUT | .../assessments/{assessmentID} |  | Update an assessment |
-| GET | .../assessments/{assessmentID} |  | Get assessment with the given ID |
-| GET | .../assessments/{assessmentID}/instances |  | Get all instances of an assessment|
-|  |  |  |  |
-| GET | .../student-assessments/ |  | Get all assessment instances |
+| GET | .../assessments/{assessmentID} | Assessment | Get assessment with the given ID |
+| GET | .../assessments/{assessmentID}/instances | Array<StudentAssessment> | Get all instances of an assessment|
+|||||
+| GET | .../student-assessments/ | Array<StudentAssessment> | Get all assessment instances |
 | POST | .../student-assessments/ |  | Create an assessment instance |
 | PUT | .../student-assessments/{nuid}/{assessmentID} |  | Update an assessment instance |
-| GET | .../student-assessments/{nuid}/{assessmentID} |  | Get an assessment instance |
-|  |  |  |  |
-| GET | .../student-courses/ |  | Get all course instances |
+| GET | .../student-assessments/{nuid}/{assessmentID} | StudentAssessment | Get an assessment instance |
+|||||
+| GET | .../student-courses/ | Array<StudentCourse> | Get all course instances |
 | POST | .../student-courses/ |  | Create an course instance |
 | PUT | .../student-courses/{nuid}/{courseID} |  | Update an course instance 
-| GET | .../student-courses/{nuid}/{courseID} |  | Get a course instance 
-|  |  |  |  |
-| GET | .../notes/ |  | Get all notes |
+| GET | .../student-courses/{nuid}/{courseID} | StudentCourse | Get a course instance 
+|||||
+| GET | .../notes/ | Array<Note> | Get all notes |
 | POST | .../notes/ |  | Create a note |
-| POST | .../notes/{noteID} |  | Update a note |
-
-
+| PUT | .../notes/{noteID} |  | Update a note |
