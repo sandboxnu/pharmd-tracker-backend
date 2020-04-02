@@ -8,7 +8,7 @@ Backend Endpoints
 | PUT | .../students/{nuid} |  | Update student with given NUID |
 | GET | .../students/cohort/{cohort} | Array<Student> | Get all students in given cohort |
 | GET | .../students/f1 | Array<Student> | Get all international students |
-| GET | .../students/{firstName}-{lastName} | Student | Get student with given first and last name |
+| GET | .../students/name/{firstName}-{lastName} | Student | Get student with given first and last name |
 | GET | .../students/{nuid} | Student | Get student with given NUID |
 | GET | .../students/{nuid}/courses | Array<Course> | Get all of a student's courses|
 | GET | .../students/{nuid}/courses/{courseID} | StudentCourse | Get a student's instance of a course |
@@ -19,10 +19,10 @@ Backend Endpoints
 | GET | .../students/{nuid}/notes | Array<Note> | Get all of a student's notes|
 | GET | .../students/{nuid}/pcfs | Array<PCF> | Get all of a student's PCFs|
 |||||
-| GET | .../courses/ | Array<Course> | Get all courses |
+| GET | .../courses/ |  | Get all courses |
 | POST | .../courses/ |  | Create a course |
 | PUT | .../courses/{courseID} |  | Update course with the given ID |
-| GET | .../courses/{courseName} | Course | Get course with the given name |
+| GET | .../courses/name/{courseName} | Course | Get course with the given name |
 | GET | .../courses/{courseID} | Course | Get course with the given ID |
 | GET | .../courses/{courseID}/assessments | Array<Assessment> | Get a course's assessments |
 | GET | .../courses/{courseID}/students | Array<Student> | Get a course's students |
