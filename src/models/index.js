@@ -50,17 +50,17 @@ models.Assessment.belongsToMany(models.Student, {through: models.StudentAssessme
     sourceKey:'assessmentID'});
 
 // // course - assessment
-models.Assessment.belongsTo(models.Course);
-models.Course.hasMany(models.Assessment);
+models.Assessment.belongsTo(models.Course, {foreignKey: 'courseID'});
+models.Course.hasMany(models.Assessment, {foreignKey: 'courseID'});
 //
 // // student - note
-models.Note.belongsTo(models.Student);
-models.Student.hasMany(models.Note);
+models.Note.belongsTo(models.Student, {foreignKey: 'NUID'});
+models.Student.hasMany(models.Note, {foreignKey: 'NUID'});
 
 
 // student - pcf
-models.Student.hasMany(models.PCF);
-models.PCF.belongsTo(models.Student);
+models.Student.hasMany(models.PCF, {foreignKey: 'NUID'});
+models.PCF.belongsTo(models.Student, {foreignKey: 'NUID'});
 
 
 Object.keys(models).forEach(key => {
