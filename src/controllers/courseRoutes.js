@@ -25,7 +25,7 @@ router.get('/:courseID', async (req, res) => {
 });
 
 // Gets the course with the given name
-router.get('/:courseName', async (req, res) => {
+router.get('/name/:courseName', async (req, res) => {
     try {
         const course = await req.context.models.Course.findByName(req.params.courseName);
         return res.send(course);
