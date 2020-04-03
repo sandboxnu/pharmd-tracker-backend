@@ -40,9 +40,8 @@ const models = {
 // To create new models: npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
 
 // StudentCourse Association
-models.Student.belongsToMany(models.Course, {through: models.StudentCourse, foreignKey:'NUID', sourceKey:'NUID'});
 models.Course.belongsToMany(models.Student, {through: models.StudentCourse, foreignKey:'courseID', sourceKey:'courseID'});
-
+models.Student.belongsToMany(models.Course, {through: models.StudentCourse, foreignKey:'NUID', sourceKey:'NUID'});
 // StudentAssessment Association
 models.Student.belongsToMany(models.Assessment, {through: models.StudentAssessment, foreignKey:'NUID',
     sourceKey:'NUID'});
