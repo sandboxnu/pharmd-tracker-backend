@@ -38,6 +38,7 @@ Students
 |  |  |  |  |
 | GET | .../student-assessments/ |  | Get all assessment instances |
 | POST | .../student-assessments/ |  | Create an assessment instance |
+| POST | .../student-assessments/all |  | Creates many assessments from given array |
 | PUT | .../student-assessments/{nuid}/{assessmentID} |  | Update an assessment instance |
 | GET | .../student-assessments/{nuid}/{assessmentID} |  | Get an assessment instance |
 |  |  |  |  |

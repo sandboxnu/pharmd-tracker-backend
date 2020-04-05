@@ -33,10 +33,23 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.post('/many/', async (req, res) => {
+    console.log("Message received");
+    try {
+        const assessments = await req.context.models.StudentAssessment
+            .addManyAssessments(req.body);
+        return res.send(assessments);
+    } catch (e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 router.put('/:nuid/:assessmentID', async (req, res) => {
+    console.log(req.body);
     try {
         const studentAssessment = await req.context.models.StudentAssessment
-            .updateStudentAssessment(req.params.NUID, req.params.assessmentID, req.body);
+            .updateStudentAssessment(req.body);
         return res.send(studentAssessment);
     } catch (e) {
         console.log(e);
