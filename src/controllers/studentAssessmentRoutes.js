@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:nuid/:assessmentID', async (req, res) => {
+router.get('/:NUID/:assessmentID', async (req, res) => {
     try {
         const assessments = await req.context.models
             .StudentAssessment.getStudentAssessment(req.params.NUID, req.params.assessmentID);
@@ -45,7 +45,7 @@ router.post('/many/', async (req, res) => {
     }
 });
 
-router.put('/:nuid/:assessmentID', async (req, res) => {
+router.put('/:NUID/:assessmentID', async (req, res) => {
     console.log(req.body);
     try {
         const studentAssessment = await req.context.models.StudentAssessment
