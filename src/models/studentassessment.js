@@ -1,4 +1,5 @@
 'use strict';
+import assessment from './assessment';
 
 module.exports = (sequelize, DataTypes) => {
   const StudentAssessment = sequelize.define('studentassessment', {
@@ -64,6 +65,61 @@ module.exports = (sequelize, DataTypes) => {
       assessmentID: assessmentID
     }
   });
+
+  /**
+   * Adds many assessments to the DB
+   * @param assessments array of shape<br/>
+   *  [
+   *    {
+   *        NUID: string;
+   *        courseName: string (ex PHMD5900)
+   *        examName: string;
+   *        courseTerm: string (ex Spring 2020)
+   *        percentage: number;
+   *        studentName: string (Last, First)
+   *    }...
+   *  ]
+   * @returns {Promise<void> | void} A promise signifying the success of this transaction
+   */
+  StudentAssessment.addManyAssessments = async (assessments) => {
+    for (const studAss of assessments) {
+      const assignment = assessment().findOne({
+        where: {
+          assessmentName: studAss.examName
+        }
+      });
+
+      if (assignment) {
+        return StudentAssessment.create({
+          assessmentID: assignment.assessmentID,
+          NUID: studAss.NUID,
+          courseID: studAss.courseName,
+          assessmentName: studAss.examName,
+          percentage: studAss.percentage,
+          letterGrade: 'A'
+        })
+      } else {
+        const newAss = assessment().addNewAssessment({
+          assessmentName: studAss.examName,
+          type: 'Exam'
+        }).then(res => {
+          return StudentAssessment.create({
+            assessmentID: res.assessmentID,
+            NUID: studAss.NUID,
+            courseID: studAss.courseName,
+            assessmentName: studAss.examName,
+            percentage: studAss.percentage,
+            letterGrade: 'A'
+          })
+        }).catch(err => {
+          console.log(err);
+          return err;
+        })
+      }
+    }
+
+  };
+
 
   return StudentAssessment;
 };
