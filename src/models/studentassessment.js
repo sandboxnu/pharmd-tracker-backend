@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "ID must consist of 9 digits"
         }
       },
+      primaryKey: true,
     },
     courseID: { // this should be a foreign key
       type: DataTypes.STRING,

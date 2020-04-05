@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:nuid/:courseID', async (req, res) => {
+router.get('/:NUID/:courseID', async (req, res) => {
     try {
         const studentCourse = await req.context.models
             .StudentCourse.getStudentCourse(req.params.NUID, req.params.courseID);
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:nuid/:courseID', async (req, res) => {
+router.put('/:NUID/:courseID', async (req, res) => {
     try {
         const studentCourse = await req.context.models.StudentCourse
             .updateStudentCourse(req.params.NUID, req.params.courseID, req.body);

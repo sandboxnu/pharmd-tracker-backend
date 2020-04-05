@@ -12,6 +12,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:noteID', async (req, res) => {
+    try {
+        const note = await req.context.models.Note.findOne({where: {noteID: req.params.noteID}});
+        return res.send(note);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
         const note = await req.context.models.Note.create(req.body);

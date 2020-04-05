@@ -28,7 +28,7 @@ router.get('/cohort/:cohort', async (req, res) => {
 });
 
 // Gets all students with F1 visas
-router.get('/visa/:f1', async (req, res) => {
+router.get('/f1', async (req, res) => {
     try {
         const students = await req.context.models.Student.getInternational();
         return res.send(students)
@@ -52,7 +52,7 @@ router.get('/:NUID', async (req, res) => {
 });
 
 // Gets a single student by their first and last name
-router.get('/:firstName-:lastName', async (req, res) => {
+router.get('/name/:firstName-:lastName', async (req, res) => {
     try {
         const student = await req.context.models.Student.findByFirstLastName(req.params.firstName, req.params.lastName);
         return res.send(student);

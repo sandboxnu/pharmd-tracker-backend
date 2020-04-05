@@ -15,11 +15,11 @@ INSERT INTO public.courses(
 	VALUES ('2', 'bio', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO public.assessments(
-	"assessmentID", "assessmentName", type, "createdAt", "updatedAt", "courseCourseID")
+	"assessmentID", "assessmentName", type, "createdAt", "updatedAt", "courseID")
 	VALUES ('10', 'orgo test 1', 'Exam', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1');
 
 INSERT INTO public.assessments(
-	"assessmentID", "assessmentName", type, "createdAt", "updatedAt", "courseCourseID")
+	"assessmentID", "assessmentName", type, "createdAt", "updatedAt", "courseID")
 	VALUES ('20', 'bio test 3', 'Exam', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2');
 
 INSERT INTO public.studentcourses(
