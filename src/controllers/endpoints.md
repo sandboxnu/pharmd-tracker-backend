@@ -3,7 +3,7 @@ Backend Endpoints
 
 | Type        | URL         | Returns  | Description |
 | ----------- | ----------- | ----------- | ----------- |
-| GET | .../students? | Array<Student> | Get all students that match given parameters |
+| GET | .../students? | Array<Student> | Get all students that match the query parameters |
 | GET | .../students/ | Array<Student> | Get all students |
 | POST | .../students/ |  | Create a new student |
 | PUT | .../students/{nuid} |  | Update student with given NUID |
@@ -20,7 +20,7 @@ Backend Endpoints
 | GET | .../students/{nuid}/notes | Array<Note> | Get all of a student's notes|
 | GET | .../students/{nuid}/pcfs | Array<PCF> | Get all of a student's PCFs|
 |||||
-| GET | .../courses? |  | Get all courses that match the filter parameters |
+| GET | .../courses? |  | Get all courses that match the query parameters |
 | GET | .../courses/ |  | Get all courses |
 | POST | .../courses/ |  | Create a course |
 | PUT | .../courses/{courseID} |  | Update course with the given ID |
@@ -29,6 +29,7 @@ Backend Endpoints
 | GET | .../courses/{courseID}/assessments | Array<Assessment> | Get a course's assessments |
 | GET | .../courses/{courseID}/students | Array<Student> | Get a course's students |
 |||||
+| GET | .../assessments? | Array<Assessment> | Get all assessments that match the query parameters |
 | GET | .../assessments/ | Array<Assessment> | Get all assessments |
 | POST | .../assessments/ |  | Create an assessment |
 | PUT | .../assessments/{assessmentID} |  | Update an assessment |
