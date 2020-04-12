@@ -35,7 +35,7 @@ router.get('/:NUID/:courseID', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const studentCourse = await req.context.models.StudentCourse.create(req.body);
+        const studentCourse = await req.context.models.StudentCourse.addNewSC(req.body);
         return res.send(studentCourse);
     } catch (e) {
         console.log(e);

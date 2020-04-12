@@ -37,5 +37,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     }
   });
+
+  PCF.addNewNote = async (pcf) => PCF.create({
+    ...pcf
+  });
+
   return pcf;
 };
