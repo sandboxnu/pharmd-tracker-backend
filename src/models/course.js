@@ -18,6 +18,13 @@ const course = (sequelize, DataTypes) => {
 
     // --------------------------- GET METHODS ---------------------------
 
+    // get all courses that match filter params
+    Course.filter = async params => {
+        return Course.filter({
+            where: params
+        });
+    };
+
     // get the course with the given id
     Course.findById = async courseID => {
         return Course.findOne({
