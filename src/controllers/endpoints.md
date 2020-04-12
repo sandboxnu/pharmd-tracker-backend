@@ -20,6 +20,7 @@ Backend Endpoints
 | GET | .../students/{nuid}/notes | Array<Note> | Get all of a student's notes|
 | GET | .../students/{nuid}/pcfs | Array<PCF> | Get all of a student's PCFs|
 |||||
+| GET | .../courses? |  | Get all courses that match the filter parameters |
 | GET | .../courses/ |  | Get all courses |
 | POST | .../courses/ |  | Create a course |
 | PUT | .../courses/{courseID} |  | Update course with the given ID |
