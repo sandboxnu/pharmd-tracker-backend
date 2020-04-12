@@ -36,6 +36,13 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
+  // get all student courses that match the given parameters
+  StudentCourse.filter = async params => {
+    return StudentCourse.findAll({
+      where: params
+    });
+  };
+
   // gets the given student's course
   StudentCourse.getStudentCourse = async (NUID, courseID) => {
     return StudentCourse.findOne({
