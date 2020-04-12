@@ -42,6 +42,7 @@ Backend Endpoints
 | PUT | .../student-assessments/{nuid}/{assessmentID} |  | Update an assessment instance |
 | GET | .../student-assessments/{nuid}/{assessmentID} | StudentAssessment | Get an assessment instance |
 |||||
+| GET | .../student-courses? | Array<StudentCourse> | Get all course instances that match the given parameters |
 | GET | .../student-courses/ | Array<StudentCourse> | Get all course instances |
 | POST | .../student-courses/ |  | Create an course instance |
 | PUT | .../student-courses/{nuid}/{courseID} |  | Update an course instance 
