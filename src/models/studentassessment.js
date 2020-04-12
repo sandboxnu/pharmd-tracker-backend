@@ -39,6 +39,12 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
+  StudentAssessment.filter = async params => {
+    return StudentAssessment.findAll({
+      where: params
+    });
+  };
+
   StudentAssessment.getStudentAssessment = async (NUID, assessmentID) => {
     return StudentAssessment.findOne({
       where: {NUID: NUID, assessmentID: assessmentID}
