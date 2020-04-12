@@ -35,7 +35,7 @@ router.get('/:NUID/:assessmentID', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const studentAssessment = await req.context.models.StudentAssessment.create(req.body);
+        const studentAssessment = await req.context.models.StudentAssessment.addNewSA(req.body);
         return res.send(studentAssessment);
     } catch (e) {
         console.log(e);

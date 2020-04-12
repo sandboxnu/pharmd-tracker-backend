@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
+    Note.addNewNote = async (note) => Note.create({
+        ...note
+    });
+
     Note.updateNote = async (noteID, noteBody) => Note.update({
         ...noteBody
     }, {

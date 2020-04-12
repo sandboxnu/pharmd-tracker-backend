@@ -63,6 +63,10 @@ module.exports = (sequelize, DataTypes) => {
     })
   };
 
+  StudentAssessment.addNewSA = async (sa) => Note.create({
+    ...sa
+  });
+
   StudentAssessment.updateStudentAssessment = async (NUID, assessmentID, body) => StudentAssessment.update({
     ...body
   }, {

@@ -57,6 +57,10 @@ module.exports = (sequelize, DataTypes) => {
     })
   };
 
+  StudentCourse.addNewSC = async (sc) => StudentCourse.create({
+    ...sc
+  });
+
   StudentCourse.updateStudentCourse = async (NUID, courseID, body) => StudentCourse.update({
     ...body
   }, {
