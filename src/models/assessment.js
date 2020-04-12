@@ -68,7 +68,6 @@ const assessment = (sequelize, DataTypes) => {
     Assessment.addNewAssessment = async (assessment) =>
         Assessment.create({
             ...assessment,
-            assessmentID: uuidv4()
         });
 
     // --------------------------- PUT METHODS ---------------------------

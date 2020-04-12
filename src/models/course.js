@@ -59,9 +59,8 @@ const course = (sequelize, DataTypes) => {
      * @param courseInfo an object holding the info about the course
      * @returns {Promise<Model> | Model}
      */
-    Course.addNewCourse = async (courseInfo) => Course.create({
-        courseID: uuidv4(),
-        courseName: courseInfo.courseName,
+    Course.addNewCourse = async (courseBody) => Course.create({
+        ...courseBody
     });
 
     // --------------------------- PUT METHODS ---------------------------
