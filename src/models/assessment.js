@@ -22,6 +22,13 @@ const assessment = (sequelize, DataTypes) => {
 
     // --------------------------- GET METHODS ---------------------------
 
+    // gets assessments that match teh given filter params
+    Assessment.filter = async params => {
+        return Assessment.findAll({
+            where: params
+        });
+    };
+
     // gets the assessment with the given id
     Assessment.findById = async assessmentID => {
         return Assessment.findOne({
