@@ -5,6 +5,18 @@ const router = Router();
 // --------------------------- GET METHODS ---------------------------
 
 // ----- groups of students -----
+
+// Gets all students based on filter parameters
+router.get('', async (req, res) => {
+    try {
+        const students = await req.context.models.Student.filter(req.query);
+        return res.send(students);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 // Gets all the students in the DB
 router.get('/', async (req, res) => {
     try {

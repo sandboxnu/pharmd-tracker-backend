@@ -3,6 +3,7 @@ Backend Endpoints
 
 | Type        | URL         | Returns  | Description |
 | ----------- | ----------- | ----------- | ----------- |
+| GET | .../students? | Array<Student> | Get all students that match given parameters |
 | GET | .../students/ | Array<Student> | Get all students |
 | POST | .../students/ |  | Create a new student |
 | PUT | .../students/{nuid} |  | Update student with given NUID |
