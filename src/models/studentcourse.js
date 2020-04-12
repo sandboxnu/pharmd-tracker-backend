@@ -66,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     where: {
       NUID: NUID,
-      assessmentID: courseID
+      courseID: courseID
     }
   });
 
