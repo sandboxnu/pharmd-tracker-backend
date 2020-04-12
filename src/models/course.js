@@ -76,7 +76,7 @@ const course = (sequelize, DataTypes) => {
         ...courseInfo
     }, {
         where: {
-            courseID
+            courseID: courseID
         }
     });
 

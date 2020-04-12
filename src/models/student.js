@@ -197,7 +197,7 @@ const student = (sequelize, DataTypes) => {
         ...studentInfo
     }, {
         where: {
-            NUID
+            NUID: NUID
         }
     });
     return Student;
