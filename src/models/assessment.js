@@ -84,7 +84,7 @@ const assessment = (sequelize, DataTypes) => {
             ...assessment
         }, {
             where: {
-                assessmentID
+                assessmentID: assessmentID
             }
         });
 

@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         ...noteBody
     }, {
         where: {
-            noteID
+            noteID: noteID
         }
     });
     return Note;
