@@ -34,7 +34,7 @@ sequelize.sync({force: eraseDatabaseOnSync}).then(() => {
     });
 }).catch(e => console.log(e));
 
-app.listen(process.env.DB_PORT, () =>
+app.listen(process.env.BACKEND_PORT, () =>
     console.log('Example app listening on port ' + process.env.BACKEND_PORT),
 );
 
