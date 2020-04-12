@@ -115,7 +115,9 @@ const student = (sequelize, DataTypes) => {
 
     // get students that match the given JSON parameters
     Student.filter = async (params) => {
-        return Student.findAll(params);
+        return Student.findAll({
+            where: params
+        });
     };
 
     // get all students in the given cohort
