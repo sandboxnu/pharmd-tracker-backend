@@ -2,6 +2,16 @@ import { Router } from 'express';
 
 const router = Router();
 
+router.get('', async (req, res) => {
+    try {
+        const studentCourses = await req.context.models.StudentCourse.filter(req.query);
+        return res.send(studentCourses);
+    } catch(e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 router.get('/', async (req, res) => {
     try {
         const studentCourses = await req.context.models.StudentCourse.findAll();
@@ -25,7 +35,7 @@ router.get('/:NUID/:courseID', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const studentCourse = await req.context.models.StudentCourse.create(req.body);
+        const studentCourse = await req.context.models.StudentCourse.addNewSC(req.body);
         return res.send(studentCourse);
     } catch (e) {
         console.log(e);

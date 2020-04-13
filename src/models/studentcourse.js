@@ -36,6 +36,13 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
+  // get all student courses that match the given parameters
+  StudentCourse.filter = async params => {
+    return StudentCourse.findAll({
+      where: params
+    });
+  };
+
   // gets the given student's course
   StudentCourse.getStudentCourse = async (NUID, courseID) => {
     return StudentCourse.findOne({
@@ -50,12 +57,16 @@ module.exports = (sequelize, DataTypes) => {
     })
   };
 
+  StudentCourse.addNewSC = async (sc) => StudentCourse.create({
+    ...sc
+  });
+
   StudentCourse.updateStudentCourse = async (NUID, courseID, body) => StudentCourse.update({
     ...body
   }, {
     where: {
       NUID: NUID,
-      assessmentID: courseID
+      courseID: courseID
     }
   });
 

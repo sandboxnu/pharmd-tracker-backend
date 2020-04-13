@@ -113,6 +113,13 @@ const student = (sequelize, DataTypes) => {
         return Student.findAll();
     };
 
+    // get students that match the given JSON parameters
+    Student.filter = async (params) => {
+        return Student.findAll({
+            where: params
+        });
+    };
+
     // get all students in the given cohort
     Student.getCohort = async (cohort) => {
         return Student.findAll({
@@ -190,7 +197,7 @@ const student = (sequelize, DataTypes) => {
         ...studentInfo
     }, {
         where: {
-            NUID
+            NUID: NUID
         }
     });
     return Student;

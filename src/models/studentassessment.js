@@ -45,6 +45,12 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
+  StudentAssessment.filter = async params => {
+    return StudentAssessment.findAll({
+      where: params
+    });
+  };
+
   StudentAssessment.getStudentAssessment = async (NUID, assessmentID) => {
     return StudentAssessment.findOne({
       where: {NUID: NUID, assessmentID: assessmentID}
@@ -63,8 +69,12 @@ module.exports = (sequelize, DataTypes) => {
     })
   };
 
+  StudentAssessment.addNewSA = async (sa) => StudentAssessment.create({
+    ...sa
+  });
+
   /**
-   * Addsa new Student Assessment to the DB
+   * Adds a new Student Assessment to the DB
    * @param body an object with the contents of the assessment, of shape <br/> {
    *    assessmentID: string,
    *    NUID: string,

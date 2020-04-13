@@ -18,6 +18,13 @@ const course = (sequelize, DataTypes) => {
 
     // --------------------------- GET METHODS ---------------------------
 
+    // get all courses that match filter params
+    Course.filter = async params => {
+        return Course.filter({
+            where: params
+        });
+    };
+
     // get the course with the given id
     Course.findById = async courseID => {
         return Course.findOne({
@@ -52,9 +59,8 @@ const course = (sequelize, DataTypes) => {
      * @param courseInfo an object holding the info about the course
      * @returns {Promise<Model> | Model}
      */
-    Course.addNewCourse = async (courseInfo) => Course.create({
-        courseID: uuidv4(),
-        courseName: courseInfo.courseName,
+    Course.addNewCourse = async (courseBody) => Course.create({
+        ...courseBody
     });
 
     // --------------------------- PUT METHODS ---------------------------
@@ -69,7 +75,7 @@ const course = (sequelize, DataTypes) => {
         ...courseInfo
     }, {
         where: {
-            courseID
+            courseID: courseID
         }
     });
 
