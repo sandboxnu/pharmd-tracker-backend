@@ -3,6 +3,7 @@ Backend Endpoints
 
 | Type        | URL         | Returns  | Description |
 | ----------- | ----------- | ----------- | ----------- |
+| GET | .../students? | Array<Student> | Get all students that match the query parameters |
 | GET | .../students/ | Array<Student> | Get all students |
 | POST | .../students/ |  | Create a new student |
 | PUT | .../students/{nuid} |  | Update student with given NUID |
@@ -19,6 +20,7 @@ Backend Endpoints
 | GET | .../students/{nuid}/notes | Array<Note> | Get all of a student's notes|
 | GET | .../students/{nuid}/pcfs | Array<PCF> | Get all of a student's PCFs|
 |||||
+| GET | .../courses? |  | Get all courses that match the query parameters |
 | GET | .../courses/ |  | Get all courses |
 | POST | .../courses/ |  | Create a course |
 | PUT | .../courses/{courseID} |  | Update course with the given ID |
@@ -27,18 +29,21 @@ Backend Endpoints
 | GET | .../courses/{courseID}/assessments | Array<Assessment> | Get a course's assessments |
 | GET | .../courses/{courseID}/students | Array<Student> | Get a course's students |
 |||||
+| GET | .../assessments? | Array<Assessment> | Get all assessments that match the query parameters |
 | GET | .../assessments/ | Array<Assessment> | Get all assessments |
 | POST | .../assessments/ |  | Create an assessment |
 | PUT | .../assessments/{assessmentID} |  | Update an assessment |
 | GET | .../assessments/{assessmentID} | Assessment | Get assessment with the given ID |
 | GET | .../assessments/{assessmentID}/instances | Array<StudentAssessment> | Get all instances of an assessment|
 |||||
+| GET | .../student-assessments? | Array<StudentAssessment> | Get all assessment instances that match the query parameters |
 | GET | .../student-assessments/ | Array<StudentAssessment> | Get all assessment instances |
 | POST | .../student-assessments/ |  | Create an assessment instance |
 | POST | .../student-assessments/all |  | Creates many assessments from given array |
 | PUT | .../student-assessments/{nuid}/{assessmentID} |  | Update an assessment instance |
 | GET | .../student-assessments/{nuid}/{assessmentID} | StudentAssessment | Get an assessment instance |
 |||||
+| GET | .../student-courses? | Array<StudentCourse> | Get all course instances that match the given parameters |
 | GET | .../student-courses/ | Array<StudentCourse> | Get all course instances |
 | POST | .../student-courses/ |  | Create an course instance |
 | PUT | .../student-courses/{nuid}/{courseID} |  | Update an course instance 

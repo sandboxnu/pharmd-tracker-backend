@@ -24,7 +24,7 @@ router.get('/:noteID', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const note = await req.context.models.Note.create(req.body);
+        const note = await req.context.models.Note.addNewNote(req.body);
         return res.send(note);
     } catch (e) {
         console.log(e);

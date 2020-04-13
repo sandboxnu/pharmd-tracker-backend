@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const pcf = sequelize.define('pcf', {
+  const PCF = sequelize.define('pcf', {
     pcfID: {
       type: DataTypes.STRING,
       unique: true,
@@ -37,5 +37,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     }
   });
-  return pcf;
+
+  PCF.addNewNote = async (pcf) => PCF.create({
+    ...pcf
+  });
+
+  return PCF;
 };
