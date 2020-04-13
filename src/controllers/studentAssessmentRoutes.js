@@ -34,7 +34,6 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/many/', async (req, res) => {
-    console.log("Message received");
     try {
         const assessments = await req.context.models.StudentAssessment
             .addManyAssessments(req.body);
