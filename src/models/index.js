@@ -42,6 +42,7 @@ const models = {
 // StudentCourse Association
 models.Course.belongsToMany(models.Student, {through: models.StudentCourse, foreignKey:'courseID', sourceKey:'courseID'});
 models.Student.belongsToMany(models.Course, {through: models.StudentCourse, foreignKey:'NUID', sourceKey:'NUID'});
+
 // StudentAssessment Association
 models.Student.belongsToMany(models.Assessment, {through: models.StudentAssessment, foreignKey:'NUID',
     sourceKey:'NUID'});
