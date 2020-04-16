@@ -1,3 +1,33 @@
 //import uuidv4 from 'uuid/v4';
 
-// TODO make model for a USER of the application (various administrators)
+
+const user = (sequelize, DataTypes) => {
+    const User = sequelize.define('user', {
+        userId: {
+            type: DataTypes.UUID,
+            unique: true,
+            primaryKey: true
+        },
+        username: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false
+        },
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        isAdmin: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        }
+    });
+
+
+
+};
