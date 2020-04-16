@@ -73,19 +73,18 @@ const assessment = (sequelize, DataTypes) => {
     // --------------------------- PUT METHODS ---------------------------
 
     /**
-     *Updates the assessment with given ID in the DB
-     * @param assessmentID the ID of the assessment to update
-     * @param assessment an object with the fields to update
-     * @returns {Promise<[number, Model[]]>} A promise with status of update
+     *
+     * @param assessmentID
+     * @param assessment
+     * @returns {Promise<<[number, Model[]]>>}
      */
-    Assessment.updateAssessment = async (assessmentID, assessment) =>
-        Assessment.update({
-            ...assessment
-        }, {
-            where: {
-                assessmentID: assessmentID
-            }
-        });
+    Assessment.updateAssessment = async (assessmentID, assessment) => Assessment.update({
+        ...assessment
+    }, {
+        where: {
+            assessmentID: assessmentID
+        }
+    });
 
 
     return Assessment;
