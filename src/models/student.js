@@ -52,7 +52,7 @@ const student = (sequelize, DataTypes) => {
                 }
             },
             unique: false,
-            allowNull: false
+            allowNull: true
         },
         originalGradDate: {
             // should only be length 5 (22/23)
@@ -63,7 +63,7 @@ const student = (sequelize, DataTypes) => {
                     msg: "Original graduation date should be 5 characters long. Example: '22/23'"
                 }
             },
-            allowNull: false,
+            allowNull: true,
             unique: false,
         },
         adjustedGradDate: {
@@ -94,7 +94,7 @@ const student = (sequelize, DataTypes) => {
         },
         GPA: {
             type: DataTypes.DOUBLE,
-            allowNull: false,
+            allowNull: true,
             defaultValue: 0,
             validate: {
                 min: 0,

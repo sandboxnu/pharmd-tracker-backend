@@ -39,6 +39,7 @@ Backend Endpoints
 | GET | .../student-assessments? | Array<StudentAssessment> | Get all assessment instances that match the query parameters |
 | GET | .../student-assessments/ | Array<StudentAssessment> | Get all assessment instances |
 | POST | .../student-assessments/ |  | Create an assessment instance |
+| POST | .../student-assessments/all |  | Creates many assessments from given array |
 | PUT | .../student-assessments/{nuid}/{assessmentID} |  | Update an assessment instance |
 | GET | .../student-assessments/{nuid}/{assessmentID} | StudentAssessment | Get an assessment instance |
 |||||
