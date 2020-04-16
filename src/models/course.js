@@ -66,10 +66,10 @@ const course = (sequelize, DataTypes) => {
     // --------------------------- PUT METHODS ---------------------------
 
     /**
-     * Updates a course with the given ID with given info
-     * @param courseId the ID of course to update
-     * @param courseInfo the info to update
-     * @returns {Promise<[number, Model[]]>}
+     *
+     * @param courseID
+     * @param courseInfo
+     * @returns {Promise<<[number, Model[]]>>}
      */
     Course.updateCourse = async (courseID, courseInfo) => Course.update({
         ...courseInfo
