@@ -5,6 +5,10 @@ const router = Router();
 router.get('', async (req, res) => {
     try {
         const studentAssessments = await req.context.models.StudentAssessment.filter(req.query);
+        res.set({
+            'X-Total-Count': studentAssessments.length,
+            'Access-Control-Expose-Headers': 'X-Total-Count'
+        });
         return res.send(studentAssessments);
     } catch(e) {
         console.log(e);
@@ -15,6 +19,10 @@ router.get('', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const studentAssessments = await req.context.models.StudentAssessment.findAll();
+        res.set({
+            'X-Total-Count': studentAssessments.length,
+            'Access-Control-Expose-Headers': 'X-Total-Count'
+        });
         return res.send(studentAssessments);
     } catch(e) {
         console.log(e);
@@ -24,9 +32,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:NUID/:assessmentID', async (req, res) => {
     try {
-        const assessments = await req.context.models
+        const assessment = await req.context.models
             .StudentAssessment.getStudentAssessment(req.params.NUID, req.params.assessmentID);
-        return res.send(assessments);
+        return res.send(assessment);
     } catch (e) {
         console.log(e);
         return res.send(e);
