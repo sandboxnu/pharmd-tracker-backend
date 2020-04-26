@@ -6,6 +6,10 @@ const router = Router();
 router.get('', async (req, res) => {
     try {
         const courses = await req.context.models.Course.filter(req.query);
+        res.set({
+            'X-Total-Count': courses.length,
+            'Access-Control-Expose-Headers': ['X-Total-Count']
+        });
         return res.send(courses);
     } catch(e) {
         console.log(e);
@@ -17,6 +21,10 @@ router.get('', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const courses = await req.context.models.Course.findAll();
+        res.set({
+            'X-Total-Count': courses.length,
+            'Access-Control-Expose-Headers': ['X-Total-Count']
+        });
         return res.send(courses);
     } catch(e) {
         console.log(e);
@@ -50,6 +58,10 @@ router.get('/name/:courseName', async (req, res) => {
 router.get('/:courseID/assessments', async (req, res) => {
     try {
         const assessments = await req.context.models.Course.getAssessmentsByCourse(req.params.courseID);
+        res.set({
+            'X-Total-Count': assessments.length,
+            'Access-Control-Expose-Headers': ['X-Total-Count']
+        });
         return res.send(assessments);
     } catch(e) {
         console.log(e);
@@ -61,6 +73,10 @@ router.get('/:courseID/assessments', async (req, res) => {
 router.get('/:courseID/students', async (req, res) => {
     try {
         const students = await req.context.models.Course.getStudentsByCourse(req.params.courseID);
+        res.set({
+            'X-Total-Count': students .length,
+            'Access-Control-Expose-Headers': 'X-Total-Count'
+        });
         return res.send(students);
     } catch(e) {
         console.log(e);
