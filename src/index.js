@@ -24,6 +24,7 @@ app.use('/courses', routes.courseRoutes);
 app.use('/notes', routes.noteRoutes);
 app.use('/student-courses', routes.studentCourseRoutes);
 app.use('/student-assessments', routes.studentAssessmentRoutes);
+app.use('/general', routes.generalRoutes);
 
 // set this to true to wipe the whole database on load
 const eraseDatabaseOnSync = true;

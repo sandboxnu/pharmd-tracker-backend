@@ -33,3 +33,5 @@ router.post('/import',
         return res.send(e);
     }
 });
+
+export default router;
