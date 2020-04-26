@@ -7,7 +7,7 @@ router.get('', async (req, res) => {
         const studentAssessments = await req.context.models.StudentAssessment.filter(req.query);
         res.set({
             'X-Total-Count': studentAssessments.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(studentAssessments);
     } catch(e) {
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
         const studentAssessments = await req.context.models.StudentAssessment.findAll();
         res.set({
             'X-Total-Count': studentAssessments.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(studentAssessments);
     } catch(e) {

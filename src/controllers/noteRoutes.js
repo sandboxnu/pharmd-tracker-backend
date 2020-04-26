@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
         const notes = await req.context.models.Note.findAll();
         res.set({
             'X-Total-Count': notes.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(notes);
     } catch(e) {

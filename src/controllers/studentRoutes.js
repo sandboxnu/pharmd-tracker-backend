@@ -12,7 +12,7 @@ router.get('', async (req, res) => {
         const students = await req.context.models.Student.filter(req.query);
         res.set({
             'X-Total-Count': students.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(students);
     } catch(e) {
@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
         const students = await req.context.models.Student.findAll();
         res.set({
             'X-Total-Count': students.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(students);
     } catch(e) {
@@ -42,7 +42,7 @@ router.get('/cohort/:cohort', async (req, res) => {
         const students = await req.context.models.Student.getCohort(req.params.cohort);
         res.set({
             'X-Total-Count': students.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(students);
     } catch(e) {
@@ -57,7 +57,7 @@ router.get('/f1', async (req, res) => {
         const students = await req.context.models.Student.getInternational();
         res.set({
             'X-Total-Count': students.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(students)
     } catch(e) {
@@ -99,7 +99,7 @@ router.get('/:NUID/courses', async (req, res) => {
         const courses = await req.context.models.Student.getCoursesByNUID(req.params.NUID);
         res.set({
             'X-Total-Count': courses.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(courses);
     } catch(e) {
@@ -115,7 +115,7 @@ router.get('/:NUID/courses/terms/:term', async (req, res) => {
             .StudentCourse.getStudentCoursesByTerm(req.params.NUID, req.params.term);
         res.set({
             'X-Total-Count': studentCourses.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(studentCourses);
     } catch(e) {
@@ -144,7 +144,7 @@ router.get('/:NUID/assessments', async (req, res) => {
         const assessments = await req.context.models.Student.getAssessmentsByNUID(req.params.NUID);
         res.set({
             'X-Total-Count': assessments.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(assessments);
     } catch(e) {
@@ -172,7 +172,7 @@ router.get('/:NUID/courses/:courseID/assessments', async (req, res) => {
             .getStudentAssessmentsByCourse(req.params.NUID, req.params.courseID);
         res.set({
             'X-Total-Count': studentAssessments.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(studentAssessments);
     } catch(e) {
@@ -187,7 +187,7 @@ router.get('/:NUID/notes', async (req, res) => {
         const notes = await req.context.models.Student.getStudentNotes(req.params.NUID);
         res.set({
             'X-Total-Count': notes.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(notes);
     } catch(e) {
@@ -202,7 +202,7 @@ router.get('/:NUID/pcfs', async (req, res) => {
         const pcfs = await req.context.models.Student.getStudentPCFs(req.params.NUID);
         res.set({
             'X-Total-Count': pcfs.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(pcfs);
     } catch(e) {
