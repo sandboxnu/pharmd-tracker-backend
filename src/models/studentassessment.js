@@ -75,16 +75,16 @@ module.exports = (sequelize, DataTypes) => {
 
   /**
    * Adds a new Student Assessment to the DB
-   * @param body an object with the contents of the assessment, of shape <br/> {
-   *    assessmentID: string,
-   *    NUID: string,
-   *    courseID: string (ex PHMD1203),
-   *    assessmentName: string,
-   *    percentage: number,
-   *    letterGrade: string
-   * }
-   * @param studentLastName the last name of student who did assessment
-   * @param studentFirstName the first name of student who did assessment
+   * @param {{
+   *     assessmentID: string,
+   *     NUID: string,
+   *     courseID: string,
+   *     assessmentName: string,
+   *     percentage: number,
+   *     letterGrade: string
+   * }} body
+   * @param studentLastName {string} the last name of student who did assessment
+   * @param studentFirstName {string} the first name of student who did assessment
    * @returns {Promise<void>} A promise resolving to the newly created assessment
    */
   StudentAssessment.createStudentAssessment = async (body, studentLastName, studentFirstName) => {
@@ -108,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
           lastName: studentLastName,
           firstName: studentFirstName,
         }).then(
-            res => {
+            () => {
               return StudentAssessment.create({
                 ...body,
                 studentAssessmentID: uuidv4()
@@ -129,18 +129,19 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   /**
+   * A student assessment with basic information, sent from frontend
+   * @typedef {Object<string, any>} BasicStudentAssessment
+   * @property {string} NUID
+   * @property {string} courseName
+   * @property {string} examName
+   * @property {string} courseTerm
+   * @property {number} percentage
+   * @property {string} studentName
+   */
+
+  /**
    * Adds many assessments to the DB
-   * @param assessments array of shape<br/>
-   *  [
-   *    {
-   *        NUID: string;
-   *        courseName: string (ex PHMD5900)
-   *        examName: string;
-   *        courseTerm: string (ex Spring 2020)
-   *        percentage: number;
-   *        studentName: string (Last, First)
-   *    }...
-   *  ]
+   * @param {Array<BasicStudentAssessment>} assessments student assessments to add to DB
    * @returns {Promise<void> | void} A promise signifying the success of this transaction
    */
   StudentAssessment.addManyAssessments = async (assessments) => {
