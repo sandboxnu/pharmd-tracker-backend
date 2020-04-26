@@ -8,7 +8,7 @@ router.get('', async (req, res) => {
         const assessments = await req.context.models.Assessment.filter(req.query);
         res.set({
             'X-Total-Count': assessments.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(assessments);
     } catch(e) {
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
         const assessments = await req.context.models.Assessment.findAll();
         res.set({
             'X-Total-Count': assessments.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(assessments);
     } catch(e) {
@@ -49,7 +49,7 @@ router.get('/:assessmentID/instances', async (req, res) => {
         const studentAssessments = await req.context.models.StudentAssessment.getStudentAssessmentsByTestID(req.params.assessmentID);
         res.set({
             'X-Total-Count': studentAssessments.length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(studentAssessments);
     } catch(e) {
