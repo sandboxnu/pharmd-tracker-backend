@@ -154,7 +154,7 @@ const student = (sequelize, DataTypes) => {
     // TODO would it be necessary to have method that returns all students with given name for searches?
     Student.searchByName = async (firstName, lastName) => {
         return Student.findAll({
-            where: {firstName: firstName}
+            where: {firstName, lastName}
         })
     };
 
@@ -168,18 +168,31 @@ const student = (sequelize, DataTypes) => {
 
     // ----- assessments from student -----
 
-    // gets all assessments of the student with the given NUID
+    /**
+     * Gets all assessments of the student with the given NUID
+     * @param nuid {string}
+     * @returns {Promise<*>}
+     */
     Student.getAssessmentsByNUID = async (nuid) => {
         const student = await Student.findByNUID(nuid);
         return student.getAssessments();
     };
 
-    // gets all given students notes
+    /**
+     * Gets all given students notes
+     * @param nuid {string}
+     * @returns {Promise<*>}
+     */
     Student.getStudentNotes = async (nuid) => {
         const student = await Student.findByNUID(nuid);
         return student.getNotes();
     };
 
+    /**
+     * Gets all given student's PCFs
+     * @param nuid {string}
+     * @returns {Promise<*>}
+     */
     Student.getStudentPCFs = async (nuid) => {
         const student = await Student.findByNUID(nuid);
         return student.getPCFs();
@@ -191,15 +204,56 @@ const student = (sequelize, DataTypes) => {
         ...student
     });
 
+    /**
+     * A student with basic information, sent from frontend
+     * @typedef {Object<string, any>} BasicStudent
+     * @property {string} NUID the NUID of this student
+     * @property {string} lastName the student's surname
+     * @property {string} firstName the student's first name
+     * @property {string | null} preferredName the student's preferred first name
+     * @property {string | null} visa
+     * @property {string | null} entryType
+     * @property {string | null} dualDegree
+     * @property {string} originalGradDate
+     * @property {number} GPA
+     * @property {string | null} leftProgram
+     */
+
+    /**
+     * Adds many students to the DB
+     * @param {Array<BasicStudent>} students The student to add to the DB
+     * @returns {Promise<M[]>}
+     */
+    Student.addManyStudents = async (students) => {
+        const promises = [];
+        students.forEach(student => {
+            promises.push(Student.create({
+                ...student
+            }));
+        });
+        return Promise.all(promises);
+    };
+
+
+
     // --------------------------- PUT METHODS ---------------------------
 
-    Student.updateStudent = async (NUID, studentInfo) => Student.update({
+    /**
+     * Updates the student in the DB with the given NUID
+     * @param NUID {string}
+     * @param studentInfo {BasicStudent}
+     * @returns {Promise}
+     */
+    Student.updateStudent = async (NUID, studentInfo) =>
+        Student.update({
         ...studentInfo
     }, {
         where: {
             NUID: NUID
         }
     });
+
+
     return Student;
 };
 export default student;
