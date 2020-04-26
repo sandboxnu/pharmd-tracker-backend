@@ -5,6 +5,10 @@ const router = Router();
 router.get('', async (req, res) => {
     try {
         const studentCourses = await req.context.models.StudentCourse.filter(req.query);
+        res.set({
+            'X-Total-Count': studentCourses.length,
+            'Access-Control-Expose-Headers': ['X-Total-Count']
+        });
         return res.send(studentCourses);
     } catch(e) {
         console.log(e);
@@ -15,6 +19,10 @@ router.get('', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const studentCourses = await req.context.models.StudentCourse.findAll();
+        res.set({
+            'X-Total-Count': studentCourses.length,
+            'Access-Control-Expose-Headers': ['X-Total-Count']
+        });
         return res.send(studentCourses);
     } catch(e) {
         console.log(e);

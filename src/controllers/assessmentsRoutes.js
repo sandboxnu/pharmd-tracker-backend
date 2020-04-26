@@ -6,6 +6,10 @@ const router = Router();
 router.get('', async (req, res) => {
     try {
         const assessments = await req.context.models.Assessment.filter(req.query);
+        res.set({
+            'X-Total-Count': assessments.length,
+            'Access-Control-Expose-Headers': ['X-Total-Count']
+        });
         return res.send(assessments);
     } catch(e) {
         console.log(e);
@@ -17,6 +21,10 @@ router.get('', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const assessments = await req.context.models.Assessment.findAll();
+        res.set({
+            'X-Total-Count': assessments.length,
+            'Access-Control-Expose-Headers': ['X-Total-Count']
+        });
         return res.send(assessments);
     } catch(e) {
         console.log(e);
@@ -38,8 +46,12 @@ router.get('/:assessmentID', async (req, res) => {
 // Gets all individual student instances of assessment with the given id
 router.get('/:assessmentID/instances', async (req, res) => {
     try {
-        const assessment = await req.context.models.StudentAssessment.getStudentAssessmentsByTestID(req.params.assessmentID);
-        return res.send(assessment);
+        const studentAssessments = await req.context.models.StudentAssessment.getStudentAssessmentsByTestID(req.params.assessmentID);
+        res.set({
+            'X-Total-Count': studentAssessments.length,
+            'Access-Control-Expose-Headers': ['X-Total-Count']
+        });
+        return res.send(studentAssessments);
     } catch(e) {
         console.log(e);
         return res.send(e);
