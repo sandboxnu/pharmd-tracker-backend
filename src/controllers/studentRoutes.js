@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {Router} from 'express';
 
 const router = Router();
 
@@ -7,7 +7,7 @@ const router = Router();
 // ----- groups of students -----
 
 // Gets all students based on filter parameters
-router.get('', async (req, res) => {
+router.get('?', async (req, res) => {
     try {
         const students = await req.context.models.Student.filter(req.query);
         res.set({
@@ -67,6 +67,16 @@ router.get('/f1', async (req, res) => {
 });
 
 // ----- one student -----
+
+router.param('NUID', async (req, res, next, NUID) => {
+    try {
+        req.student = await req.context.models.Student.findByNUID(req.params.NUID);
+        next();
+    } catch(e) {
+        console.log(e);
+        next()
+    }
+});
 
 // Gets a single student by their NUID
 router.get('/:NUID', async (req, res) => {

@@ -120,6 +120,38 @@ const student = (sequelize, DataTypes) => {
         });
     };
 
+    const { Op } = require("sequelize");
+
+    Student.parseQuery = async (queryObj) => {
+        let where = {};
+        let queryParams = ['NUID', 'firstName', 'lastName', 'visa', 'entryType', 'dualDegree', 'entryToP1',
+            'originalGradDate', 'adjustedGradDate', 'gradDateChange', 'leftProgram', 'status', 'GPA'];
+
+        for (const param of queryParams) {
+            if (param in queryObj) {
+                let query = queryObj[param];
+
+                if (param === "firstName" || param === "lastName") {
+                    where[param] = {[Op.startsWith]: query};
+                }
+
+                if (! ('min' in query || 'max' in query)) {
+                    where[param] = query;
+                }
+                else {
+                    if ('min' in query) {
+                        where[param][[Op.gte]] = query.min;
+                    }
+                    if ('max' in query) {
+                        where[param][[Op.lte]] = query.max;
+                    }
+                }
+            }
+        }
+
+        return where;
+    };
+
     // get all students in the given cohort
     Student.getCohort = async (cohort) => {
         return Student.findAll({
