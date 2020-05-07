@@ -29,6 +29,27 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
+    const { Op } = require('sequelize');
+
+    Note.parseQuery = async (queryObj) => {
+        let where = {};
+        let queryParams = ['noteID', 'date', 'title', 'body', 'tags'];
+
+        for (const param of queryParams) {
+            if (param in queryObj) {
+                let query = queryObj[param];
+
+                if (param === 'title' || param === 'body') {
+                    where[param] = {[Op.substring]: query};
+                }
+                else {
+                    where[param] = query;
+                }
+            }
+        }
+        return where;
+    };
+
     Note.addNewNote = async (note) => Note.create({
         ...note
     });

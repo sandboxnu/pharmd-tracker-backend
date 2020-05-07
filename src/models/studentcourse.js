@@ -43,6 +43,31 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  StudentCourse.parseQuery = async (queryObj) => {
+    let where = {};
+    let queryParams = ['NUID', 'courseID', 'percentage', 'letterGrade', 'ter'];
+
+    for (const param of queryParams) {
+      if (param in queryObj) {
+        let query = queryObj[param];
+
+        if (param === 'assessmentName') {
+          where[param] = {[Op.startsWith]: query};
+        } else if ('min' in query || 'max' in query) {
+          if ('min' in query) {
+            where[param][[Op.gte]] = query.min;
+          }
+          if ('max' in query) {
+            where[param][[Op.lte]] = query.max;
+          }
+        } else {
+          where[param] = query;
+        }
+      }
+    }
+    return where;
+  };
+
   // gets the given student's course
   StudentCourse.getStudentCourse = async (NUID, courseID) => {
     return StudentCourse.findOne({

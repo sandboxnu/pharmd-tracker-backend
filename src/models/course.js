@@ -25,6 +25,27 @@ const course = (sequelize, DataTypes) => {
         });
     };
 
+    const { Op } = require('sequelize');
+
+    Course.parseQuery = async (queryObj) => {
+        let where = {};
+        let queryParams = ['courseID', 'courseName'];
+
+        for (const param of queryParams) {
+            if (param in queryObj) {
+                let query = queryObj[param];
+
+                if (param === 'courseName') {
+                    where[param] = {[Op.substring]: query};
+                }
+                else {
+                    where[param] = query;
+                }
+            }
+        }
+        return where;
+    };
+
     // get the course with the given id
     Course.findById = async courseID => {
         return Course.findOne({

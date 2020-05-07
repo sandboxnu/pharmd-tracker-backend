@@ -51,6 +51,34 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  const { Op } = require('sequelize');
+
+  StudentAssessment.parseQuery = async (queryObj) => {
+    let where = {};
+    let queryParams = ['studentAssessmentID', 'assessmentID', 'NUID', 'courseID',
+      'assessmentName', 'percentage', 'letterGrade'];
+
+    for (const param of queryParams) {
+      if (param in queryObj) {
+        let query = queryObj[param];
+
+        if (param === 'assessmentName') {
+          where[param] = {[Op.startsWith]: query};
+        } else if ('min' in query || 'max' in query) {
+          if ('min' in query) {
+            where[param][[Op.gte]] = query.min;
+          }
+          if ('max' in query) {
+            where[param][[Op.lte]] = query.max;
+          }
+        } else {
+          where[param] = query;
+        }
+      }
+    }
+    return where;
+  };
+
   StudentAssessment.getStudentAssessment = async (NUID, assessmentID) => {
     return StudentAssessment.findOne({
       where: {NUID: NUID, assessmentID: assessmentID}

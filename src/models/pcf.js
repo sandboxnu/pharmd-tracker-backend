@@ -1,4 +1,5 @@
 'use strict';
+// TODO: make PCF part of Notes rather than own model - how to handle attachments
 module.exports = (sequelize, DataTypes) => {
     const PCF = sequelize.define('pcf', {
         pcfID: {
@@ -41,6 +42,5 @@ module.exports = (sequelize, DataTypes) => {
     PCF.addNewNote = async (pcf) => PCF.create({
         ...pcf
     });
-
     return PCF;
 };
