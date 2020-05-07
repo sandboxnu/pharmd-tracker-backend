@@ -35,6 +35,8 @@ const models = {
 
     PCF: sequelize.import('./pcf'),
 
+    User: sequelize.import('./user'),
+
 };
 
 // To create new models: npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string

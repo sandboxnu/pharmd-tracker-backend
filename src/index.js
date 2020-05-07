@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // APP ROUTES
-app.use('/sessions', routes.sessionsRoutes);
+app.use('/users', routes.userRoutes);
 app.use('/students', routes.studentRoutes);
 app.use('/assessments', routes.assessmentsRoutes);
 app.use('/courses', routes.courseRoutes);
@@ -25,6 +25,7 @@ app.use('/notes', routes.noteRoutes);
 app.use('/student-courses', routes.studentCourseRoutes);
 app.use('/student-assessments', routes.studentAssessmentRoutes);
 app.use('/general', routes.generalRoutes);
+app.use('/auth', routes.authRoutes);
 
 // set this to true to wipe the whole database on load
 const eraseDatabaseOnSync = true;

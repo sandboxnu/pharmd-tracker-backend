@@ -20,6 +20,13 @@ const assessment = (sequelize, DataTypes) => {
         }
     });
 
+    /**
+     * @typedef {Object<string, any>} AssessmentType
+     * @property {string} assessmentID
+     * @property {string} assessmentName
+     * @property {'Exam' | 'Quiz'} type
+     */
+
     // --------------------------- GET METHODS ---------------------------
 
     // gets assessments that match teh given filter params
@@ -36,7 +43,11 @@ const assessment = (sequelize, DataTypes) => {
         });
     };
 
-    // gets an assessment with the given name
+    /**
+     * Gets an assessment with the given name
+     * @param {string} assessmentName
+     * @returns {Promise<Assessment | null> | null}
+     */
     Assessment.findByName = async assessmentName => {
         return Assessment.findOne({
             where: {assessmentName : assessmentName}
@@ -62,7 +73,7 @@ const assessment = (sequelize, DataTypes) => {
 
     /**
      * Adds a new assessment to this DB
-     * @param assessment the object holding data about assessment to be added
+     * @param {AssessmentType} assessment the object holding data about assessment to be added
      * @returns {Promise<void> | Model} a promise providing a callback from creation
      */
     Assessment.addNewAssessment = async (assessment) =>
@@ -74,9 +85,9 @@ const assessment = (sequelize, DataTypes) => {
 
     /**
      *
-     * @param assessmentID
-     * @param assessment
-     * @returns {Promise<<[number, Model[]]>>}
+     * @param {string} assessmentID
+     * @param {AssessmentType} assessment
+     * @returns {Promise<[number, Model[]]>}
      */
     Assessment.updateAssessment = async (assessmentID, assessment) => Assessment.update({
         ...assessment
