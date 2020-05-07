@@ -21,10 +21,6 @@ const sequelize = new Sequelize(
 
 const models = {
 
-    StudentCourse: sequelize.import('./studentcourse'),
-
-    StudentAssessment: sequelize.import('./studentassessment'),
-
     Student: sequelize.import('./student'),
 
     Course: sequelize.import('./course'),
@@ -34,6 +30,12 @@ const models = {
     Note: sequelize.import('./note'),
 
     PCF: sequelize.import('./pcf'),
+
+    StudentCourse: sequelize.import('./studentcourse'),
+
+    StudentAssessment: sequelize.import('./studentassessment'),
+
+    StudentNote: sequelize.import('./studentnote')
 
 };
 
