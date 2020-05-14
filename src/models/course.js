@@ -25,6 +25,7 @@ const course = (sequelize, DataTypes) => {
         });
     };
 
+<<<<<<< HEAD
     const { Op } = require('sequelize');
 
     Course.parseQuery = async (queryObj) => {
@@ -47,6 +48,13 @@ const course = (sequelize, DataTypes) => {
     };
 
     // get the course with the given id
+=======
+    /**
+     * Get the course with the given id
+     * @param {string} courseID
+     * @returns {Promise<Model<any, any> | null>}
+     */
+>>>>>>> origin/master
     Course.findById = async courseID => {
         return Course.findOne({
             where: {courseID: courseID}

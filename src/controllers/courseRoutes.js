@@ -72,7 +72,8 @@ router.get('/:courseID/assessments', async (req, res) => {
 // Gets the students in course the provided id
 router.get('/:courseID/students', async (req, res) => {
     try {
-        const students = await req.context.models.Course.getStudentsByCourse(req.params.courseID);
+        const { courseID } = req.params;
+        const students = await req.context.models.Course.getStudentsByCourse(courseID);
         res.set({
             'X-Total-Count': students .length,
             'Access-Control-Expose-Headers': 'X-Total-Count'
@@ -98,7 +99,8 @@ router.post('/', async (req, res) => {
 // Updates the course with given ID
 router.put('/:courseID', async (req, res) => {
     try {
-        const updatedCourse = await req.context.models.Course.updateCourse(req.params.courseID, req.body);
+        const { courseID } = req.params;
+        const updatedCourse = await req.context.models.Course.updateCourse(courseID, req.body);
         return res.send(updatedCourse);
     } catch (e) {
         console.log(e);

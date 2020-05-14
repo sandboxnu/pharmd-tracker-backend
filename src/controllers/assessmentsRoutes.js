@@ -72,7 +72,8 @@ router.post('/', async (req, res) => {
 // Updates the assessment with given ID in the DB
 router.put('/:assessmentID', async (req, res) => {
     try {
-        const updateAssessment = await req.context.models.Assessment.updateAssessment(req.params.assessmentID, req.body);
+        const { assessmentID } = req.params;
+        const updateAssessment = await req.context.models.Assessment.updateAssessment(assessmentID, req.body);
         return res.send(updateAssessment);
     } catch (e) {
         console.log(e);

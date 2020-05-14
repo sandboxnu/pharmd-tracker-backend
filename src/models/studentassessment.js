@@ -161,7 +161,7 @@ module.exports = (sequelize, DataTypes) => {
    * @typedef {Object<string, any>} BasicStudentAssessment
    * @property {string} NUID
    * @property {string} courseName
-   * @property {string} examName
+   * @property {string} assessmentName
    * @property {string} courseTerm
    * @property {number} percentage
    * @property {string} studentName

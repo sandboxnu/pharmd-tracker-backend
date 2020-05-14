@@ -31,11 +31,15 @@ const models = {
 
     PCF: sequelize.import('./pcf'),
 
+<<<<<<< HEAD
     StudentCourse: sequelize.import('./studentcourse'),
 
     StudentAssessment: sequelize.import('./studentassessment'),
 
     StudentNote: sequelize.import('./studentnote')
+=======
+    User: sequelize.import('./user'),
+>>>>>>> origin/master
 
 };
 
