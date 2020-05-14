@@ -1,5 +1,4 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+const studentCourse = (sequelize, DataTypes) => {
   const StudentCourse = sequelize.define('studentcourse', {
     NUID: {
       type: DataTypes.STRING,
@@ -97,3 +96,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return StudentCourse;
 };
+
+export default studentCourse;
