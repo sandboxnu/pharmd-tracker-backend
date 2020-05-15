@@ -32,7 +32,8 @@ const assessment = (sequelize, DataTypes) => {
 
     // gets assessments that match the given filter params
     Assessment.filter = async params => {
-        let parsedParams = Assessment.parseQuery(params);
+        let parsedParams = await Assessment.parseQuery(params);
+        console.log("Query params for where are:  ", parsedParams);
         return Assessment.findAll({
             where: parsedParams
         });
