@@ -46,12 +46,13 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   StudentAssessment.filter = async params => {
+    let parsedParams = StudentAssessment.parseQuery(params);
     return StudentAssessment.findAll({
-      where: params
+      where: parsedParams
     });
   };
 
-  const { Op } = require('sequelize');
+  const {Op} = require('sequelize');
 
   StudentAssessment.parseQuery = async (queryObj) => {
     let where = {};
@@ -64,14 +65,16 @@ module.exports = (sequelize, DataTypes) => {
 
         if (param === 'assessmentName') {
           where[param] = {[Op.startsWith]: query};
-        } else if ('min' in query || 'max' in query) {
-          if ('min' in query) {
-            where[param][[Op.gte]] = query.min;
+        }
+        else if (query.hasOwnProperty('min') || query.hasOwnProperty('max')) {
+          if (query.hasOwnProperty('min')) {
+              where[param] = {...where[param], ...{[Op.gte]: query.min}};
           }
-          if ('max' in query) {
-            where[param][[Op.lte]] = query.max;
+          if (query.hasOwnProperty('max')) {
+              where[param] = {...where[param], ...{[Op.lte]: query.max}};
           }
-        } else {
+        }
+        else {
           where[param] = query;
         }
       }

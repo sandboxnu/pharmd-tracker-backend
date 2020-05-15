@@ -1,4 +1,5 @@
-const studentCourse = (sequelize, DataTypes) => {
+'use strict';
+module.exports = (sequelize, DataTypes) => {
   const StudentCourse = sequelize.define('studentcourse', {
     NUID: {
       type: DataTypes.STRING,
@@ -37,33 +38,36 @@ const studentCourse = (sequelize, DataTypes) => {
 
   // get all student courses that match the given parameters
   StudentCourse.filter = async params => {
+    let parsedParams = StudentCourse.parseQuery(params);
     return StudentCourse.findAll({
-      where: params
+      where: parsedParams
     });
   };
 
+  const {Op} = require('sequelize');
+
   StudentCourse.parseQuery = async (queryObj) => {
     let where = {};
-    let queryParams = ['NUID', 'courseID', 'percentage', 'letterGrade', 'ter'];
+    let queryParams = ['NUID', 'courseID', 'percentage', 'letterGrade', 'term'];
 
     for (const param of queryParams) {
       if (param in queryObj) {
         let query = queryObj[param];
 
-        if (param === 'assessmentName') {
-          where[param] = {[Op.startsWith]: query};
-        } else if ('min' in query || 'max' in query) {
-          if ('min' in query) {
-            where[param][[Op.gte]] = query.min;
+        if (query.hasOwnProperty('min') || query.hasOwnProperty('max')) {
+          if (query.hasOwnProperty('min')) {
+              where[param] = {...where[param], ...{[Op.gte]: query.min}};
           }
-          if ('max' in query) {
-            where[param][[Op.lte]] = query.max;
+          if (query.hasOwnProperty('max')) {
+              where[param] = {...where[param], ...{[Op.lte]: query.max}};
           }
-        } else {
+        }
+        else {
           where[param] = query;
         }
       }
     }
+    console.log("Query params for where are:  ", where);
     return where;
   };
 
@@ -96,5 +100,3 @@ const studentCourse = (sequelize, DataTypes) => {
 
   return StudentCourse;
 };
-
-export default studentCourse;
