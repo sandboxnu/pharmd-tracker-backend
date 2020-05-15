@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   StudentAssessment.filter = async params => {
-    let parsedParams = StudentAssessment.parseQuery(params);
+    let parsedParams = await StudentAssessment.parseQuery(params);
     return StudentAssessment.findAll({
       where: parsedParams
     });
@@ -79,6 +79,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
+    console.log("Query params for where are:  ", where);
     return where;
   };
 

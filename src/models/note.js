@@ -29,8 +29,14 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
-    const Sequelize = require('sequelize');
-    const {substring}  = Sequelize.Op;
+    Note.filter = async params => {
+        let parsedParams = Note.parseQuery(params);
+        return Note.findAll({
+            where: parsedParams
+        });
+    };
+
+    const {Op} = require('sequelize');
 
     Note.parseQuery = async (queryObj) => {
         let where = {};
@@ -41,13 +47,14 @@ module.exports = (sequelize, DataTypes) => {
                 let query = queryObj[param];
 
                 if (param === 'title' || param === 'body') {
-                    where[param] = {[substring]: query};
+                    where[param] = {[Op.substring]: query};
                 }
                 else {
                     where[param] = query;
                 }
             }
         }
+        console.log("Query params for where are:  ", where);
         return where;
     };
 

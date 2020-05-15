@@ -20,7 +20,7 @@ const course = (sequelize, DataTypes) => {
 
     // get all courses that match filter params
     Course.filter = async params => {
-        let parsedParams = Course.parseQuery(params);
+        let parsedParams = await Course.parseQuery(params);
         return Course.findAll({
             where: parsedParams
         });
@@ -45,6 +45,7 @@ const course = (sequelize, DataTypes) => {
                 }
             }
         }
+        console.log("Query params for where are:  ", where);
         return where;
     };
 
