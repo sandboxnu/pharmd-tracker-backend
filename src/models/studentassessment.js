@@ -5,11 +5,11 @@ import uuidv4 from 'uuid/v4';
 
 module.exports = (sequelize, DataTypes) => {
   const StudentAssessment = sequelize.define('studentassessment', {
-    studentAssessmentID: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-      unique: true
-    },
+    // studentAssessmentID: {
+    //   type: DataTypes.STRING,
+    //   primaryKey: true,
+    //   unique: true
+    // },
     assessmentID: {
       type: DataTypes.STRING,
     },

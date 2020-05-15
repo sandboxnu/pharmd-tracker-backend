@@ -1,7 +1,6 @@
 // TODO notes should have tags, date, title, body
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-<<<<<<< HEAD
     const Note = sequelize.define('note', {
         noteID: {
             type: DataTypes.STRING,
@@ -30,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
-    const { Op } = require('sequelize');
+    const Sequelize = require('sequelize');
+    const {substring}  = Sequelize.Op;
 
     Note.parseQuery = async (queryObj) => {
         let where = {};
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
                 let query = queryObj[param];
 
                 if (param === 'title' || param === 'body') {
-                    where[param] = {[Op.substring]: query};
+                    where[param] = {[substring]: query};
                 }
                 else {
                     where[param] = query;
@@ -63,35 +63,4 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
     return Note;
-=======
-  const Note = sequelize.define('note', {
-    noteID: {
-      type: DataTypes.STRING,
-      unique: true,
-      primaryKey: true
-    },
-    date: {
-      type: DataTypes.DATE,
-      unique: false,
-      allowNull: false
-    },
-    title: {
-      type: DataTypes.STRING,
-      unique: false,
-      allowNull: false
-    },
-    body: {
-      type: DataTypes.STRING,
-      unique: false,
-      allowNull: false
-    },
-    tags: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      unique: false,
-      allowNull: true
-    }
-  });
-  return Note;
-
->>>>>>> 91c416b5f1e9d81ac99cef6671a00930e539995d
 };

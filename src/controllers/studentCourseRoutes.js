@@ -62,8 +62,4 @@ router.put('/:NUID/:courseID', async (req, res) => {
     }
 });
 
-<<<<<<< HEAD
 export default router;
-=======
-export default router;
->>>>>>> 91c416b5f1e9d81ac99cef6671a00930e539995d

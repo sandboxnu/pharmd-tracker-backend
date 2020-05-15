@@ -115,12 +115,14 @@ const student = (sequelize, DataTypes) => {
 
     // get students that match the given JSON parameters
     Student.filter = async (params) => {
+        const parsedParams =  await Student.parseQuery(params);
         return Student.findAll({
-            where: params
+            where: parsedParams
         });
     };
 
-    const { Op } = require('sequelize');
+    const Sequelize = require('sequelize');
+    const {gte, lte}  = Sequelize.Op;
 
     Student.parseQuery = async (queryObj) => {
         let where = {};
@@ -133,18 +135,19 @@ const student = (sequelize, DataTypes) => {
 
                 if (param === "firstName" || param === "lastName") {
                     where[param] = {[Op.startsWith]: query};
-                } else if ('min' in query || 'max' in query) {
-                    if ('min' in query) {
-                        where[param][[Op.gte]] = query.min;
-                    }
-                    if ('max' in query) {
-                        where[param][[Op.lte]] = query.max;
-                    }
-                } else {
+                } 
+                else if (query.hasOwnProperty('min')) {
+                    where[param] = {...where[param], ...{[gte]: query.min}};
+                } 
+                else if (query.hasOwnProperty('max')) {
+                    where[param] = {...where[param], ...{[lte]: query.max}};
+                } 
+                else {
                     where[param] = query;
                 }
             }
         }
+        console.log("Query params for where are:  ", where);
         return where;
     };
 
@@ -261,8 +264,6 @@ const student = (sequelize, DataTypes) => {
         });
         return Promise.all(promises);
     };
-
-
 
     // --------------------------- PUT METHODS ---------------------------
 
