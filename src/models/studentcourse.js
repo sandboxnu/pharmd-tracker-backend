@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
 
   // get all student courses that match the given parameters
   StudentCourse.filter = async params => {
-    let parsedParams = StudentCourse.parseQuery(params);
+    let parsedParams = await StudentCourse.parseQuery(params);
     return StudentCourse.findAll({
       where: parsedParams
     });
