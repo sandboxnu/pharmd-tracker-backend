@@ -121,8 +121,7 @@ const student = (sequelize, DataTypes) => {
         });
     };
 
-    const Sequelize = require('sequelize');
-    const {gte, lte}  = Sequelize.Op;
+    const {Op} = require('sequelize');
 
     Student.parseQuery = async (queryObj) => {
         let where = {};
@@ -136,12 +135,14 @@ const student = (sequelize, DataTypes) => {
                 if (param === "firstName" || param === "lastName") {
                     where[param] = {[Op.startsWith]: query};
                 } 
-                else if (query.hasOwnProperty('min')) {
-                    where[param] = {...where[param], ...{[gte]: query.min}};
-                } 
-                else if (query.hasOwnProperty('max')) {
-                    where[param] = {...where[param], ...{[lte]: query.max}};
-                } 
+                else if (query.hasOwnProperty('min') || query.hasOwnProperty('max')) {
+                    if (query.hasOwnProperty('min')) {
+                        where[param] = {...where[param], ...{[Op.gte]: query.min}};
+                    }
+                    if (query.hasOwnProperty('max')) {
+                        where[param] = {...where[param], ...{[Op.lte]: query.max}};
+                    }
+                }
                 else {
                     where[param] = query;
                 }
