@@ -136,7 +136,9 @@ module.exports = (sequelize, DataTypes) => {
    * @property {string} assessmentName
    * @property {string} courseTerm
    * @property {number} percentage
-   * @property {string} studentName
+   * @property {string} lastName
+   * @property {string} firstName
+   * @property {string} courseID
    */
 
   /**
@@ -158,12 +160,13 @@ module.exports = (sequelize, DataTypes) => {
           const assID = res ? res.get('assessmentID') : newAssessments.get(studAss.assessmentName);
           // Make a new student assessment, setting it's
           return StudentAssessment.createStudentAssessment({
+            studentAssessmentID: uuidv4(),
             assessmentID: assID,
             NUID: studAss.NUID,
             courseID: studAss.courseID,
             assessmentName: studAss.assessmentName,
             percentage: studAss.percentage,
-            letterGrade: 'A'
+            letterGrade: 'A',
           }, studAss.lastName, studAss.firstName)
         } else {
           // Must create assignment

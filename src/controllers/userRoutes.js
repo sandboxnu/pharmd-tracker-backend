@@ -67,9 +67,10 @@ router.post('/', async (req, res) => {
 /**
  * Updates the user info. Expects to be passed only properties that are being updated
  */
-router.put('/:userID', async (req, res) => {
+router.put('/', async (req, res) => {
     try {
-        const updatedUser = await req.context.models.User.updateUser(req.params.userID, req.body);
+        const { userID } = req.params;
+        const updatedUser = await req.context.models.User.updateUser(userID, req.body);
         return res.send(updatedUser);
     } catch (e) {
         console.log(e);
