@@ -62,7 +62,6 @@ router.post('/many/', async (req, res) => {
     }
 });
 
-<<<<<<< HEAD
 router.put('/:NUID/:assessmentID', async (req, res) => {
     console.log(req.body);
     try {
@@ -76,6 +75,3 @@ router.put('/:NUID/:assessmentID', async (req, res) => {
 });
 
 export default router;
-=======
-export default router;
->>>>>>> 91c416b5f1e9d81ac99cef6671a00930e539995d

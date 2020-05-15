@@ -21,10 +21,10 @@ router.get('', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const courses = await req.context.models.Course.findAll();
-        res.set({
-            'X-Total-Count': courses.length,
-            'Access-Control-Expose-Headers': ['X-Total-Count']
-        });
+        // res.set({
+        //     'X-Total-Count': courses.length,
+        //     'Access-Control-Expose-Headers': ['X-Total-Count']
+        // });
         return res.send(courses);
     } catch(e) {
         console.log(e);
@@ -75,8 +75,8 @@ router.get('/:courseID/students', async (req, res) => {
         const { courseID } = req.params;
         const students = await req.context.models.Course.getStudentsByCourse(courseID);
         res.set({
-            'X-Total-Count': students .length,
-            'Access-Control-Expose-Headers': 'X-Total-Count'
+            'X-Total-Count': students.length,
+            'Access-Control-Expose-Headers': ['X-Total-Count']
         });
         return res.send(students);
     } catch(e) {

@@ -20,14 +20,16 @@ const course = (sequelize, DataTypes) => {
 
     // get all courses that match filter params
     Course.filter = async params => {
+        let parsedParams = Course.parseQuery(params);
         return Course.filter({
-            where: params
+            where: parsedParams
         });
     };
 
-<<<<<<< HEAD
-    const { Op } = require('sequelize');
+    const Sequelize = require('sequelize');
+    const {startsWith}  = Sequelize.Op;
 
+    // parse a course query
     Course.parseQuery = async (queryObj) => {
         let where = {};
         let queryParams = ['courseID', 'courseName'];
@@ -37,7 +39,7 @@ const course = (sequelize, DataTypes) => {
                 let query = queryObj[param];
 
                 if (param === 'courseName') {
-                    where[param] = {[Op.substring]: query};
+                    where[param] = {[substring]: query};
                 }
                 else {
                     where[param] = query;
@@ -47,14 +49,11 @@ const course = (sequelize, DataTypes) => {
         return where;
     };
 
-    // get the course with the given id
-=======
     /**
      * Get the course with the given id
      * @param {string} courseID
      * @returns {Promise<Model<any, any> | null>}
      */
->>>>>>> origin/master
     Course.findById = async courseID => {
         return Course.findOne({
             where: {courseID: courseID}
