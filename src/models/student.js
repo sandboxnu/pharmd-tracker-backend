@@ -3,6 +3,7 @@ const student = (sequelize, DataTypes) => {
         NUID: {
             type: DataTypes.STRING,
             validate: {
+                isNumeric: true,
                 len: {
                     args: [9, 9],
                     msg: "ID must consist of 9 digits"
