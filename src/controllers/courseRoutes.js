@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router();
 
 // Gets all courses that match the filter parameters
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const courses = await req.context.models.Course.filter(req.query);
         res.set({
