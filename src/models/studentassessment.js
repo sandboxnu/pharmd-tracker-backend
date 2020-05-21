@@ -6,16 +6,17 @@ import uuidv4 from 'uuid/v4';
 module.exports = (sequelize, DataTypes) => {
   const StudentAssessment = sequelize.define('studentassessment', {
     studentAssessmentID: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-      unique: true
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
     },
     assessmentID: {
       type: DataTypes.STRING,
     },
     NUID: {
       type: DataTypes.STRING,
-      validate:{
+      validate: {
+        isNumeric: true,
         len: {
           args: [9, 9],
           msg: "ID must consist of 9 digits"
@@ -40,7 +41,13 @@ module.exports = (sequelize, DataTypes) => {
     letterGrade: {
       type: DataTypes.ENUM('A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F')
     }
-  }, {});
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: ['NUID', 'assessmentID']
+      }
+    ]});
   StudentAssessment.associate = function(models) {
     // associations can be defined here
   };
