@@ -20,11 +20,11 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * Returns the user with the provided username
+ * Returns the user with the provided email
  */
-router.get('/:username', async (req, res) => {
+router.get('/:email', async (req, res) => {
     try {
-        const user = await req.context.models.User.findUser(req.params.username);
+        const user = await req.context.models.User.findUser(req.params.email);
         return res.send(user);
     } catch (e) {
         console.log(e);
@@ -34,11 +34,11 @@ router.get('/:username', async (req, res) => {
 });
 
 /**
- * Returns a boolean result of whether the given username has already been used
+ * Returns a boolean result of whether the given email has already been used
  */
-router.get('/exists/:username', async (req, res) => {
+router.get('/exists/:email', async (req, res) => {
     try {
-        const exists = await req.context.models.User.usernameExists(req.params.username);
+        const exists = await req.context.models.User.emailExists(req.params.email);
         return res.send(exists);
     } catch (e) {
         console.log(e);
@@ -50,6 +50,10 @@ router.get('/exists/:username', async (req, res) => {
 
 //  ------------------------------------- POST METHODS ------------------------------------
 
+/**
+ * Adds a new user to the DB
+ * @param body {{email, password, firstName, lastName, isAdmin}}
+ */
 router.post('/', async (req, res) => {
     try {
         const newUser = await req.context.models.User.addNewUser(req.body);

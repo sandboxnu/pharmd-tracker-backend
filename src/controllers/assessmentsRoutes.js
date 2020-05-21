@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router();
 
 // Gets all the assessments that match the query params
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const assessments = await req.context.models.Assessment.filter(req.query);
         res.set({
