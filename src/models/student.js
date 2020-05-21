@@ -63,7 +63,7 @@ const student = (sequelize, DataTypes) => {
                     msg: "Original graduation date should be 5 characters long. Example: '22/23'"
                 }
             },
-            allowNull: true,
+            allowNull: false,
             unique: false,
         },
         adjustedGradDate: {
@@ -75,7 +75,7 @@ const student = (sequelize, DataTypes) => {
                 }
             },
             unique: false,
-            allowNull: true
+            allowNull: false
         },
         gradDateChange: {
             type: DataTypes.ARRAY(DataTypes.STRING),
@@ -90,7 +90,7 @@ const student = (sequelize, DataTypes) => {
         status: {
             type: DataTypes.ENUM('Enrolled', "Leave", "Drop Back", "Co-Op"),
             unique: false,
-            allowNull: true
+            allowNull: false
         },
         GPA: {
             type: DataTypes.DOUBLE,
@@ -103,6 +103,31 @@ const student = (sequelize, DataTypes) => {
             unique: false,
         }
     });
+
+    /**
+     * A student with basic information, sent from frontend
+     * @typedef {Object<string, any>} BasicStudent
+     * @property {string} NUID the NUID of this student
+     * @property {string} lastName the student's surname
+     * @property {string} firstName the student's first name
+     * @property {string | null} preferredName the student's preferred first name
+     * @property {'F1' | '' | null} visa
+     * @property {'DE' | 'EA' | null} entryType
+     * @property {'MPH' | '' | null} dualDegree
+     * @property {string} originalGradDate
+     * @property {number} GPA
+     * @property {string | null} leftProgram
+     */
+
+    /**
+     * @typedef {BasicStudent} FullStudent
+     * @property {string | null} entryToP1
+     * @property {string | null} adjustedGradDate
+     * @property {Array<string> | null} gradDateChange
+     * @property {'Enrolled' | 'Leave' | 'Drop Back' | 'Co-Op' | null} status
+     *
+     * !
+     */
 
     // --------------------------- GET METHODS ---------------------------
 
@@ -200,24 +225,55 @@ const student = (sequelize, DataTypes) => {
 
     // --------------------------- POST METHODS ---------------------------
 
-    Student.addNewStudent = async (student) => Student.create({
-        ...student
-    });
 
     /**
-     * A student with basic information, sent from frontend
-     * @typedef {Object<string, any>} BasicStudent
-     * @property {string} NUID the NUID of this student
-     * @property {string} lastName the student's surname
-     * @property {string} firstName the student's first name
-     * @property {string | null} preferredName the student's preferred first name
-     * @property {string | null} visa
-     * @property {string | null} entryType
-     * @property {string | null} dualDegree
-     * @property {string} originalGradDate
-     * @property {number} GPA
-     * @property {string | null} leftProgram
+     * Adds a new student to the DB
+     * @param {FullStudent} student
+     * @returns {Promise}
      */
+    Student.addNewStudent = async (student) => {
+        const newStudent = Student.build({
+            NUID: student.NUID,
+            firstName: student.firstName,
+            lastName: student.lastName,
+            originalGradDate: student.originalGradDate
+        });
+        newStudent.preferredName = student.preferredName ? student.preferredName : null;
+
+        const visaDefaultValue = "";
+        newStudent.visa = student.visa ? student.visa : visaDefaultValue;
+
+        newStudent.entryType = student.entryType ? student.entryType : null;
+
+        const dualDegreeDefaultValue = "";
+        newStudent.dualDegree = student.dualDegree ? student.dualDegree : dualDegreeDefaultValue;
+
+        const entryToP1DefaultValue = getP1Entry(student.originalGradDate);
+        newStudent.entryToP1 = student.entryToP1 ? student.entryToP1 : entryToP1DefaultValue;
+
+        const adjustedGradDateDefaultValue = student.originalGradDate;
+        newStudent.adjustedGradDate = student.adjustedGradDate ? student.adjustedGradDate : adjustedGradDateDefaultValue;
+
+        const gradDateChangeDefaultValue = [];
+        newStudent.gradDateChange = student.gradDateChange ? student.gradDateChange : gradDateChangeDefaultValue;
+
+        newStudent.leftProgram = student.leftProgram ? student.leftProgram : null;
+
+        const statusDefaultValue = 'Enrolled';
+        newStudent.status = student.status ? student.status : statusDefaultValue;
+
+        return newStudent.save();
+    };
+
+    /**
+     * Gets entry to P1 if none supplied, based on grad date
+     * @param {string} originalGradDate Grad date, which is in the form YY/YY (ie 22/23)
+     */
+    const getP1Entry = (originalGradDate) => {
+        const year = originalGradDate.substr(0, 2);
+        const semester  = "FL";
+        return `${semester} 20${year - 3}`
+    };
 
     /**
      * Adds many students to the DB
