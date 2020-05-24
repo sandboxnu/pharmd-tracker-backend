@@ -1,4 +1,10 @@
+<<<<<<< HEAD
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+=======
+
 const studentCourse = (sequelize, DataTypes) => {
+>>>>>>> origin/master
   const StudentCourse = sequelize.define('studentcourse', {
     studentCourseID: {
       type: DataTypes.UUID,
