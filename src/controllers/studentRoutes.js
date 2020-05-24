@@ -17,7 +17,7 @@ router.param('NUID', async (req, res, next, NUID) => {
 // ----- groups of students -----
 
 // Gets all students based on filter parameters
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const students = await req.context.models.Student.filter(req.query);
         res.set({

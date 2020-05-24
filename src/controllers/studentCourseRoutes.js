@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const studentCourses = await req.context.models.StudentCourse.filter(req.query);
         res.set({

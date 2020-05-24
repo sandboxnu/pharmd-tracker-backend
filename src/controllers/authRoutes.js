@@ -4,19 +4,20 @@ const router = Router();
 
 /**
  * Logs in a user
- * @param {string} username
+ * @param {string} email
  * @param {string} password
  */
-router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+router.post('/', async (req, res) => {
+    const { email, password } = req.body;
     try {
-        const userToken = await req.context.models.User.loginUser(username, password);
+        const userToken = await req.context.models.User.loginUser(email, password);
         res.status(200).json({
             accessToken: userToken
         });
     } catch (e) {
         console.error(e);
-        res.status(e.status).send(e.message);
+        res.statusMessage = e.message;
+        res.status(e.status).send();
     }
 
 

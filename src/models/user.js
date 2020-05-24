@@ -6,18 +6,21 @@ const user = (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
         userId: {
             type: DataTypes.UUID,
-            unique: true,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
-        },
-        username: {
-            type: DataTypes.STRING,
-            unique: true,
-            allowNull: false
         },
         password: {
             type: DataTypes.STRING,
             unique: false,
             allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false,
+            validate: {
+                isEmail: true
+            }
         },
         firstName: {
             type: DataTypes.STRING,
@@ -36,7 +39,7 @@ const user = (sequelize, DataTypes) => {
 
     /**
      * @typedef {Object<string, any>} UserInfo
-     * @property {string} username
+     * @property {string} email
      * @property {string} password
      * @property {string} firstName
      * @property {string} lastName
@@ -51,34 +54,34 @@ const user = (sequelize, DataTypes) => {
     // --------------------- GET METHODS ---------------------------------
 
     /**
-     * Finds the user with the given username
-     * @param {string} username
+     * Finds the user with the given email
+     * @param {string} email
      * @returns {Promise<User | null> | null}
      */
-    User.findUser = async (username) =>
+    User.findUser = async (email) =>
         User.findOne(
             {where: {
-                username
+                email
                 }}
         );
 
     /**
-     * Checks if the a user already exists with the given username
-     * @param {string} username
+     * Checks if the a user already exists with the given email
+     * @param {string} email
      * @returns {Promise<boolean>}
      */
-    User.usernameExists = async (username) =>
-        User.findOne({where: {username}})
+    User.emailExists = async (email) =>
+        User.findOne({where: {email}})
             .then(result => result !== null);
 
 
-    User.loginUser = async (username, password) => {
+    User.loginUser = async (email, password) => {
         try {
-            const user = await User.findUser(username);
+            const user = await User.findUser(email);
             if (user) {
                 return new Promise((resolve, reject) => {
                     bcrypt.compare(password, user.password,
-                        (err, same) => {
+                        async (err, same) => {
                         if (!same) {
                             reject({
                                 status: 401,
@@ -86,9 +89,12 @@ const user = (sequelize, DataTypes) => {
                             });
                         } else {
                             // Login successful
+                            const user = await User.findUser(email);
                             const signPayload = {
-                                username,
-                                isAdmin: user.isAdmin
+                                email,
+                                isAdmin: user.isAdmin,
+                                firstName: user.firstName,
+                                lastName: user.lastName
                             };
                             const token = jwt.sign(signPayload, tokenSecret, {
                                 expiresIn: '1h'
@@ -120,11 +126,11 @@ const user = (sequelize, DataTypes) => {
      */
     User.addNewUser = async (userInfo) => {
         try {
-            const existingUser = await User.usernameExists(userInfo.username);
+            const existingUser = await User.emailExists(userInfo.email);
             if (!existingUser) {
                 const newUser = User.build({
                     userId: uuidv4(),
-                    username: userInfo.username,
+                    email: userInfo.email,
                     password: "",
                     firstName: userInfo.firstName,
                     lastName: userInfo.lastName,
