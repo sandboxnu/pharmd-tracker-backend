@@ -1,9 +1,14 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+const studentCourse = (sequelize, DataTypes) => {
   const StudentCourse = sequelize.define('studentcourse', {
+    studentCourseID: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
+      primaryKey: true
+    },
     NUID: {
       type: DataTypes.STRING,
-      validate:{
+      validate: {
+        isNumeric: true,
         len: {
           args: [9, 9],
           msg: "ID must consist of 9 digits"
@@ -31,7 +36,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-  }, {});
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: ['NUID', 'courseID', 'term']
+      }
+    ]});
   StudentCourse.associate = function(models) {
     // associations can be defined here
   };
