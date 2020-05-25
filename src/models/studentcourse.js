@@ -1,11 +1,7 @@
 'use strict';
-module.exports = (sequelize, DataTypes) => {
+
+const studentCourse = (sequelize, DataTypes) => {
   const StudentCourse = sequelize.define('studentcourse', {
-    // studentCourseID: {
-    //   type: DataTypes.UUID,
-    //   defaultValue: DataTypes.UUIDV1,
-    //   primaryKey: true
-    // },
     NUID: {
       type: DataTypes.STRING,
       validate: {
@@ -112,3 +108,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return StudentCourse;
 };
+
+export default studentCourse;

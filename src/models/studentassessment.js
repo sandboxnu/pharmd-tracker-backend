@@ -3,7 +3,7 @@ import assessment from './assessment';
 import student from "./student";
 import uuidv4 from 'uuid/v4';
 
-module.exports = (sequelize, DataTypes) => {
+const studentAssessment = (sequelize, DataTypes) => {
   const StudentAssessment = sequelize.define('studentassessment', {
     // studentAssessmentID: {
     //   type: DataTypes.STRING,
@@ -239,3 +239,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return StudentAssessment;
 };
+
+export default studentAssessment;
