@@ -12,12 +12,6 @@ const assessment = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             unique: true,
             allowNull:false
-        },
-        // TODO: check if type is still necessary
-        type: {
-            type: DataTypes.ENUM('Exam', 'Quiz'),
-            unique: false,
-            allowNull:false
         }
     });
 
