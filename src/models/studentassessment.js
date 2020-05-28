@@ -7,6 +7,7 @@ const studentAssessment = (sequelize, DataTypes) => {
   const StudentAssessment = sequelize.define('studentassessment', {
     assessmentID: {
       type: DataTypes.STRING,
+      allowNull: false
     },
     NUID: {
       type: DataTypes.STRING,
@@ -17,6 +18,7 @@ const studentAssessment = (sequelize, DataTypes) => {
           msg: "ID must consist of 9 digits"
         }
       },
+      allowNull: false;
     },
     courseID: { // this should be a foreign key
       type: DataTypes.STRING,
