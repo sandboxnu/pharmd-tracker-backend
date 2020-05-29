@@ -21,17 +21,17 @@ All query endpoints are the pluralized model name followed by '?' (ie. */objects
 Parameters are assigned values using the syntax '*paramName=paramValue*'.  
 Parameters are strung together using '&'.
 
-**Basic Query with And**  
+#### Basic Query with And  
 
 */objects?param1=foo&param2=bar&param3=1234*  
 Returns all objects where *param1* is *foo*, *param2* is *bar*, and *param3* is *1234*.   
 
-**Query with Or**  
+#### Query with Or  
 
 */objects?param1=optionOne&param1=optionTwo*  
 Returns all objects where *param1* is *optionOne* or *optionTwo*.   
 
-**Query with Min/Max**  
+#### Query with Min/Max  
 
 */objects?param1[min]=50*  
 Returns all objects where *param1* is at least *50*, inclusive.
@@ -42,7 +42,7 @@ Returns all objects where *param1* is at most *70*, inclusive.
 */objects?param1[min]=50&param1[max]=70*  
 Returns all objects where *param1* is between *50* and *70*, inclusive. 
 
-**About String Queries**  
+#### About String Queries  
 
 String queries are case-sensitive at the moment.  
 
@@ -54,7 +54,9 @@ There are a few different ways that string queries may be treated:
 If the query checks for *starts with* or *substring*, it will be listed next to the parameter name in the tables below, for example: firstName (startsWith), or courseName (substring). If nothing is listed next to a parameter name, this means the query will check for an *exact match*. 
 
 ## Student Endpoints  
+
 [Back to Table of Contents](#table-of-contents)
+
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
 | GET | \.\.\./students? | Get all students that match the query parameters | Array\<Student\> | <ul> <li> NUID (exact) </li> <li> firstName (startsWith) </li> <li> lastName (startsWith) </li> <li> visa </li> <li> entryType </li> <li> dualDegree </li> <li> entryToP1 </li> <li> originalGradDate </li> <li> adjustedGradDate </li> <li> gradDateChange </li> <li> leftProgram </li> <li> status </li> <li> GPA </li> </ul> |
@@ -76,7 +78,9 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 
 ## Course Endpoints
+
 [Back to Table of Contents](#table-of-contents)
+
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
 | GET | \.\.\./courses? | Get all courses that match the query parameters | | <ul> <li> courseID </li> <li> courseName (substring) </li> </ul> |
@@ -90,7 +94,9 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 
 ## Assessment Endpoints
+
 [Back to Table of Contents](#table-of-contents)
+
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
 | GET | \.\.\./assessments? | Get all assessments that match the query parameters | Array\<Assessment\> | <ul> <li> assessmentID </li> <li> assessmentName (substring) </li> </ul> |
@@ -102,7 +108,9 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 
 ## StudentAssessment Endpoints
+
 [Back to Table of Contents](#table-of-contents)
+
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
 | GET | \.\.\./student\-assessments? | Get all assessment instances that match the query parameters | Array\<StudentAssessment\> | <ul> <li> studentAssessmentID </li> <li> assessmentID </li> <li> NUID </li> <li> courseID </li> <li> assessmentName (substring) </li> <li> percentage </li> <li> letterGrade </li> </ul> |
@@ -114,7 +122,9 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 
 ## StudentCourse Endpoints
+
 [Back to Table of Contents](#table-of-contents)
+
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
 | GET | \.\.\./student\-courses? | Get all course instances that match the given parameters | Array\<StudentCourse\> | <ul> <li> NUID </li> <li> courseID </li> <li> percentage </li> <li> letterGrade </li> <li> term </li> </ul> |
@@ -125,7 +135,9 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 
 ## Note Endpoints
+
 [Back to Table of Contents](#table-of-contents)
+
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
 | GET | \.\.\./notes/ | Get all notes | Array\<Note\> | |
