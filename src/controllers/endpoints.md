@@ -1,5 +1,5 @@
 ## Table of Contents
- 1. [General Notes]($general-notes)
+ 1. [General Notes](#general-notes)
  2. [About Query Endpoints](#about-query-endpoints)
  3. [Student Endpoints](#student-endpoints)
  4. [Course Endpoints](#course-endpoints)
