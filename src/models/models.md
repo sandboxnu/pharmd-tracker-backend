@@ -1,9 +1,22 @@
 # Model Definitions
-Notes:
-Attributes *can be null* and *do not have to unique*, unless otherwise specified.
+Important Notes!   
+Attributes *can be null* and *do not have to unique*, unless otherwise specified.  
 *If a constraint is listed after an asterisk, this means that the constraint is not fully enforced in code yet.
 
+## Table of Contents
+1. [Student](#student)
+2. [Course](#course)
+3. [Assessment](#assessment)
+4. [StudentCourse](#studentcourse)
+5. [StudentAssessment](#studentassessment)
+6. [Note](#note)
+7. [PCF](#pcf)
+8. [Associations](#associations)
+
+
 ## Student
+
+[Back to Table of Contents](#table-of-contents)
 
 **NUID** - String  
 *this student's Northeastern student ID*  
@@ -78,6 +91,8 @@ Attributes *can be null* and *do not have to unique*, unless otherwise specified
 
 ## Course
 
+[Back to Table of Contents](#table-of-contents)
+
 **courseID** - String  
 *the identifier of this course*  
 Note: format not yet determined/enforced  
@@ -91,6 +106,8 @@ Note: format not yet determined/enforced
 - Must be unique
 
 ## Assessment
+
+[Back to Table of Contents](#table-of-contents)
 
 **assessmentID** - String  
 *the identifier of this assessment*  
@@ -107,6 +124,8 @@ Note: format not yet determined/enforced
 ~~**type** - Enum["Exam", "Quiz"]~~
 
 ## StudentCourse
+
+[Back to Table of Contents](#table-of-contents)
 
 Combination of (NUID, courseID, term) must be unique.  
 
@@ -133,6 +152,8 @@ Combination of (NUID, courseID, term) must be unique.
 *the overall letter grade the student received in this course instance*  
 
 ## StudentAssessment
+
+[Back to Table of Contents](#table-of-contents)
 
 Combination of (NUID, assessmentID) must be unique.  
 
@@ -163,6 +184,8 @@ Combination of (NUID, assessmentID) must be unique.
 
 ## Note
 
+[Back to Table of Contents](#table-of-contents)
+
 **noteID** - String  
 *the identifier of this note*  
 Note: format not yet decided/enforced  
@@ -187,7 +210,9 @@ Note: format not yet decided/enforced
 
 ## PCF  
 Professional Conduct Form  
-Note: no longer needed - PCFs contained in Notes  
+Note: no longer needed - PCFs contained in Notes 
+
+[Back to Table of Contents](#table-of-contents)
 
 **pcfID** - String  
 *the identifier of this PCF*  
@@ -219,6 +244,8 @@ Note: format unspecified
 *the decision reached by reviewing body regarding this PCF*  
 
 ## Associations
+
+[Back to Table of Contents](#table-of-contents)
 
 **Many-to-Many**:
 - Students and Courses have a Many-to-Many association through the StudentCourse model.
