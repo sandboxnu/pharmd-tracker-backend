@@ -3,15 +3,11 @@ import assessment from './assessment';
 import student from "./student";
 import uuidv4 from 'uuid/v4';
 
-module.exports = (sequelize, DataTypes) => {
+const studentAssessment = (sequelize, DataTypes) => {
   const StudentAssessment = sequelize.define('studentassessment', {
-    studentAssessmentID: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
-    },
     assessmentID: {
       type: DataTypes.STRING,
+      allowNull: false
     },
     NUID: {
       type: DataTypes.STRING,
@@ -22,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "ID must consist of 9 digits"
         }
       },
+      allowNull: false
     },
     courseID: { // this should be a foreign key
       type: DataTypes.STRING,
@@ -53,9 +50,41 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   StudentAssessment.filter = async params => {
+    let parsedParams = await StudentAssessment.parseQuery(params);
     return StudentAssessment.findAll({
-      where: params
+      where: parsedParams
     });
+  };
+
+  const {Op} = require('sequelize');
+
+  StudentAssessment.parseQuery = async (queryObj) => {
+    let where = {};
+    let queryParams = ['studentAssessmentID', 'assessmentID', 'NUID', 'courseID',
+      'assessmentName', 'percentage', 'letterGrade'];
+
+    for (const param of queryParams) {
+      if (param in queryObj) {
+        let query = queryObj[param];
+
+        if (param === 'assessmentName') {
+          where[param] = {[Op.substring]: query};
+        }
+        else if (query.hasOwnProperty('min') || query.hasOwnProperty('max')) {
+          if (query.hasOwnProperty('min')) {
+              where[param] = {...where[param], ...{[Op.gte]: query.min}};
+          }
+          if (query.hasOwnProperty('max')) {
+              where[param] = {...where[param], ...{[Op.lte]: query.max}};
+          }
+        }
+        else {
+          where[param] = query;
+        }
+      }
+    }
+    console.log("Query params for where are:  ", where);
+    return where;
   };
 
   StudentAssessment.getStudentAssessment = async (NUID, assessmentID) => {
@@ -207,3 +236,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return StudentAssessment;
 };
+
+export default studentAssessment;

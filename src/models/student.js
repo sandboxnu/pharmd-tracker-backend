@@ -141,9 +141,41 @@ const student = (sequelize, DataTypes) => {
 
     // get students that match the given JSON parameters
     Student.filter = async (params) => {
+        const parsedParams =  await Student.parseQuery(params);
         return Student.findAll({
-            where: params
+            where: parsedParams
         });
+    };
+
+    const {Op} = require('sequelize');
+
+    Student.parseQuery = async (queryObj) => {
+        let where = {};
+        let queryParams = ['NUID', 'firstName', 'lastName', 'visa', 'entryType', 'dualDegree', 'entryToP1',
+            'originalGradDate', 'adjustedGradDate', 'gradDateChange', 'leftProgram', 'status', 'GPA'];
+
+        for (const param of queryParams) {
+            if (param in queryObj) {
+                let query = queryObj[param];
+
+                if (param === "firstName" || param === "lastName") {
+                    where[param] = {[Op.startsWith]: query};
+                } 
+                else if (query.hasOwnProperty('min') || query.hasOwnProperty('max')) {
+                    if (query.hasOwnProperty('min')) {
+                        where[param] = {...where[param], ...{[Op.gte]: query.min}};
+                    }
+                    if (query.hasOwnProperty('max')) {
+                        where[param] = {...where[param], ...{[Op.lte]: query.max}};
+                    }
+                }
+                else {
+                    where[param] = query;
+                }
+            }
+        }
+        console.log("Query params for where are:  ", where);
+        return where;
     };
 
     // get all students in the given cohort
@@ -290,8 +322,6 @@ const student = (sequelize, DataTypes) => {
         });
         return Promise.all(promises);
     };
-
-
 
     // --------------------------- PUT METHODS ---------------------------
 

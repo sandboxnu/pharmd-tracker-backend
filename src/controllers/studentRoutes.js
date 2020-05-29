@@ -1,8 +1,18 @@
-import { Router } from 'express';
+import {Router} from 'express';
 
 const router = Router();
 
 // --------------------------- GET METHODS ---------------------------
+
+router.param('NUID', async (req, res, next, NUID) => {
+    try {
+        req.student = await req.context.models.Student.findByNUID(req.params.NUID);
+        next();
+    } catch(e) {
+        console.log(e);
+        next()
+    }
+});
 
 // ----- groups of students -----
 

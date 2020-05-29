@@ -12,11 +12,6 @@ const assessment = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             unique: true,
             allowNull:false
-        },
-        type: {
-            type: DataTypes.ENUM('Exam', 'Quiz'),
-            unique: false,
-            allowNull:false
         }
     });
 
@@ -29,11 +24,35 @@ const assessment = (sequelize, DataTypes) => {
 
     // --------------------------- GET METHODS ---------------------------
 
-    // gets assessments that match teh given filter params
+    // gets assessments that match the given filter params
     Assessment.filter = async params => {
+        let parsedParams = await Assessment.parseQuery(params);
+        console.log("Query params for where are:  ", parsedParams);
         return Assessment.findAll({
-            where: params
+            where: parsedParams
         });
+    };
+
+    const {Op} = require('sequelize');
+
+    Assessment.parseQuery = async (queryObj) => {
+        let where = {};
+        let queryParams = ['assessmentID', 'assessmentName'];
+
+        for (const param of queryParams) {
+            if (param in queryObj) {
+                let query = queryObj[param];
+
+                if (param === 'assessmentName') {
+                    where[param] = {[Op.substring]: query};
+                }
+                else {
+                    where[param] = query;
+                }
+            }
+        }
+        console.log("Query params for where are:  ", where);
+        return where;
     };
 
     // gets the assessment with the given id

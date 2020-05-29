@@ -21,10 +21,6 @@ const sequelize = new Sequelize(
 
 const models = {
 
-    StudentCourse: sequelize.import('./studentcourse'),
-
-    StudentAssessment: sequelize.import('./studentassessment'),
-
     Student: sequelize.import('./student'),
 
     Course: sequelize.import('./course'),
@@ -34,6 +30,10 @@ const models = {
     Note: sequelize.import('./note'),
 
     PCF: sequelize.import('./pcf'),
+
+    StudentCourse: sequelize.import('./studentcourse'),
+
+    StudentAssessment: sequelize.import('./studentassessment'),
 
     User: sequelize.import('./user'),
 
@@ -58,7 +58,6 @@ models.Course.hasMany(models.Assessment, {foreignKey: 'courseID'});
 // // student - note
 models.Note.belongsTo(models.Student, {foreignKey: 'NUID'});
 models.Student.hasMany(models.Note, {foreignKey: 'NUID'});
-
 
 // student - pcf
 models.Student.hasMany(models.PCF, {foreignKey: 'NUID'});

@@ -5,6 +5,7 @@ const router = Router();
 // Gets all the assessments that match the query params
 router.get('/', async (req, res) => {
     try {
+        console.log('Filter route for assessments');
         const assessments = await req.context.models.Assessment.filter(req.query);
         res.set({
             'X-Total-Count': assessments.length,

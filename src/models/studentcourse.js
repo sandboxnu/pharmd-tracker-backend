@@ -1,11 +1,7 @@
+'use strict';
 
 const studentCourse = (sequelize, DataTypes) => {
   const StudentCourse = sequelize.define('studentcourse', {
-    studentCourseID: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV1,
-      primaryKey: true
-    },
     NUID: {
       type: DataTypes.STRING,
       validate: {
@@ -50,9 +46,37 @@ const studentCourse = (sequelize, DataTypes) => {
 
   // get all student courses that match the given parameters
   StudentCourse.filter = async params => {
+    let parsedParams = await StudentCourse.parseQuery(params);
     return StudentCourse.findAll({
-      where: params
+      where: parsedParams
     });
+  };
+
+  const {Op} = require('sequelize');
+
+  StudentCourse.parseQuery = async (queryObj) => {
+    let where = {};
+    let queryParams = ['NUID', 'courseID', 'percentage', 'letterGrade', 'term'];
+
+    for (const param of queryParams) {
+      if (param in queryObj) {
+        let query = queryObj[param];
+
+        if (query.hasOwnProperty('min') || query.hasOwnProperty('max')) {
+          if (query.hasOwnProperty('min')) {
+              where[param] = {...where[param], ...{[Op.gte]: query.min}};
+          }
+          if (query.hasOwnProperty('max')) {
+              where[param] = {...where[param], ...{[Op.lte]: query.max}};
+          }
+        }
+        else {
+          where[param] = query;
+        }
+      }
+    }
+    console.log("Query params for where are:  ", where);
+    return where;
   };
 
   // gets the given student's course
