@@ -1,29 +1,51 @@
 ## Table of Contents
- 1. [About Query Endpoints](#about-query-endpoints)
- 2. [Student Endpoints](#student-endpoints)
- 3. [Course Endpoints](#course-endpoints)
- 4. [Assessment Endpoints](#assessment-endpoints)
- 5. [StudentAssessment Endpoints](#studentassessment-endpoints)
- 6. [StudentCourse Endpoints](#studentcourse-endpoints)
- 7. [Note Endpoints](#note-endpoints)
+ 1. [General Notes]($general-notes)
+ 2. [About Query Endpoints](#about-query-endpoints)
+ 3. [Student Endpoints](#student-endpoints)
+ 4. [Course Endpoints](#course-endpoints)
+ 5. [Assessment Endpoints](#assessment-endpoints)
+ 6. [StudentAssessment Endpoints](#studentassessment-endpoints)
+ 7. [StudentCourse Endpoints](#studentcourse-endpoints)
+ 8. [Note Endpoints](#note-endpoints)
 
+
+## General Notes
+
+For endpoints that contain a {param}, the Parameters column lists *paramInURL: correspondingModelAttribute*.  
+For example, *cohort: adjustedGradDate* means that {cohort} corresponds to the adjustedGradDate.
 
 ## About Query Endpoints
 [Back to Table of Contents](#table-of-contents)  
 
-**Basic Query**  
-*students?param1=foo&param2=bar&param3=1234*  
-Above is a query for all students where *param1* is *foo*, *param2* is *bar*, and *param3* is *1234*.   
+All query endpoints are the pluralized model name followed by '?' (ie. */objects?*).  
+Parameters are assigned values using the syntax '*paramName=paramValue*'.  
+Parameters are strung together using '&'.
 
-**Query with OR**  
-*students?param1=optionOne&param1=optionTwo*  
-Above is a query for all students where *param1* is *optionOne* or *optionTwo*.   
+**Basic Query with And**  
+
+*/objects?param1=foo&param2=bar&param3=1234*  
+Returns all objects where *param1* is *foo*, *param2* is *bar*, and *param3* is *1234*.   
+
+**Query with Or**  
+
+*/objects?param1=optionOne&param1=optionTwo*  
+Returns all objects where *param1* is *optionOne* or *optionTwo*.   
 
 **Query with Min/Max**  
-*students?param1[min]=0&param1[max]=100*  
-Above is a query for all students where *param1* is between *0* and *100*, inclusive.   
 
-**Types of String Queries**  
+*/objects?param1[min]=50*  
+Returns all objects where *param1* is at least *50*, inclusive.
+
+*/objects?param1[max]=70*  
+Returns all objects where *param1* is at most *70*, inclusive.
+
+*/objects?param1[min]=50&param1[max]=70*  
+Returns all objects where *param1* is between *50* and *70*, inclusive. 
+
+**About String Queries**  
+
+String queries are case-sensitive at the moment.  
+
 There are a few different ways that string queries may be treated:  
 - Exact match: returns objects where string exactly matches given string
 - Starts with: returns objects where string starts with the given string
