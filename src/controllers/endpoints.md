@@ -1,18 +1,18 @@
+# Endpoint Guide
+
+Important Notes!  
+
+For endpoints that contain a {param}, the Parameters column lists *paramInURL: correspondingModelAttribute*. If a corresponding model attribute isn't listed, that means the parameter and attribute share the same name.  
+For example, 'cohort: adjustedGradDate' means that {cohort} corresponds to the attribute *adjustedGradDate*. Alternatively, if only 'firstName' is listed, that means {firstName} corresponds to the attribute *firstName*.
+
 ## Table of Contents
- 1. [General Notes](#general-notes)
- 2. [About Query Endpoints](#about-query-endpoints)
- 3. [Student Endpoints](#student-endpoints)
- 4. [Course Endpoints](#course-endpoints)
- 5. [Assessment Endpoints](#assessment-endpoints)
- 6. [StudentAssessment Endpoints](#studentassessment-endpoints)
- 7. [StudentCourse Endpoints](#studentcourse-endpoints)
- 8. [Note Endpoints](#note-endpoints)
-
-
-## General Notes
-
-For endpoints that contain a {param}, the Parameters column lists *paramInURL: correspondingModelAttribute*.  
-For example, *cohort: adjustedGradDate* means that {cohort} corresponds to the adjustedGradDate.
+ 1. [About Query Endpoints](#about-query-endpoints)
+ 2. [Student Endpoints](#student-endpoints)
+ 3. [Course Endpoints](#course-endpoints)
+ 4. [Assessment Endpoints](#assessment-endpoints)
+ 5. [StudentAssessment Endpoints](#studentassessment-endpoints)
+ 6. [StudentCourse Endpoints](#studentcourse-endpoints)
+ 7. [Note Endpoints](#note-endpoints)
 
 ## About Query Endpoints
 [Back to Table of Contents](#table-of-contents)  
@@ -65,14 +65,14 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | PUT | \.\.\./students/\{nuid\} | Update student with given NUID | | <ul> <li> nuid: NUID </li> </ul> |
 | GET | \.\.\./students/cohort/\{cohort\} | Get all students in given cohort | Array\<Student\> | <ul> <li> cohort: adjustedGradDate </li> </ul> |
 | GET | \.\.\./students/f1 | Get all international students | Array\<Student\> | |
-| GET | \.\.\./students/name/\{firstName\}\-\{lastName\} | Get student with given first and last name | Student | <ul> <li> firstName: firstName </li> <li> lastName: lastName </li> </ul> |
+| GET | \.\.\./students/name/\{firstName\}\-\{lastName\} | Get student with given first and last name | Student | <ul> <li> firstName </li> <li> lastName </li> </ul> |
 | GET | \.\.\./students/\{nuid\} | Get student with given NUID | Student | <ul> <li> nuid: NUID </li> </ul> |
 | GET | \.\.\./students/\{nuid\}/courses | Get all of a student's courses | Array\<Course\> | <ul> <li> nuid: NUID </li> </ul> |
-| GET | \.\.\./students/\{nuid\}/courses/\{courseID\} | Get a student's instance of a course | StudentCourse | <ul> <li> nuid: NUID </li> <li> courseID: courseID </li> </ul> |
-| GET | \.\.\./students/\{nuid\}/courses/terms/\{term\} | Get all of a student's course instances in a term | Array\<StudentCourse\> | <ul> <li> nuid: NUID </li> <li> term: term </li> </ul> |
-| GET | \.\.\./students/\{nuid\}/courses/\{courseID\}/assessments | Get all student's assessment instances from a course | Array\<StudentAssessment\> | <ul> <li> nuid: NUID </li> <li> courseID: courseID </li> </ul> |
+| GET | \.\.\./students/\{nuid\}/courses/\{courseID\} | Get a student's instance of a course | StudentCourse | <ul> <li> nuid: NUID </li> <li> courseID </li> </ul> |
+| GET | \.\.\./students/\{nuid\}/courses/terms/\{term\} | Get all of a student's course instances in a term | Array\<StudentCourse\> | <ul> <li> nuid: NUID </li> <li> term </li> </ul> |
+| GET | \.\.\./students/\{nuid\}/courses/\{courseID\}/assessments | Get all student's assessment instances from a course | Array\<StudentAssessment\> | <ul> <li> nuid: NUID </li> <li> courseID </li> </ul> |
 | GET | \.\.\./students/\{nuid\}/assessments | Get all of a student's assessments | Array\<Assessment\> | <ul> <li> nuid: NUID </li> </ul> |
-| GET | \.\.\./students/\{nuid\}/assessments/\{assessmentID\} | Get a student's instance of an assessment | StudentAssessment | <ul> <li> nuid: NUID </li> <li> assessmentID: assessmentID </li> </ul> |
+| GET | \.\.\./students/\{nuid\}/assessments/\{assessmentID\} | Get a student's instance of an assessment | StudentAssessment | <ul> <li> nuid: NUID </li> <li> assessmentID </li> </ul> |
 | GET | \.\.\./students/\{nuid\}/notes | Get all of a student's notes | Array\<Note\> | <ul> <li> nuid: NUID </li> </ul> |
 | GET | \.\.\./students/\{nuid\}/pcfs | Get all of a student's PCFs | Array\<PCF\> | <ul> <li> nuid: NUID </li> </ul> |
 
@@ -86,11 +86,11 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./courses? | Get all courses that match the query parameters | | <ul> <li> courseID </li> <li> courseName (substring) </li> </ul> |
 | GET | \.\.\./courses/ | Get all courses | | |
 | POST | \.\.\./courses/ | Create a course | | |
-| PUT | \.\.\./courses/\{courseID\} | Update course with the given ID | | <ul> <li> courseID: courseID </li> </ul> |
+| PUT | \.\.\./courses/\{courseID\} | Update course with the given ID | | <ul> <li> courseID </li> </ul> |
 | GET | \.\.\./courses/name/\{courseName\} | Get course with the given name | Course | |
-| GET | \.\.\./courses/\{courseID\} | Get course with the given ID | Course | <ul> <li> courseID: courseID </li> </ul> |
-| GET | \.\.\./courses/\{courseID\}/assessments | Get a course's assessments | Array\<Assessment\> | <ul> <li> courseID: courseID </li> </ul> |
-| GET | \.\.\./courses/\{courseID\}/students | Get a course's students | Array\<Student\> | <ul> <li> courseID: courseID </li> </ul> |
+| GET | \.\.\./courses/\{courseID\} | Get course with the given ID | Course | <ul> <li> courseID </li> </ul> |
+| GET | \.\.\./courses/\{courseID\}/assessments | Get a course's assessments | Array\<Assessment\> | <ul> <li> courseID </li> </ul> |
+| GET | \.\.\./courses/\{courseID\}/students | Get a course's students | Array\<Student\> | <ul> <li> courseID </li> </ul> |
 
 
 ## Assessment Endpoints
@@ -102,9 +102,9 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./assessments? | Get all assessments that match the query parameters | Array\<Assessment\> | <ul> <li> assessmentID </li> <li> assessmentName (substring) </li> </ul> |
 | GET | \.\.\./assessments/ | Get all assessments | Array\<Assessment\> | |
 | POST | \.\.\./assessments/ | Create an assessment | | |
-| PUT | \.\.\./assessments/\{assessmentID\} | Update an assessment | | <ul> <li> assessmentID: assessmentID </li> </ul> |
-| GET | \.\.\./assessments/\{assessmentID\} | Get assessment with the given ID | Assessment | <ul> <li> assessmentID: assessmentID </li> </ul> |
-| GET | \.\.\./assessments/\{assessmentID\}/instances | Get all instances of an assessment | Array\<StudentAssessment\> | <ul> <li> assessmentID: assessmentID </li> </ul> |
+| PUT | \.\.\./assessments/\{assessmentID\} | Update an assessment | | <ul> <li> assessmentID </li> </ul> |
+| GET | \.\.\./assessments/\{assessmentID\} | Get assessment with the given ID | Assessment | <ul> <li> assessmentID </li> </ul> |
+| GET | \.\.\./assessments/\{assessmentID\}/instances | Get all instances of an assessment | Array\<StudentAssessment\> | <ul> <li> assessmentID </li> </ul> |
 
 
 ## StudentAssessment Endpoints
@@ -117,8 +117,8 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./student\-assessments/ | Get all assessment instances | Array\<StudentAssessment\> | |
 | POST | \.\.\./student\-assessments/ | Create an assessment instance | | |
 | POST | \.\.\./student\-assessments/all | Creates many assessments from given array | | |
-| PUT | \.\.\./student\-assessments/\{nuid\}/\{assessmentID\} | Update an assessment instance | | <ul> <li> nuid: NUID </li> <li> assessmentID: assessmentID </li> </ul> |
-| GET | \.\.\./student\-assessments/\{nuid\}/\{assessmentID\} | Get an assessment instance | StudentAssessment | <ul> <li> nuid: NUID </li> <li> assessmentID: assessmentID </li> </ul> |
+| PUT | \.\.\./student\-assessments/\{nuid\}/\{assessmentID\} | Update an assessment instance | | <ul> <li> nuid: NUID </li> <li> assessmentID </li> </ul> |
+| GET | \.\.\./student\-assessments/\{nuid\}/\{assessmentID\} | Get an assessment instance | StudentAssessment | <ul> <li> nuid: NUID </li> <li> assessmentID </li> </ul> |
 
 
 ## StudentCourse Endpoints
@@ -130,8 +130,8 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./student\-courses? | Get all course instances that match the given parameters | Array\<StudentCourse\> | <ul> <li> NUID </li> <li> courseID </li> <li> percentage </li> <li> letterGrade </li> <li> term </li> </ul> |
 | GET | \.\.\./student\-courses/ | Get all course instances | Array\<StudentCourse\> | |
 | POST | \.\.\./student\-courses/ | Create an course instance | | |
-| PUT | \.\.\./student\-courses/\{nuid\}/\{courseID\} | Update an course instance | | <ul> <li> nuid: NUID </li> <li> courseID: courseID </li> </ul> |
-| GET | \.\.\./student\-courses/\{nuid\}/\{courseID\} | Get a course instance | StudentCourse | <ul> <li> nuid: NUID </li> <li> courseID: courseID </li> </ul> |
+| PUT | \.\.\./student\-courses/\{nuid\}/\{courseID\} | Update an course instance | | <ul> <li> nuid: NUID </li> <li> courseID </li> </ul> |
+| GET | \.\.\./student\-courses/\{nuid\}/\{courseID\} | Get a course instance | StudentCourse | <ul> <li> nuid: NUID </li> <li> courseID </li> </ul> |
 
 
 ## Note Endpoints
@@ -142,5 +142,6 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 |------|-----|-------------|---------|------------|
 | GET | \.\.\./notes/ | Get all notes | Array\<Note\> | |
 | POST | \.\.\./notes/ | Create a note | | |
-| PUT | \.\.\./notes/\{noteID\} | Update a note | | <ul> <li> noteID: noteID </li> </ul> |
-| GET | \.\.\./notes/\{noteID\} | Get a note with given ID | Note | <ul> <li> noteID: noteID </li> </ul> |
+| PUT | \.\.\./notes/\{noteID\} | Update a note | | <ul> <li> noteID </li> </ul> |
+| GET | \.\.\./notes/\{noteID\} | Get a note with given ID | Note | <ul> <li> noteID </li> </ul> |
+
