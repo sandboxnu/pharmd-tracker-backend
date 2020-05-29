@@ -68,7 +68,7 @@ const studentAssessment = (sequelize, DataTypes) => {
         let query = queryObj[param];
 
         if (param === 'assessmentName') {
-          where[param] = {[Op.startsWith]: query};
+          where[param] = {[Op.substring]: query};
         }
         else if (query.hasOwnProperty('min') || query.hasOwnProperty('max')) {
           if (query.hasOwnProperty('min')) {
