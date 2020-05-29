@@ -37,7 +37,7 @@ const assessment = (sequelize, DataTypes) => {
 
     Assessment.parseQuery = async (queryObj) => {
         let where = {};
-        let queryParams = ['assessmentID', 'assessmentName', 'type'];
+        let queryParams = ['assessmentID', 'assessmentName'];
 
         for (const param of queryParams) {
             if (param in queryObj) {
