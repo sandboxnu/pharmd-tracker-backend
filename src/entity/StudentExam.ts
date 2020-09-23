@@ -1,6 +1,8 @@
 import {Entity, PrimaryColumn, ManyToOne, Column, Double} from "typeorm";
 import { Student } from "./Student";
 import { Exam } from "./Exam";
+import {Max, Min} from "class-validator";
+import {LetterGrade} from "./Enums";
 
 @Entity()
 export class StudentExam {
@@ -14,13 +16,19 @@ export class StudentExam {
     @Column()
     term: string;
 
-    @Column()
-    percentage: Double;
+    @Column({type: "float"})
+    @Min(0)
+    @Max(100)
+    percentage: number;
 
-    // TODO: should courseId be included?
+    // TODO: should courseId be included here or in Exam model?
 
-    @Column()
-    letterGrade: 'A' | 'A-' | 'B+' | 'B' | 'B-' | 'C+' | 'C' | 'C-' | 'D+' | 'D'| 'D-' | 'F';
+    @Column({
+        type: "enum",
+        enum: LetterGrade,
+        default: LetterGrade.A
+    })
+    letterGrade: LetterGrade;
 
     @ManyToOne(type => Exam, student => student.studentExams)
     student: Student;

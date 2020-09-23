@@ -1,11 +1,11 @@
-import {Entity, PrimaryColumn, Column, ManyToOne, OneToMany} from "typeorm";
+import {Entity, Column, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import { Course } from "./Course";
 import {StudentExam} from "./StudentExam";
 
 @Entity()
 export class Exam {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn("uuid")
     id: string;
 
     @Column()

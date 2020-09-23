@@ -2,17 +2,8 @@ import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
 import { Note } from "./Note";
 import { StudentCourse } from "./StudentCourse";
 import { StudentExam } from "./StudentExam";
-
-export enum EntryType {
-    DE = "DE",
-    EA = "EA"
-}
-export enum StudentStatus {
-    ENROLLED = "Enrolled",
-    LEAVE = "On Leave",
-    DROPBACK = "Drop Back",
-    CO_OP = "Co-Op"
-}
+import {IsInt, Length, Min, Max} from "class-validator";
+import {EntryType, Semester, StudentStatus} from "./Enums";
 
 @Entity()
 export class Student {
@@ -22,6 +13,8 @@ export class Student {
     @PrimaryColumn({
         comment: "NUID"
     })
+    @Length(9, 9)
+    @IsInt()
     id: number;
 
     @Column()
@@ -30,6 +23,7 @@ export class Student {
     @Column()
     firstName: string;
 
+    // TODO: do we want enum so theres validation or just have a string
     @Column({
         comment: "semester of entry"
     })
@@ -50,9 +44,11 @@ export class Student {
         enum: StudentStatus,
         default: StudentStatus.ENROLLED,
     })
-    status: string;
+    status: StudentStatus;
 
-    @Column("double")
+    @Column({type: "float"})
+    @Min(0)
+    @Max(4)
     gpa: number;
 
     // non-mandatory columns
@@ -68,6 +64,8 @@ export class Student {
         nullable: true,
         default: []
     })
+    //TODO: Is this the right way to check length of array?
+    @Length(3)
     gradDateChanges: string[];
 
     @Column({
