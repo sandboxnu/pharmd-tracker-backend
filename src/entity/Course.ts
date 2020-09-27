@@ -1,20 +1,25 @@
-import { Entity, PrimaryColumn, Column, OneToMany, ManyToMany } from "typeorm";
+import {Entity, Column, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import { Exam } from "./Exam";
-import { Student } from "./Student";
 import { StudentCourse } from "./StudentCourse";
-import {Note} from "./Note";
+import {IsIn, IsInt, Length} from "class-validator";
 
 @Entity()
 export class Course {
 
-    @PrimaryColumn()
-    id: string;
+    @PrimaryGeneratedColumn("uuid")
+    id: number;
+
+    @Column()
+    @Length(2,4)
+    subject: string;
+
+    @Column()
+    @IsInt()
+    @Length(4)
+    number: number;
 
     @Column()
     name: string;
-
-    @Column()
-    semester: string;
 
     // relations
 
