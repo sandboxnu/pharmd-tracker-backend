@@ -11,30 +11,30 @@ export class CourseController {
 
     private courseRepository = getRepository(Course);
 
-    async all(request: Request, response: Response, next: NextFunction) {
+    async all(request: Request, response: Response, next?: NextFunction) {
         return this.courseRepository.find();
     }
 
     // TODO: parse query method
-    async filter(request: Request, response: Response, next: NextFunction) {
+    async filter(request: Request, response: Response, next?: NextFunction) {
         return this.courseRepository.find({
             where: request.params.params,
             })
     }
 
-    async findById(request: Request, response: Response, next: NextFunction) {
+    async findById(request: Request, response: Response, next?: NextFunction) {
         return this.courseRepository.findOne(request.params.courseId);
     }
 
-    async findByName(request: Request, response: Response, next: NextFunction) {
+    async findByName(request: Request, response: Response, next?: NextFunction) {
         return this.courseRepository.findOne(request.params.courseName);
     }
 
-    async save(request: Request, response: Response, next: NextFunction) {
+    async save(request: Request, response: Response, next?: NextFunction) {
         return this.courseRepository.save(request.body);
     }
 
-    async remove(request: Request, response: Response, next: NextFunction) {
+    async remove(request: Request, response: Response, next?: NextFunction) {
         let userToRemove = await this.courseRepository.findOne(request.params.id);
         await this.courseRepository.remove(userToRemove);
     }
