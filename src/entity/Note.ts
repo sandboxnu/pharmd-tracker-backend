@@ -20,7 +20,7 @@ export class Note {
     })
     tags: string[];
 
-    // TODO: file attachments - I don't know if this can be done without a server
+    // TODO: file attachments - AWS, who is in charge?
 
     // relations
     
