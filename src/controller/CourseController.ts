@@ -9,34 +9,50 @@ import {Course} from "../entity/Course";
 
 export class CourseController {
 
-    private courseRepository = getRepository(Course);
-
-    async all(request: Request, response: Response, next?: NextFunction) {
-        return this.courseRepository.find();
+    static async all(request: Request, response: Response, next?: NextFunction) {
+        const courseRepository = getRepository(Course);
+        return courseRepository.find();
     }
 
     // TODO: parse query method
-    async filter(request: Request, response: Response, next?: NextFunction) {
-        return this.courseRepository.find({
+    static async filter(request: Request, response: Response, next?: NextFunction) {
+        const courseRepository = getRepository(Course);
+        return courseRepository.find({
             where: request.params.params,
             })
     }
 
-    async findById(request: Request, response: Response, next?: NextFunction) {
-        return this.courseRepository.findOne(request.params.courseId);
+    static async findById(request: Request, response: Response, next?: NextFunction) {
+        const courseRepository = getRepository(Course);
+        return courseRepository.findOne({
+            where: [
+                {id: request.params.courseId}
+            ],
+        });
     }
 
-    async findByName(request: Request, response: Response, next?: NextFunction) {
-        return this.courseRepository.findOne(request.params.courseName);
+    static async findByName(request: Request, response: Response, next?: NextFunction) {
+        const courseRepository = getRepository(Course);
+        return courseRepository.findOne({
+            where: [
+                {name: request.params.courseName}
+            ]
+        });
     }
 
-    async save(request: Request, response: Response, next?: NextFunction) {
-        return this.courseRepository.save(request.body);
+    static async save(request: Request, response: Response, next?: NextFunction) {
+        const courseRepository = getRepository(Course);
+        return courseRepository.save(request.body);
     }
 
-    async remove(request: Request, response: Response, next?: NextFunction) {
-        let userToRemove = await this.courseRepository.findOne(request.params.id);
-        await this.courseRepository.remove(userToRemove);
+    static async remove(request: Request, response: Response, next?: NextFunction) {
+        const courseRepository = getRepository(Course);
+        let userToRemove = await courseRepository.findOne({
+            where: [
+                {id: request.params.courseId}
+                ],
+        });
+        await courseRepository.remove(userToRemove);
     }
 
 }
