@@ -8,6 +8,8 @@ const router = Router();
 // Gets all the courses in the DB
 router.get('/', CourseController.all);
 
+router.get('/query', CourseController.filter);
+
 // Gets the course the given id
 router.get('/:courseId', CourseController.findById);
 
