@@ -6,58 +6,21 @@ const router = Router();
 // TODO Gets all courses that match the filter parameters
 
 // Gets all the courses in the DB
-router.get('/', async (req, res) => {
-    try {
-        const courses = await CourseController.all(req, res);
-        await res.set({
-            'X-Total-Count': courses.length,
-            'Access-Control-Expose-Headers': ['X-Total-Count']
-        });
-        return res.send(courses);
-    } catch(e) {
-        console.log(e);
-        return res.send(e);
-    }
-});
+router.get('/', CourseController.all);
 
-// Gets the course the provided id
-router.get('/:courseId', async (req, res) => {
-    try {
-        const course = await CourseController.findById(req, res);
-        return res.send(course);
-    } catch(e) {
-        return res.send(e);
-    }
-});
+// Gets the course the given id
+router.get('/:courseId', CourseController.findById);
 
 // Gets the course with the given name
-router.get('/name/:courseName', async (req, res) => {
-    try {
-        const course = await CourseController.findByName(req, res);
-        return res.send(course);
-    } catch(e) {
-        return res.send(e);
-    }
-});
+router.get('/name/:courseName', CourseController.findByName);
 
-router.post('/', async (req, res) => {
-    try {
-        const newCourse = await CourseController.save(req, res);
-        return res.send(newCourse);
-    } catch (e) {
-        return res.send(e);
-    }
-});
+// Creates a new course
+router.post('/', CourseController.save);
 
-router.delete('/:courseId', async (req, res) => {
-    try {
-        await CourseController.remove(req, res);
-        return res.send('Success');
-    } catch (e) {
-        return res.send(e);
-    }
-});
+// Updates the course with the given id
+router.put('/:courseId', CourseController.update);
 
-// TODO put method
+// Deletes the course with the given id
+router.delete('/:courseId', CourseController.remove);
 
 export default router;

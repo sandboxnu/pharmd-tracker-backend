@@ -9,9 +9,19 @@ import {Course} from "../entity/Course";
 
 export class CourseController {
 
-    static async all(request: Request, response: Response, next?: NextFunction) {
+    // Gets all the courses in the DB
+    static async all(req: Request, res: Response, next?: NextFunction) {
         const courseRepository = getRepository(Course);
-        return courseRepository.find();
+        try {
+            const courses = await courseRepository.find();
+            await res.set({
+                'X-Total-Count': courses.length,
+                'Access-Control-Expose-Headers': ['X-Total-Count']
+            });
+            return res.send(courses);
+        } catch(e) {
+            return res.send(e);
+        }
     }
 
     // TODO: parse query method
@@ -22,37 +32,78 @@ export class CourseController {
             })
     }
 
-    static async findById(request: Request, response: Response, next?: NextFunction) {
+    // Gets the course the given id
+    static async findById(req: Request, res: Response, next?: NextFunction) {
         const courseRepository = getRepository(Course);
-        return courseRepository.findOne({
-            where: [
-                {id: request.params.courseId}
-            ],
-        });
-    }
-
-    static async findByName(request: Request, response: Response, next?: NextFunction) {
-        const courseRepository = getRepository(Course);
-        return courseRepository.findOne({
-            where: [
-                {name: request.params.courseName}
-            ]
-        });
-    }
-
-    static async save(request: Request, response: Response, next?: NextFunction) {
-        const courseRepository = getRepository(Course);
-        return courseRepository.save(request.body);
-    }
-
-    static async remove(request: Request, response: Response, next?: NextFunction) {
-        const courseRepository = getRepository(Course);
-        let userToRemove = await courseRepository.findOne({
-            where: [
-                {id: request.params.courseId}
+        try {
+            const course = await courseRepository.findOne({
+                where: [
+                    {id: req.params.courseId}
                 ],
-        });
-        await courseRepository.remove(userToRemove);
+            });
+            return res.send(course);
+        } catch(e) {
+            return res.send(e);
+        }
+    }
+
+    // Gets the course with the given name
+    static async findByName(req: Request, res: Response, next?: NextFunction) {
+        const courseRepository = getRepository(Course);
+        try {
+            const course = await courseRepository.findOne({
+                where: [
+                    {name: req.params.courseName}
+                ]
+            });
+            return res.send(course);
+        } catch(e) {
+            return res.send(e);
+        }
+    }
+
+    // Creates a new course
+    static async save(req: Request, res: Response, next?: NextFunction) {
+        const courseRepository = getRepository(Course);
+        try {
+            const newCourse = await courseRepository.save(req.body);
+            return res.send(newCourse);
+        } catch (e) {
+            return res.send(e);
+        }
+    }
+
+    // Updates the course with the given id
+    static async update(req: Request, res: Response, next?:NextFunction) {
+        const courseRepository = getRepository(Course);
+        try {
+            let courseToUpdate = await courseRepository.findOne({
+                where: [
+                    {id: req.params.courseId}
+                ],
+            });
+            courseRepository.merge(courseToUpdate, req.body);
+            await courseRepository.save(courseToUpdate);
+            return res.send(courseToUpdate);
+        } catch(e) {
+            return res.send(e);
+        }
+    }
+
+    // Deletes the course with the given id
+    static async remove(req: Request, res: Response, next?: NextFunction) {
+        const courseRepository = getRepository(Course);
+        try {
+            let courseToRemove = await courseRepository.findOne({
+                where: [
+                    {id: req.params.courseId}
+                ],
+            });
+            await courseRepository.remove(courseToRemove);
+            return res.send(courseToRemove);
+        } catch (e) {
+            return res.send(e);
+        }
     }
 
 }
