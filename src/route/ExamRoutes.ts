@@ -26,7 +26,7 @@ export const ExamRoutes = [{
     action: "remove"
 }, {
     method: "get",
-    route: "/exams?",
+    route: "/examQuery?",
     controller: ExamController,
     action: "filter"
 }, {

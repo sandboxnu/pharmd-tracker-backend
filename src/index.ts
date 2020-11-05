@@ -14,9 +14,9 @@ createConnection().then(async connection => {
     const app = express();
     app.use(bodyParser.json());
 
-    let Routes = []
-    Routes.concat(ExamRoutes).concat(UserRoutes)
+    let Routes = [...ExamRoutes,...UserRoutes]
 
+    console.log(Routes)
     // register express routes from defined application routes
     Routes.forEach(route => {
         (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
