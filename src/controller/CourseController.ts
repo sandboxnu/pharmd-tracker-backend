@@ -2,18 +2,14 @@ import { getRepository, Raw, LessThanOrEqual, MoreThanOrEqual, Between} from "ty
 import {NextFunction, Request, Response} from "express";
 import {Course} from "../entity/Course";
 
-// TODO: I did all these controllers kinda wrong cuz I'm stupid
-// it should be like this:
-// https://github.com/typeorm/typeorm/blob/master/docs/example-with-express.md#:~:text=Adding%20Express%20to%20the%20application,-Let's%20add%20Express&text=ts%20file%20and%20add%20express,)%3B%20%2F%2F%20register%20routes%20app.
-
-
 export class CourseController {
 
+    private courseRepository = getRepository(Course);
+
     // Gets all the courses in the DB
-    static async all(req: Request, res: Response, next?: NextFunction) {
-        const courseRepository = getRepository(Course);
+    async all(req: Request, res: Response, next?: NextFunction) {
         try {
-            const courses = await courseRepository.find();
+            const courses = await this.courseRepository.find();
             await res.set({
                 'X-Total-Count': courses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
@@ -24,7 +20,7 @@ export class CourseController {
         }
     }
 
-    static async parseQuery(queryObj) {
+    async parseQuery(queryObj) {
         let where = {};
         // const queryParams = ['id', 'name', 'subject'];
         const paramList = Object.keys(queryObj);
@@ -58,12 +54,10 @@ export class CourseController {
         return where;
     }
 
-    // TODO: parse query method
-    static async filter(req: Request, res: Response, next?: NextFunction) {
-        const courseRepository = getRepository(Course);
+    async filter(req: Request, res: Response, next?: NextFunction) {
         try {
-            const parsedParams = await CourseController.parseQuery(req.query);
-            const courses = await courseRepository.find({
+            const parsedParams = await this.parseQuery(req.query);
+            const courses = await this.courseRepository.find({
                 where: parsedParams
             });
             await res.set({
@@ -77,10 +71,9 @@ export class CourseController {
     }
 
     // Gets the course the given id
-    static async findById(req: Request, res: Response, next?: NextFunction) {
-        const courseRepository = getRepository(Course);
+    async findById(req: Request, res: Response, next?: NextFunction) {
         try {
-            const course = await courseRepository.findOne({
+            const course = await this.courseRepository.findOne({
                 id: req.params.courseId
             });
             return res.send(course);
@@ -90,10 +83,9 @@ export class CourseController {
     }
 
     // Gets the course with the given name
-    static async findByName(req: Request, res: Response, next?: NextFunction) {
-        const courseRepository = getRepository(Course);
+    async findByName(req: Request, res: Response, next?: NextFunction) {
         try {
-            const course = await courseRepository.findOne({
+            const course = await this.courseRepository.findOne({
                 name: req.params.courseName
             });
             return res.send(course);
@@ -103,10 +95,9 @@ export class CourseController {
     }
 
     // Creates a new course
-    static async save(req: Request, res: Response, next?: NextFunction) {
-        const courseRepository = getRepository(Course);
+    async save(req: Request, res: Response, next?: NextFunction) {
         try {
-            const newCourse = await courseRepository.save(req.body);
+            const newCourse = await this.courseRepository.save(req.body);
             return res.send(newCourse);
         } catch (e) {
             return res.send(e);
@@ -114,14 +105,13 @@ export class CourseController {
     }
 
     // Updates the course with the given id
-    static async update(req: Request, res: Response, next?:NextFunction) {
-        const courseRepository = getRepository(Course);
+    async update(req: Request, res: Response, next?:NextFunction) {
         try {
-            let courseToUpdate = await courseRepository.findOne({
+            let courseToUpdate = await this.courseRepository.findOne({
                 id: req.params.courseId
             });
-            courseRepository.merge(courseToUpdate, req.body);
-            await courseRepository.save(courseToUpdate);
+            this.courseRepository.merge(courseToUpdate, req.body);
+            await this.courseRepository.save(courseToUpdate);
             return res.send(courseToUpdate);
         } catch(e) {
             return res.send(e);
@@ -129,13 +119,12 @@ export class CourseController {
     }
 
     // Deletes the course with the given id
-    static async remove(req: Request, res: Response, next?: NextFunction) {
-        const courseRepository = getRepository(Course);
+    async remove(req: Request, res: Response, next?: NextFunction) {
         try {
-            let courseToRemove = await courseRepository.findOne({
+            let courseToRemove = await this.courseRepository.findOne({
                 id: req.params.courseId
             });
-            await courseRepository.remove(courseToRemove);
+            await this.courseRepository.remove(courseToRemove);
             return res.send(courseToRemove);
         } catch (e) {
             return res.send(e);

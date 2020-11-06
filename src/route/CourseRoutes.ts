@@ -1,28 +1,38 @@
-import { Router } from 'express';
 import {CourseController} from "../controller/CourseController";
 
-const router = Router();
-
-// TODO Gets all courses that match the filter parameters
-
-// Gets all the courses in the DB
-router.get('/', CourseController.all);
-
-router.get('/query', CourseController.filter);
-
-// Gets the course the given id
-router.get('/:courseId', CourseController.findById);
-
-// Gets the course with the given name
-router.get('/name/:courseName', CourseController.findByName);
-
-// Creates a new course
-router.post('/', CourseController.save);
-
-// Updates the course with the given id
-router.put('/:courseId', CourseController.update);
-
-// Deletes the course with the given id
-router.delete('/:courseId', CourseController.remove);
-
-export default router;
+export const CourseRoutes = [{
+    method: "get",
+    route: "/courses",
+    controller: CourseController,
+    action: "all"
+}, {
+    method: "get",
+    route: "/courses/q",
+    controller: CourseController,
+    action: "filter"
+}, {
+    method: "get",
+    route: "/courses/:courseId",
+    controller: CourseController,
+    action: "findById"
+}, {
+    method: "get",
+    route: "/courses/:courseName",
+    controller: CourseController,
+    action: "findByName"
+}, {
+    method: "post",
+    route: "/courses",
+    controller: CourseController,
+    action: "save"
+},  {
+    method: "put",
+    route: "/courses/:courseId",
+    controller: CourseController,
+    action: "update"
+}, {
+    method: "delete",
+    route: "/courses/:id",
+    controller: CourseController,
+    action: "remove"
+}];
