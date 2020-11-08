@@ -19,32 +19,37 @@ export class ExamController {
             });
             return exams;
         } catch(e) {
-            return response.send(e);
+            return e;
         }
     }
 
     // gets assessments that match the given query params
     async parseQuery(queryObj) {
-        let where = {};
-        const paramList = Object.keys(queryObj);
+        try {
+            let where = {};
+            const paramList = Object.keys(queryObj);
 
-        for (const param of paramList) {
-            if (param in queryObj) {
-                let value = queryObj[param];
+            for (const param of paramList) {
+                if (param in queryObj) {
+                    let value = queryObj[param];
 
-                switch (param) {
-                    case 'id':
-                        where[param] = value;
-                        break;
-                    case 'name':
-                        where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
-                        break;
-                    default:
-                        break;
+                    switch (param) {
+                        case 'id':
+                            where[param] = value;
+                            break;
+                        case 'name':
+                            where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+            return where;
+        } catch (e) {
+            return e;
         }
-        return where;
+
     };
 
     async filter(request: Request, response: Response, next?: NextFunction) {
@@ -59,7 +64,7 @@ export class ExamController {
             });
             return exams;
         } catch (e) {
-            return response.send(e);
+            return e;
         }
     };
 
@@ -71,7 +76,7 @@ export class ExamController {
             });
             return exam;
         } catch(e) {
-            return response.send(e);
+            return e;
         }
     }
 
@@ -83,7 +88,7 @@ export class ExamController {
             });
             return exam;
         } catch(e) {
-            return response.send(e);
+            return e;
         }
     }
 
@@ -101,7 +106,7 @@ export class ExamController {
             });
             return studentExams;
         } catch(e) {
-            return response.send(e);
+            return e;
         }
     }
 
@@ -111,7 +116,7 @@ export class ExamController {
             const newExam = await this.examRepository.save(request.body);
             return newExam;
         } catch (e) {
-            return response.send(e);
+            return e;
         }
     }
 
@@ -122,7 +127,7 @@ export class ExamController {
             await this.examRepository.remove(examToRemove);
             return examToRemove;
         } catch (e) {
-            return response.send(e);
+            return e;
         }
     }
 }
