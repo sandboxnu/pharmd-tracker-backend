@@ -34,7 +34,7 @@ export class ExamController {
 
                 switch (param) {
                     case 'id':
-                        where[param] = Raw(alias => `LOWER(${alias}) LIKE '${value.toLowerCase()}%'`);
+                        where[param] = value;
                         break;
                     case 'name':
                         where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
