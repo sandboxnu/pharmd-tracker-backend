@@ -15,7 +15,7 @@ export class Student {
     })
     @Length(9, 9)
     @IsInt()
-    id: number;
+    id: string;
 
     @Column()
     lastName: string;
