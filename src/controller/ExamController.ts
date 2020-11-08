@@ -17,7 +17,7 @@ export class ExamController {
                 'X-Total-Count': exams.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
-            return response.send(exams);
+            return exams;
         } catch(e) {
             return response.send(e);
         }
@@ -37,7 +37,7 @@ export class ExamController {
                         where[param] = Raw(alias => `LOWER(${alias}) LIKE '${value.toLowerCase()}%'`);
                         break;
                     case 'name':
-                        where[param] = Raw(alias => `LOWER(${alias}) LIKE '${value.toLowerCase()}%'`);
+                        where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
                         break;
                     default:
                         break;
@@ -57,7 +57,7 @@ export class ExamController {
                 'X-Total-Count': exams.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
-            return response.send(exams);
+            return exams;
         } catch (e) {
             return response.send(e);
         }
@@ -69,7 +69,7 @@ export class ExamController {
             const exam = await this.examRepository.findOne({
                 where: {id: request.params.id}
             });
-            return response.send(exam);
+            return exam;
         } catch(e) {
             return response.send(e);
         }
@@ -78,10 +78,9 @@ export class ExamController {
     // find an exam by the given name
     async findByName(request: Request, response: Response, next?: NextFunction) {
         try {
-            const exam = this.examRepository.findOne({
+            return await this.examRepository.findOne({
                 where: {name: request.params.name}
             });
-            return response.send(exam);
         } catch(e) {
             return response.send(e);
         }
@@ -99,7 +98,7 @@ export class ExamController {
                 'X-Total-Count': studentExams.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
-            return response.send(studentExams);
+            return studentExams;
         } catch(e) {
             return response.send(e);
         }
@@ -109,7 +108,7 @@ export class ExamController {
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
             const newExam = await this.examRepository.save(request.body);
-            return response.send(newExam);
+            return newExam;
         } catch (e) {
             return response.send(e);
         }
@@ -120,7 +119,7 @@ export class ExamController {
         try {
             const examToRemove = await this.examRepository.findOne(request.params.id);
             await this.examRepository.remove(examToRemove);
-            return response.send(examToRemove);
+            return examToRemove;
         } catch (e) {
             return response.send(e);
         }

@@ -7,7 +7,7 @@ export const ExamRoutes = [{
     action: "all"
 }, {
     method: "get",
-    route: "/exams?",
+    route: "/exams/q",
     controller: ExamController,
     action: "filter"
 }, {
