@@ -3,8 +3,7 @@ import {createConnection} from "typeorm";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import {Request, Response} from "express";
-import {ExamRoutes} from "./route/ExamRoutes";
-import {UserRoutes} from "./route/UserRoutes";
+import {Routes} from "./route/index"
 import {User} from "./entity/User";
 import {Exam} from "./entity/Exam";
 
@@ -13,8 +12,6 @@ createConnection().then(async connection => {
     // create express app
     const app = express();
     app.use(bodyParser.json());
-
-    let Routes = [...ExamRoutes,...UserRoutes]
 
     // register express routes from defined application routes
     Routes.forEach(route => {

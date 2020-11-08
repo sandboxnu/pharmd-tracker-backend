@@ -26,12 +26,12 @@ export const ExamRoutes = [{
     action: "remove"
 }, {
     method: "get",
-    route: "/examQuery?",
+    route: "/exams/q?",
     controller: ExamController,
     action: "filter"
 }, {
     method: "get",
     route: "/exams/:id/instances",
     controller: ExamController,
-    action: "getStudentsByExam"
+    action: "getStudentExamByExamId"
 }];
