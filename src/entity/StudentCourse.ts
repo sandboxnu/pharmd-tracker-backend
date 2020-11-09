@@ -1,17 +1,20 @@
-import {Entity, PrimaryColumn, ManyToOne, Column} from "typeorm";
+import {Entity, ManyToOne, Column, Unique, PrimaryGeneratedColumn} from "typeorm";
 import { Student } from "./Student";
 import { Course } from "./Course";
 import {IsInt, Length, Min, Max} from "class-validator";
 import {Semester, LetterGrade} from "./Enums";
 
-
 @Entity()
+@Unique(["studentId", "courseId"])
 export class StudentCourse {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
+
+    @Column()
     studentId: string;
 
-    @PrimaryColumn()
+    @Column()
     courseId: string;
 
     @Column({
@@ -38,7 +41,6 @@ export class StudentCourse {
     })
     letterGrade: LetterGrade;
 
-    // TODO: anything special for foreign keys?
     @ManyToOne(type => Student, student => student.studentCourses)
     student: Student;
 
