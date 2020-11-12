@@ -1,11 +1,11 @@
 import {CourseRoutes} from './CourseRoutes';
 import {ExamRoutes} from './ExamRoutes';
-import {NotesRoutes} from './NotesRoutes';
+import {NoteRoutes} from './NoteRoutes';
 import {UserRoutes} from './UserRoutes';
 
 export const Routes = [
     ...CourseRoutes,
     ...ExamRoutes,
-    ...NotesRoutes,
+    ...NoteRoutes,
     ...UserRoutes,
 ];

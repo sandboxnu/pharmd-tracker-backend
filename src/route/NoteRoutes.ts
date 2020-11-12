@@ -1,6 +1,6 @@
 import {NoteController} from "../controller/NoteController";
 
-export const NotesRoutes = [
+export const NoteRoutes = [
     {
         method: "get",
         route: "/notes",
