@@ -68,10 +68,9 @@ export class UserController {
     // find a user by the given id
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
-            const user = await this.userRepository.findOne({
+            return await this.userRepository.findOne({
                 where: {id: request.params.id}
             });
-            return user;
         } catch(e) {
             return e;
         }
@@ -80,8 +79,7 @@ export class UserController {
     // Create or update a user
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
-            const user = await this.userRepository.save(request.body);
-            return user;
+            return await this.userRepository.save(request.body);
         } catch (e) {
             return e;
         }
