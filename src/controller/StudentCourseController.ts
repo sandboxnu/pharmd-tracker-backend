@@ -81,10 +81,9 @@ export class StudentCourseController {
     // find a studentCourse by the given id
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
-            const studentCourse = await this.studentCourseRepository.findOne({
+            return await this.studentCourseRepository.findOne({
                 where: {id: request.params.id}
             });
-            return studentCourse;
         } catch(e) {
             return e;
         }
@@ -93,8 +92,7 @@ export class StudentCourseController {
     // Create or update a studentCourse
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
-            const newStudentCourse = await this.studentCourseRepository.save(request.body);
-            return newStudentCourse;
+            return await this.studentCourseRepository.save(request.body);
         } catch (e) {
             return e;
         }
