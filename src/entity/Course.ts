@@ -7,7 +7,7 @@ import {IsIn, IsInt, Length} from "class-validator";
 export class Course {
 
     @PrimaryGeneratedColumn("uuid")
-    id: number;
+    id: string;
 
     @Column()
     @Length(2,4)
