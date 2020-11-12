@@ -1,20 +1,33 @@
 import {Entity, PrimaryColumn, ManyToOne, Column, Double} from "typeorm";
 import { Student } from "./Student";
 import { Exam } from "./Exam";
-import {Max, Min} from "class-validator";
-import {LetterGrade} from "./Enums";
+import {IsInt, Length, Max, Min} from "class-validator";
+import {LetterGrade, Semester} from "./Enums";
 
 @Entity()
 export class StudentExam {
 
-    @PrimaryColumn()
-    studentId: string;
+    @PrimaryColumn({
+        comment: "NUID"
+    })
+    @Length(9, 9)
+    @IsInt()
+    NUID: string;
 
     @PrimaryColumn()
     examId: string;
 
+    @Column({
+        type: "enum",
+        enum: Semester,
+        default: Semester.FALL
+    })
+    semester: Semester;
+
     @Column()
-    term: string;
+    @IsInt()
+    @Length(4)
+    year: number;
 
     @Column({type: "float"})
     @Min(0)

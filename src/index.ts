@@ -3,8 +3,9 @@ import {createConnection} from "typeorm";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import {Request, Response} from "express";
-import {Routes} from "./routes";
+import {Routes} from "./route/index"
 import {User} from "./entity/User";
+import {Exam} from "./entity/Exam";
 
 createConnection().then(async connection => {
 
@@ -42,6 +43,12 @@ createConnection().then(async connection => {
         lastName: "Assassin",
         age: 24
     }));
+    //insert new exam for testing
+    await connection.manager.save(connection.manager.create(Exam, {
+        id: "ddb1c8b7-e76a-4817-890c-5d89012ed6d7",
+        name: "Final"
+    }));
+
 
     console.log("Express server has started on port 3000. Open http://localhost:3000/users to see results");
 
