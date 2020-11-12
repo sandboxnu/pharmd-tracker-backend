@@ -46,7 +46,7 @@ export class NoteController {
 
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
-            const noteToRemove = await this.examRepository.findOne(request.params.id);
+            const noteToRemove = await this.noteRepository.findOne(request.params.id);
             await this.noteRepository.remove(noteToRemove);
             return noteToRemove;
         } catch (e) {
