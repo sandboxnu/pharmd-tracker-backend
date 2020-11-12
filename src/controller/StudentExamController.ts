@@ -81,10 +81,9 @@ export class StudentExamController {
     // find a studentExam given its unique id
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
-            const studentExams = await this.studentExamRepository.findOne({
+            return await this.studentExamRepository.findOne({
                 where: {id: request.params.id}
             });
-            return studentExams;
         } catch(e) {
             return e;
         }
@@ -93,8 +92,7 @@ export class StudentExamController {
     // Create or update an exam
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
-            const newStudentExam = await this.studentExamRepository.save(request.body);
-            return newStudentExam;
+            return await this.studentExamRepository.save(request.body);
         } catch (e) {
             return e;
         }
