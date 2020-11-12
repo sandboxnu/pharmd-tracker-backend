@@ -10,7 +10,7 @@ export class CourseController {
     async all(request: Request, response: Response, next?: NextFunction) {
         try {
             const courses = await this.courseRepository.find();
-            await res.set({
+            await response.set({
                 'X-Total-Count': courses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
@@ -107,7 +107,7 @@ export class CourseController {
     async update(request: Request, response: Response, next?:NextFunction) {
         try {
             let courseToUpdate = await this.courseRepository.findOne({
-                id: req.params.courseId
+                id: request.params.courseId
             });
             this.courseRepository.merge(courseToUpdate, request.body);
             await this.courseRepository.save(courseToUpdate);
