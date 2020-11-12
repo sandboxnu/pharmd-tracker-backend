@@ -79,6 +79,17 @@ export class ExamController {
         }
     }
 
+    // find an exam by the given name
+    async findByName(request: Request, response: Response, next?: NextFunction) {
+        try {
+            return await this.examRepository.findOne({
+                where: {name: request.params.name}
+            });
+        } catch (e) {
+            return e;
+        }
+    }
+
     async getStudentExamsByExamId(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentExams = await this.studentExamRepository.find({
