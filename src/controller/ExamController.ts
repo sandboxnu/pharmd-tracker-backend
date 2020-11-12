@@ -71,10 +71,9 @@ export class ExamController {
     // find an exam by the given id
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
-            const exam = await this.examRepository.findOne({
+            return await this.examRepository.findOne({
                 where: {id: request.params.id}
             });
-            return exam;
         } catch(e) {
             return e;
         }
@@ -101,8 +100,7 @@ export class ExamController {
     // Create or update an exam
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
-            const newExam = await this.examRepository.save(request.body);
-            return newExam;
+            return await this.examRepository.save(request.body);
         } catch (e) {
             return e;
         }

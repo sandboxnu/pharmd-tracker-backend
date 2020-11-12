@@ -1,4 +1,4 @@
-import { getRepository, Raw, LessThanOrEqual, MoreThanOrEqual, Between} from "typeorm";
+import {Between, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Course} from "../entity/Course";
 
@@ -7,127 +7,126 @@ export class CourseController {
     private courseRepository = getRepository(Course);
 
     // Gets all the courses in the DB
-    async all(req: Request, res: Response, next?: NextFunction) {
+    async all(request: Request, response: Response, next?: NextFunction) {
         try {
             const courses = await this.courseRepository.find();
             await res.set({
                 'X-Total-Count': courses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
-            return res.send(courses);
+            return courses;
         } catch(e) {
-            return res.send(e);
+            return e
         }
     }
 
     async parseQuery(queryObj) {
-        let where = {};
-        // const queryParams = ['id', 'name', 'subject'];
-        const paramList = Object.keys(queryObj);
-        for (const param of paramList) {
-            let value = queryObj[param];
+        try {
+            let where = {};
+            const paramList = Object.keys(queryObj);
+            for (const param of paramList) {
+                let value = queryObj[param];
 
-            switch (param) {
-                case 'id':
-                    where[param] = Raw(alias => `LOWER(${alias}) LIKE '${value.toLowerCase()}%'`);
-                    break;
-                case 'name':
-                case 'subject':
-                    where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
-                    break;
-                case 'number':
-                    if ('max' in value && 'min' in value) {
-                        where[param] = Between(value.min, value.max);
-                    } else if ('max' in value) {
-                        where[param] = LessThanOrEqual(value.max);
-                    } else if ('min' in value) {
-                        where[param] = MoreThanOrEqual(value.min);
-                    } else {
-                        where[param] = value;
-                    }
-                    break;
-                default:
-                    break;
+                switch (param) {
+                    case 'id':
+                        where[param] = Raw(alias => `LOWER(${alias}) LIKE '${value.toLowerCase()}%'`);
+                        break;
+                    case 'name':
+                    case 'subject':
+                        where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
+                        break;
+                    case 'number':
+                        if ('max' in value && 'min' in value) {
+                            where[param] = Between(value.min, value.max);
+                        } else if ('max' in value) {
+                            where[param] = LessThanOrEqual(value.max);
+                        } else if ('min' in value) {
+                            where[param] = MoreThanOrEqual(value.min);
+                        } else {
+                            where[param] = value;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
+            return where;
+        } catch (e) {
+            return e
         }
-
-        return where;
     }
 
-    async filter(req: Request, res: Response, next?: NextFunction) {
+    async filter(request: Request, response: Response, next?: NextFunction) {
         try {
-            const parsedParams = await this.parseQuery(req.query);
+            const parsedParams = await this.parseQuery(request.query);
             const courses = await this.courseRepository.find({
                 where: parsedParams
             });
-            await res.set({
+            await response.set({
                 'X-Total-Count': courses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
-            return res.send(courses);
+            return courses;
         } catch(e) {
-            return res.send(e);
+            return e;
         }
     }
 
     // Gets the course the given id
-    async findById(req: Request, res: Response, next?: NextFunction) {
+    async findById(request: Request, response: Response, next?: NextFunction) {
         try {
-            const course = await this.courseRepository.findOne({
-                id: req.params.courseId
+            return await this.courseRepository.findOne({
+                id: request.params.courseId
             });
-            return res.send(course);
         } catch(e) {
-            return res.send(e);
+            return e;
         }
     }
 
     // Gets the course with the given name
-    async findByName(req: Request, res: Response, next?: NextFunction) {
+    async findByName(request: Request, response: Response, next?: NextFunction) {
         try {
-            const course = await this.courseRepository.findOne({
-                name: req.params.courseName
+            return await this.courseRepository.findOne({
+                name: request.params.courseName
             });
-            return res.send(course);
         } catch(e) {
-            return res.send(e);
+            return e;
         }
     }
 
     // Creates a new course
-    async save(req: Request, res: Response, next?: NextFunction) {
+    async save(request: Request, response: Response, next?: NextFunction) {
         try {
-            const newCourse = await this.courseRepository.save(req.body);
-            return res.send(newCourse);
+            return await this.courseRepository.save(request.body);
         } catch (e) {
-            return res.send(e);
+            return e;
         }
     }
 
     // Updates the course with the given id
-    async update(req: Request, res: Response, next?:NextFunction) {
+    async update(request: Request, response: Response, next?:NextFunction) {
         try {
             let courseToUpdate = await this.courseRepository.findOne({
                 id: req.params.courseId
             });
-            this.courseRepository.merge(courseToUpdate, req.body);
+            this.courseRepository.merge(courseToUpdate, request.body);
             await this.courseRepository.save(courseToUpdate);
-            return res.send(courseToUpdate);
+            return courseToUpdate;
         } catch(e) {
-            return res.send(e);
+            return e;
         }
     }
 
     // Deletes the course with the given id
-    async remove(req: Request, res: Response, next?: NextFunction) {
+    async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             let courseToRemove = await this.courseRepository.findOne({
-                id: req.params.courseId
+                id: request.params.courseId
             });
             await this.courseRepository.remove(courseToRemove);
-            return res.send(courseToRemove);
+            return courseToRemove;
         } catch (e) {
-            return res.send(e);
+            return e;
         }
     }
 

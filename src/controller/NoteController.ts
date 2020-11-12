@@ -7,7 +7,16 @@ export class NoteController {
     private noteRepository = getRepository(Note);
 
     async all(request: Request, response: Response, next?: NextFunction) {
-        return this.noteRepository.find();
+        try {
+            const notes = await this.noteRepository.find();
+            response.set({
+                'X-Total-Count': notes.length,
+                'Access-Control-Expose-Headers': ['X-Total-Count']
+            });
+            return notes;
+        } catch (e) {
+            return e;
+        }
     }
 
     // TODO: parse query method
@@ -18,16 +27,31 @@ export class NoteController {
     }
 
     async findById(request: Request, response: Response, next?: NextFunction) {
-        return this.noteRepository.findOne(request.params.id);
+        try {
+            return await this.noteRepository.findOne({
+                where: {id: request.params.id}
+            });
+        } catch(e) {
+            return e;
+        }
     }
 
     async save(request: Request, response: Response, next?: NextFunction) {
-        return this.noteRepository.save(request.body);
+        try {
+            return await this.noteRepository.save(request.body);
+        } catch (e) {
+            return e;
+        }
     }
 
     async remove(request: Request, response: Response, next?: NextFunction) {
-        let userToRemove = await this.noteRepository.findOne(request.params.id);
-        await this.noteRepository.remove(userToRemove);
+        try {
+            const noteToRemove = await this.examRepository.findOne(request.params.id);
+            await this.noteRepository.remove(noteToRemove);
+            return noteToRemove;
+        } catch (e) {
+            return e;
+        }
     }
 
 }
