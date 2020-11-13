@@ -56,3 +56,9 @@ export enum PCFReviewer {
     APCB = 'APCB',
     ASC = 'ASC'
 }
+
+// users access level to data
+export enum AccessLevel {
+    READ = 'read',
+    WRITE = 'write'
+}
