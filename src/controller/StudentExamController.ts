@@ -1,4 +1,4 @@
-import {Between, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
+import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {StudentExam} from "../entity/StudentExam";
 
@@ -41,14 +41,17 @@ export class StudentExamController {
                             break;
                         case 'year':
                         case 'percentage':
-                            if ('max' in value && 'min' in value) {
+                        case 'number':
+                            const hasMin = value.hasOwnProperty('min');
+                            const hasMax = value.hasOwnProperty('max');
+                            if ( hasMin && hasMax ) {
                                 where[param] = Between(value.min, value.max);
-                            } else if ('max' in value) {
+                            } else if (hasMax) {
                                 where[param] = LessThanOrEqual(value.max);
-                            } else if ('min' in value) {
+                            } else if (hasMin) {
                                 where[param] = MoreThanOrEqual(value.min);
-                            } else if ('exact') {
-                                where[param] = value.exact;
+                            } else {
+                                where[param] = Equal(value);
                             }
                             break;
                         default:
