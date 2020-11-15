@@ -1,4 +1,4 @@
-import {Between, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw, Equal} from "typeorm";
+import {Between, getRepository, Like, LessThanOrEqual, MoreThanOrEqual, Raw, Equal} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Course} from "../entity/Course";
 
@@ -29,7 +29,7 @@ export class CourseController {
 
                 switch (param) {
                     case 'id':
-                        where[param] = Raw(alias => `LOWER(${alias}) LIKE '${value.toLowerCase()}%'`);
+                        where[param] = Equal(value);
                         break;
                     case 'name':
                     case 'subject':
