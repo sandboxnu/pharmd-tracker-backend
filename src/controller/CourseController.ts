@@ -6,20 +6,6 @@ export class CourseController {
 
     private courseRepository = getRepository(Course);
 
-    // Gets all the courses in the DB
-    async all(request: Request, response: Response, next?: NextFunction) {
-        try {
-            const courses = await this.courseRepository.find();
-            await response.set({
-                'X-Total-Count': courses.length,
-                'Access-Control-Expose-Headers': ['X-Total-Count']
-            });
-            return courses;
-        } catch(e) {
-            return e
-        }
-    }
-
     async parseQuery(queryObj) {
         try {
             let where = {};

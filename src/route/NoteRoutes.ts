@@ -5,7 +5,7 @@ export const NoteRoutes = [
         method: "get",
         route: "/notes",
         controller: NoteController,
-        action: "all"
+        action: "filter"
     },
     {
         method: "post",
