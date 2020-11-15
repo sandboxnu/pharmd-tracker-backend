@@ -1,9 +1,10 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {AccessLevel} from "./Enums";
 
 @Entity()
 export class User {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn("uuid")
     id: number;
 
     @Column()
@@ -12,7 +13,12 @@ export class User {
     @Column()
     lastName: string;
 
-    @Column()
-    age: number;
+    @Column({
+        type: "enum",
+        enum: AccessLevel,
+        default: AccessLevel.READ
+    })
+    accessLevel: AccessLevel;
 
 }
+

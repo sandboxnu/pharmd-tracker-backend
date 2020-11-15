@@ -1,20 +1,24 @@
-import {Entity, PrimaryColumn, ManyToOne, Column, Double} from "typeorm";
+import {Entity, ManyToOne, Column, PrimaryGeneratedColumn, Unique} from "typeorm";
 import { Student } from "./Student";
 import { Exam } from "./Exam";
 import {IsInt, Length, Max, Min} from "class-validator";
 import {LetterGrade, Semester} from "./Enums";
 
 @Entity()
+@Unique(["studentId", "examId"])
 export class StudentExam {
 
-    @PrimaryColumn({
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
+
+    @Column({
         comment: "NUID"
     })
     @Length(9, 9)
     @IsInt()
     studentId: string;
 
-    @PrimaryColumn()
+    @Column()
     examId: string;
 
     @Column({
@@ -43,10 +47,10 @@ export class StudentExam {
     })
     letterGrade: LetterGrade;
 
-    @ManyToOne(type => Exam, student => student.studentExams)
+    @ManyToOne(type => Student, student => student.studentExams)
     student: Student;
 
-    @ManyToOne(type => Exam, course => course.studentExams)
+    @ManyToOne(type => Exam, exam => exam.studentExams)
     exam: Exam;
 
 }

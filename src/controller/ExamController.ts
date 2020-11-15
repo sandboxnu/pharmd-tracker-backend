@@ -85,7 +85,7 @@ export class ExamController {
             return await this.examRepository.findOne({
                 where: {name: request.params.name}
             });
-        } catch (e) {
+        } catch(e) {
             return e;
         }
     }
