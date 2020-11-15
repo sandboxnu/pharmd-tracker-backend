@@ -1,4 +1,4 @@
-import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
+import { Equal, getRepository, Like , Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Note} from "../entity/Note";
 
@@ -20,6 +20,9 @@ export class NoteController {
                     case 'title':
                     case 'body':
                         where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
+                        break;
+                    case 'tags':
+                        where[param] = Like(`%${value}%`);
                         break;
                     default:
                         break;
