@@ -6,19 +6,6 @@ export class StudentCourseController {
 
     private studentCourseRepository = getRepository(StudentCourse);
 
-    // find all studentCourses
-    async all(request: Request, response: Response, next?: NextFunction) {
-        try {
-            const studentCourses = await this.studentCourseRepository.find();
-            await response.set({
-                'X-Total-Count': studentCourses.length,
-                'Access-Control-Expose-Headers': ['X-Total-Count']
-            });
-            return studentCourses;
-        } catch(e) {
-            return e;
-        }
-    }
 
     // gets studentCourses that match the given query params
     async parseQuery(queryObj) {
