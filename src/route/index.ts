@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {CourseRoutes} from './CourseRoutes';
 import {ExamRoutes} from './ExamRoutes';
 import {NoteRoutes} from './NoteRoutes';

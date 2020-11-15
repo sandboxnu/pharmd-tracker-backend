@@ -25,7 +25,8 @@ export enum StudentStatus {
     ENROLLED= 'ENROLLED',
     LEAVE = 'LEAVE',
     DROP_BACK = "DROP_BACK",
-    COOP = 'CO-OP'
+    COOP = 'CO-OP',
+    GRADUATED = 'GRADUATED'
 }
 
 // TODO: is there more than just the F1 visa
