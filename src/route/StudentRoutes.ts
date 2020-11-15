@@ -15,9 +15,9 @@ export const StudentRoutes = [
     },
     {
         method: "get",
-        route: "/students/:id/courses",
+        route: "/students/:studentId/courses/:courseId/exam-instances",
         controller: StudentController,
-        action: "getCoursesByStudentId"
+        action: "getStudentExamByCourse"
     },
     {
         method: "get",
@@ -27,21 +27,21 @@ export const StudentRoutes = [
     },
     {
         method: "get",
-        route: "/students/:studentId/courses/:courseId/exam-instances",
+        route: "/students/:id/courses",
         controller: StudentController,
-        action: "getStudentExamByCourse"
-    },
-    {
-        method: "get",
-        route: "/students/:id/exams",
-        controller: StudentController,
-        action: "getExamsByStudentId"
+        action: "getCoursesByStudentId"
     },
     {
         method: "get",
         route: "/students/:studentId/exams/:examId",
         controller: StudentController,
         action: "getStudentExamByIds"
+    },
+    {
+        method: "get",
+        route: "/students/:id/exams",
+        controller: StudentController,
+        action: "getExamsByStudentId"
     },
     {
         method: "get",
