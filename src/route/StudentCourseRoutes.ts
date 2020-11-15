@@ -3,15 +3,9 @@ import {StudentCourseController} from "../controller/StudentCourseController";
 export const StudentCourseRoutes = [
     {
         method: "get",
-        route: "/studentCourses/q?",
-        controller: StudentCourseController,
-        action: "filter"
-    },
-    {
-        method: "get",
         route: "/studentCourses",
         controller: StudentCourseController,
-        action: "all"
+        action: "filter"
     },
     {
         method: "get",

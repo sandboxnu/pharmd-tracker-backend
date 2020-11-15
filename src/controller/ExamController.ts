@@ -9,19 +9,6 @@ export class ExamController {
     private examRepository = getRepository(Exam);
     private studentExamRepository = getRepository(StudentExam);
 
-    // find all exams
-    async all(request: Request, response: Response, next?: NextFunction) {
-        try {
-            const exams = await this.examRepository.find();
-            await response.set({
-                'X-Total-Count': exams.length,
-                'Access-Control-Expose-Headers': ['X-Total-Count']
-            });
-            return exams;
-        } catch(e) {
-            return e;
-        }
-    }
 
     // gets assessments that match the given query params
     async parseQuery(queryObj) {

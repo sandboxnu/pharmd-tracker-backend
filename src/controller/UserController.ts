@@ -6,17 +6,6 @@ export class UserController {
 
     private userRepository = getRepository(User);
 
-    // find all users
-    async all(request: Request, response: Response, next?: NextFunction) {
-        const users = await this.userRepository.find();
-        await response.set({
-            'X-Total-Count': users.length,
-            'Access-Control-Expose-Headers': ['X-Total-Count']
-        });
-        return users;
-    } catch(e) {
-        return e;
-    }
 
     // get users that match the given query params
     async parseQuery(queryObj) {
