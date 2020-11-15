@@ -1,10 +1,12 @@
-import {Entity, Column, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Entity, Column, OneToMany, PrimaryGeneratedColumn, Unique} from "typeorm";
 import { Exam } from "./Exam";
 import { StudentCourse } from "./StudentCourse";
-import {IsIn, IsInt, Length} from "class-validator";
+import { IsInt, Length} from "class-validator";
 
 @Entity()
+@Unique(['subject', 'number'])
 export class Course {
+
 
     @PrimaryGeneratedColumn("uuid")
     id: string;

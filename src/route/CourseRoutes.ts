@@ -1,60 +1,34 @@
-import { Router } from 'express';
 import {CourseController} from "../controller/CourseController";
 
-const router = Router();
-const controller = new CourseController();
+export const CourseRoutes = [
+    {
+        method: "get",
+        route: "/courses",
+        controller: CourseController,
+        action: "filter"
+    },
+    {
+        method: "get",
+        route: "/courses/:courseId",
+        controller: CourseController,
+        action: "findById"
+    },
+    {
+        method: "post",
+        route: "/courses",
+        controller: CourseController,
+        action: "save"
+    },
+    {
+        method: "put",
+        route: "/courses/:courseId",
+        controller: CourseController,
+        action: "save"
+    }, {
 
-// Gets all courses that match the filter parameters
-router.get('/', async (req, res) => {
-    try {
-        const courses = await controller.filter(req, res);
-        await res.set({
-            'X-Total-Count': courses.length,
-            'Access-Control-Expose-Headers': ['X-Total-Count']
-        });
-        return res.send(courses);
-    } catch(e) {
-        console.log(e);
-        return res.send(e);
+        method: "delete",
+        route: "/courses/:id",
+        controller: CourseController,
+        action: "remove"
     }
-});
-
-// Gets all the courses in the DB
-router.get('/', async (req, res) => {
-    try {
-        console.log('Before finding...');
-        const courses = await controller.all(req, res);
-        console.log('After finding...');
-        await res.set({
-            'X-Total-Count': courses.length,
-            'Access-Control-Expose-Headers': ['X-Total-Count']
-        });
-        console.log('After setting...');
-        return res.send(courses);
-    } catch(e) {
-        console.log(e);
-        return res.send(e);
-    }
-});
-
-// Gets the course the provided id
-router.get('/:courseId', async (req, res) => {
-    try {
-        const course = await controller.findById(req, res);
-        return res.send(course);
-    } catch(e) {
-        console.log(e);
-        return res.send(e);
-    }
-});
-
-// Gets the course with the given name
-router.get('/name/:courseName', async (req, res) => {
-    try {
-        const course = await controller.findByName(req, res);
-        return res.send(course);
-    } catch(e) {
-        console.log(e);
-        return res.send(e);
-    }
-});
+];
