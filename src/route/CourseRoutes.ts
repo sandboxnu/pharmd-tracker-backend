@@ -29,7 +29,7 @@ export const CourseRoutes = [
         method: "put",
         route: "/courses/:courseId",
         controller: CourseController,
-        action: "update"
+        action: "save"
     }, {
 
         method: "delete",

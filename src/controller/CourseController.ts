@@ -105,20 +105,6 @@ export class CourseController {
         }
     }
 
-    // Updates the course with the given id
-    async update(request: Request, response: Response, next?:NextFunction) {
-        try {
-            let courseToUpdate = await this.courseRepository.findOne({
-                id: request.params.courseId
-            });
-            this.courseRepository.merge(courseToUpdate, request.body);
-            await this.courseRepository.save(courseToUpdate);
-            return courseToUpdate;
-        } catch(e) {
-            return e;
-        }
-    }
-
     // Deletes the course with the given id
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
