@@ -14,12 +14,6 @@ export const CourseRoutes = [
         action: "findById"
     },
     {
-        method: "get",
-        route: "/courses/:courseName",
-        controller: CourseController,
-        action: "findByName"
-    },
-    {
         method: "post",
         route: "/courses",
         controller: CourseController,

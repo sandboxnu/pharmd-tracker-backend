@@ -71,17 +71,6 @@ export class CourseController {
         }
     }
 
-    // Gets the course with the given name
-    async findByName(request: Request, response: Response, next?: NextFunction) {
-        try {
-            return await this.courseRepository.findOne({
-                name: request.params.courseName
-            });
-        } catch(e) {
-            return e;
-        }
-    }
-
     // Creates a new course
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
