@@ -3,15 +3,9 @@ import {CourseController} from "../controller/CourseController";
 export const CourseRoutes = [
     {
         method: "get",
-        route: "/courses/q",
-        controller: CourseController,
-        action: "filter"
-    },
-    {
-        method: "get",
         route: "/courses",
         controller: CourseController,
-        action: "all"
+        action: "filter"
     },
     {
         method: "get",
