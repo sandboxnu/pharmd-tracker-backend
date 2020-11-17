@@ -25,7 +25,7 @@ export class StudentController {
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
             return students;
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -60,7 +60,7 @@ export class StudentController {
                         case 'gpa':
                             const hasMin = value.hasOwnProperty('min');
                             const hasMax = value.hasOwnProperty('max');
-                            if ( hasMin && hasMax ) {
+                            if (hasMin && hasMax) {
                                 where[param] = Between(value.min, value.max);
                             } else if (hasMax) {
                                 where[param] = LessThanOrEqual(value.max);
@@ -104,24 +104,35 @@ export class StudentController {
             return await this.studentRepository.findOne({
                 where: {id: request.params.id}
             });
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
 
     async getCoursesByStudentId(request: Request, response: Response, next?: NextFunction) {
         try {
-            const courses = await this.courseRepository.find({
+            const studentCourses = await this.studentCourseRepository.find({
                 where: {
                     studentId: request.params.id,
                 }
             });
+
+            const coursesPromises = studentCourses.map(async (studentCourse) => {
+                const course = await this.courseRepository.find({
+                    where: {
+                        id: studentCourse.courseId
+                    }
+                });
+                return course;
+            });
+            const courses = await Promise.all(coursesPromises);
+
             await response.set({
                 'X-Total-Count': courses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
             return courses;
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -134,24 +145,35 @@ export class StudentController {
                     courseId: request.params.courseId,
                 }
             });
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
 
     async getExamsByStudentId(request: Request, response: Response, next?: NextFunction) {
         try {
-            const exams = await this.examRepository.find({
+            const studentExams = await this.studentExamRepository.find({
                 where: {
                     studentId: request.params.id,
                 }
             });
+
+            const examsPromises = studentExams.map(async (studentExam) => {
+                const exam = await this.examRepository.find({
+                    where: {
+                        id: studentExam.examId
+                    }
+                });
+                return exam;
+            });
+            const exams = await Promise.all(examsPromises);
+
             await response.set({
                 'X-Total-Count': exams.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
             return exams;
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -164,7 +186,7 @@ export class StudentController {
                     examId: request.params.examId,
                 }
             });
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -172,13 +194,24 @@ export class StudentController {
 
     async getStudentExamByCourse(request: Request, response: Response, next?: NextFunction) {
         try {
-            return await this.studentExamRepository.findOne({
-                where: {
-                    studentId: request.params.studentId,
-                    courseId: request.params.courseId,
+            const examsForCourse = await this.examRepository.find(
+                {
+                    course: request.params.courseId
                 }
+            )
+            const studentExamsPromises = examsForCourse.map(async (exam) => {
+                console.log(request.params.studentId)
+                const studentExam = await this.studentExamRepository.find({
+                    where: {
+                        studentId: request.params.studentId,
+                        examId: exam.id,
+                    }});
+                return studentExam;
             });
-        } catch(e) {
+            const studentExams = await Promise.all(studentExamsPromises);
+
+            return studentExams;
+        } catch (e) {
             return e;
         }
     }
@@ -187,7 +220,7 @@ export class StudentController {
         try {
             const notes = await this.noteRepository.find({
                 where: {
-                    studentId: request.params.id,
+                    student: request.params.id,
                 }
             });
             await response.set({
@@ -195,7 +228,7 @@ export class StudentController {
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
             return notes;
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
