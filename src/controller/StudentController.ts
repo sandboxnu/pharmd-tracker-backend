@@ -1,4 +1,4 @@
-import {Equal, getRepository, Between, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
+import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Student} from "../entity/Student";
 import {Course} from "../entity/Course";
@@ -117,15 +117,16 @@ export class StudentController {
                 }
             });
 
-            const coursesPromises = studentCourses.map(async (studentCourse) => {
-                const course = await this.courseRepository.find({
-                    where: {
-                        id: studentCourse.courseId
-                    }
-                });
-                return course;
-            });
-            const courses = await Promise.all(coursesPromises);
+            const courses = await Promise.all(
+                studentCourses.map(async (studentCourse) => {
+                    // get course from studentCourse
+                    return await this.courseRepository.find({
+                        where: {
+                            id: studentCourse.courseId
+                        }
+                    });
+                })
+            );
 
             await response.set({
                 'X-Total-Count': courses.length,
@@ -158,15 +159,16 @@ export class StudentController {
                 }
             });
 
-            const examsPromises = studentExams.map(async (studentExam) => {
-                const exam = await this.examRepository.find({
-                    where: {
-                        id: studentExam.examId
-                    }
-                });
-                return exam;
-            });
-            const exams = await Promise.all(examsPromises);
+            const exams = await Promise.all(
+                studentExams.map(async (studentExam) => {
+                    // get exam from studentExam
+                    return await this.examRepository.find({
+                        where: {
+                            id: studentExam.examId
+                        }
+                    });
+                })
+            );
 
             await response.set({
                 'X-Total-Count': exams.length,
@@ -198,17 +200,24 @@ export class StudentController {
                 {
                     course: request.params.courseId
                 }
-            )
-            const studentExamsPromises = examsForCourse.map(async (exam) => {
-                console.log(request.params.studentId)
-                const studentExam = await this.studentExamRepository.find({
-                    where: {
-                        studentId: request.params.studentId,
-                        examId: exam.id,
-                    }});
-                return studentExam;
+            );
+
+            const studentExams = await Promise.all(
+                // get studentExams from exams for course
+                examsForCourse.map(async (exam) => {
+                    return await this.studentExamRepository.find({
+                        where: {
+                            studentId: request.params.studentId,
+                            examId: exam.id,
+                        }
+                    });
+                })
+            );
+
+            await response.set({
+                'X-Total-Count': studentExams.length,
+                'Access-Control-Expose-Headers': ['X-Total-Count']
             });
-            const studentExams = await Promise.all(studentExamsPromises);
 
             return studentExams;
         } catch (e) {
