@@ -45,3 +45,6 @@ In your terminal:
 3. Run `npm start`. You should see a console message saying `Server started on port 3000! http://localhost:3000/`.
 
 Now you have the backend running!
+
+You'll probably want to start sending your own requests, and a helpful tool for that is Postman, a desktop app that helps you test out APIs.  
+Here's a good article to get you started on using Postman: https://www.guru99.com/postman-tutorial.html.
