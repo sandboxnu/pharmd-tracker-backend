@@ -17,6 +17,7 @@ export const StudentCourseRoutes = [
         method: "post",
         route: "/studentCourses",
         controller: StudentCourseController,
+        action: "save"
     },
     {
         method: "put",
