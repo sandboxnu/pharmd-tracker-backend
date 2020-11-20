@@ -6,5 +6,4 @@ tmp/
 temp/
 .env
 ormconfig.json
-package-lock.json
-package.json
+nodemon.json
