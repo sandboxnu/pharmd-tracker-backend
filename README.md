@@ -42,7 +42,8 @@ If you changed these values while setting up postgres, you will also need to cha
 In your terminal:
 1. Navigate to your pharmd-tracker-backend directory.
 2. Run `npm install`.
-3. Run `npm start`. You should see a console message saying `Server started on port 3000! http://localhost:3000/`.
+3. Run `npm start` to start the project, or `npm dev` to run the project with hot reloading.  
+You should see a console message saying `Server started on port 3000! http://localhost:3000/`.
 
 Now you have the backend running!
 
