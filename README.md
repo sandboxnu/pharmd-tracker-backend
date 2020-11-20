@@ -16,13 +16,13 @@ https://www.codementor.io/@engineerapart/getting-started-with-postgresql-on-mac-
 https://medium.com/@aeadedoyin/getting-started-with-postgresql-on-windows-201906131300-ee75f066df78
 
 After downloading Postgres onto your machine, you will need to create a database for the project.
-1. In your terminal, ensure that postgres is running by entering `brew services start postgresql` on Mac or `pg_ctl start` on WIndows. 
-1. In your terminal, enter `psql postgres` to enter an interactive postgres shell.
-2. To create a database, enter `create database <database name>;`.
-3. To create a user for yourself to use instead of the default, enter `create user <username> with password '<password>';` with your desired username and password.
-4. To give that user permissions to your database, enter `grant all privileges on database <dbname> to <username>;`
-5. To verify that you've created your database, enter `\l` to list the databases on your server. You should see a table titled `List of databases` where one of the entries is  `<database name>`.
-6. You can exit the shell by entering `\q`.
+1. In your terminal, ensure that postgres is running by entering `brew services start postgresql` on Mac or `pg_ctl start` on Windows. 
+2. In your terminal, enter `psql postgres` to enter an interactive postgres shell.
+3. To create a database, enter `create database <database name>;`.
+4. To create a user for yourself to use instead of the default, enter `create user <username> with password '<password>';` with your desired username and password.
+5. To give that user permissions to your database, enter `grant all privileges on database <dbname> to <username>;`
+6. To verify that you've created your database, enter `\l` to list the databases on your server. You should see a table titled `List of databases` where one of the entries is  `<database name>`.
+7. You can exit the shell by entering `\q`.
 
 Here is a helpful list of psql commands: https://www.postgresqltutorial.com/psql-commands/
 
@@ -46,5 +46,5 @@ In your terminal:
 
 Now you have the backend running!
 
-You'll probably want to start sending your own requests, and a helpful tool for that is Postman, a desktop app that helps you test out APIs.  
+You'll probably want to start sending your own requests and a helpful tool for that is Postman, a desktop app that helps you test out APIs.  
 Here's a good article to get you started on using Postman: https://www.guru99.com/postman-tutorial.html.
