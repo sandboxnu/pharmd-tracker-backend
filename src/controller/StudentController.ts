@@ -35,8 +35,6 @@ export class StudentController {
         try {
             let where = {};
             const paramList = Object.keys(queryObj);
-            // const queryParams = ['NUID', 'firstName', 'lastName', 'visa', 'entryType', 'dualDegree', 'entryToP1',
-            //     'originalGradDate', 'adjustedGradDate', 'gradDateChange', 'leftProgram', 'status', 'GPA'];
 
             for (const param of paramList) {
                 if (param in queryObj) {
@@ -44,17 +42,19 @@ export class StudentController {
 
                     switch (param) {
                         case 'id':
-                        case 'visa':
+                        case 'hasVisa':
                         case 'entryType':
-                        case 'dualDegree':
+                        case 'isDualDegree':
+                        case 'entryDate':
                         case 'originalGradDate':
-                        case 'adjustedGradDate':
+                        case 'gradDate':
                         case 'leftProgram':
                         case 'status':
                             where[param] = Equal(value);
                             break;
                         case 'firstName':
                         case 'lastName':
+                        case 'preferredName':
                             where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
                             break;
                         case 'gpa':
