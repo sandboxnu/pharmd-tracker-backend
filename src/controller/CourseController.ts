@@ -64,7 +64,7 @@ export class CourseController {
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.courseRepository.findOne({
-                id: request.params.courseId
+                id: request.params.id
             });
         } catch(e) {
             return e;
@@ -84,7 +84,7 @@ export class CourseController {
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             let courseToRemove = await this.courseRepository.findOne({
-                id: request.params.courseId
+                id: request.params.id
             });
             await this.courseRepository.remove(courseToRemove);
             return courseToRemove;
