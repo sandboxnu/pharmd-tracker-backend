@@ -34,6 +34,6 @@ export const ExamRoutes = [
         method: "get",
         route: "/exams/:id/instances",
         controller: ExamController,
-        action: "getStudentExamByExamId"
+        action: "getStudentExamsByExamId"
     }
 ];

@@ -27,7 +27,6 @@ export class StudentExamController {
                             break;
                         case 'year':
                         case 'percentage':
-                        case 'number':
                             const hasMin = value.hasOwnProperty('min');
                             const hasMax = value.hasOwnProperty('max');
                             if ( hasMin && hasMax ) {

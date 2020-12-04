@@ -9,7 +9,7 @@ export const CourseRoutes = [
     },
     {
         method: "get",
-        route: "/courses/:courseId",
+        route: "/courses/:id",
         controller: CourseController,
         action: "findById"
     },
@@ -21,7 +21,7 @@ export const CourseRoutes = [
     },
     {
         method: "put",
-        route: "/courses/:courseId",
+        route: "/courses/:id",
         controller: CourseController,
         action: "save"
     }, {
