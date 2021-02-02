@@ -15,6 +15,7 @@ export class NoteController {
 
                 switch (param) {
                     case 'id':
+                    case 'student':
                         where[param] = Equal(value);
                         break;
                     case 'title':
