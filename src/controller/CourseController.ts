@@ -1,4 +1,4 @@
-import {Between, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw, Equal} from "typeorm";
+import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Course} from "../entity/Course";
 
@@ -55,6 +55,23 @@ export class CourseController {
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
             return courses;
+        } catch(e) {
+            return e;
+        }
+    }
+
+    async sort(request: Request, response: Response, next?: NextFunction) {
+        try {
+            let start: number = request.query["_start"];
+            let end: number = request.query["_end"];
+            const order = request.query["_order"];
+            const sort = request.query["_sort"];
+            return await this.courseRepository
+                .createQueryBuilder("course")
+                .orderBy(sort, order)
+                .limit(end - start)
+                .skip(start)
+                .getMany();
         } catch(e) {
             return e;
         }

@@ -1,33 +1,42 @@
 import {CourseController} from "../controller/CourseController";
+import {Config as config} from "./Config";
+
+const BASE_PATH = "/courses";
 
 export const CourseRoutes = [
     {
-        method: "get",
-        route: "/courses",
+        method: config.GET,
+        route: BASE_PATH,
         controller: CourseController,
         action: "filter"
     },
     {
-        method: "get",
-        route: "/courses/:id",
+        method: config.GET,
+        route: BASE_PATH + "/sort",
+        controller: CourseController,
+        action: "sort"
+    },
+    {
+        method: config.GET,
+        route: BASE_PATH + "/:id",
         controller: CourseController,
         action: "findById"
     },
     {
-        method: "post",
-        route: "/courses",
+        method: config.POST,
+        route: BASE_PATH,
         controller: CourseController,
         action: "save"
     },
     {
-        method: "put",
-        route: "/courses/:id",
+        method: config.PUT,
+        route: BASE_PATH + "/:id",
         controller: CourseController,
         action: "save"
     }, {
 
-        method: "delete",
-        route: "/courses/:id",
+        method: config.DELETE,
+        route: BASE_PATH + "/:id",
         controller: CourseController,
         action: "remove"
     }
