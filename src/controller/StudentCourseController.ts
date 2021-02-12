@@ -19,8 +19,8 @@ export class StudentCourseController {
 
                     switch (param) {
                         case 'id':
-                        case 'studentId':
-                        case 'courseId':
+                        case 'student':
+                        case 'course':
                         //TODO: Create number values for each letterGrade for comparisons
                         case 'letterGrade':
                         case 'semester':
@@ -54,9 +54,11 @@ export class StudentCourseController {
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
-            const studentCourses = await this.studentCourseRepository.find({
-                where: parsedParams
-            });
+            const studentCourses = await this.studentCourseRepository
+                .createQueryBuilder("studentCourse")
+                .where({...parsedParams})
+                .leftJoinAndSelect("studentCourse.course", "course")
+                .getMany();
             await response.set({
                 'X-Total-Count': studentCourses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
