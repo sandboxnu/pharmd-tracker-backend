@@ -66,12 +66,18 @@ export class CourseController {
             let end: number = request.query["_end"];
             const order = request.query["_order"];
             const sort = request.query["_sort"];
-            return await this.courseRepository
+            const courses = await this.courseRepository
                 .createQueryBuilder("course")
                 .orderBy(sort, order)
                 .limit(end - start)
                 .skip(start)
                 .getMany();
+            await response.set({
+                'X-Total-Count': courses.length,
+                'Access-Control-Expose-Headers': ['X-Total-Count']
+            });
+
+            return courses;
         } catch(e) {
             return e;
         }
