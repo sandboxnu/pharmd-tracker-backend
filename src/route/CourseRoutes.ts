@@ -12,12 +12,6 @@ export const CourseRoutes = [
     },
     {
         method: config.GET,
-        route: BASE_PATH + "/sort",
-        controller: CourseController,
-        action: "sort"
-    },
-    {
-        method: config.GET,
         route: BASE_PATH + "/:id",
         controller: CourseController,
         action: "findById"

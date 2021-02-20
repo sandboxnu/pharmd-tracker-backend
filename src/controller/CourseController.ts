@@ -47,27 +47,13 @@ export class CourseController {
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
-            const courses = await this.courseRepository.find({
-                where: parsedParams
-            });
-            await response.set({
-                'X-Total-Count': courses.length,
-                'Access-Control-Expose-Headers': ['X-Total-Count']
-            });
-            return courses;
-        } catch(e) {
-            return e;
-        }
-    }
-
-    async sort(request: Request, response: Response, next?: NextFunction) {
-        try {
             let start: number = request.query["_start"];
             let end: number = request.query["_end"];
             const order = request.query["_order"];
             const sort = request.query["_sort"];
             const courses = await this.courseRepository
                 .createQueryBuilder("course")
+                .where(parsedParams)
                 .orderBy(sort, order)
                 .limit(end - start)
                 .skip(start)
@@ -76,7 +62,6 @@ export class CourseController {
                 'X-Total-Count': courses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
-
             return courses;
         } catch(e) {
             return e;
