@@ -51,13 +51,9 @@ export class CourseController {
             let end: number = request.query["_end"];
             const order = request.query["_order"];
             const sort = request.query["_sort"];
-            const courseName = request.query["name_like"]
-                ? request.query["name_like"].replace("^", "").trim()
-                : "";
             const courses = await this.courseRepository
                 .createQueryBuilder("course")
                 .where(parsedParams)
-                .andWhere("course.name ILIKE :courseName", { courseName: "%" + courseName + "%"})
                 .orderBy(sort, order)
                 .limit(end - start)
                 .skip(start)
