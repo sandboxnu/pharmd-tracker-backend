@@ -1,4 +1,4 @@
-import {Between, Brackets, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
+import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Course} from "../entity/Course";
 
@@ -99,9 +99,5 @@ export class CourseController {
         } catch (e) {
             return e;
         }
-    }
-
-    private trimNameLikeParam(param) {
-        return param.replace("^", "").trim();
     }
 }
