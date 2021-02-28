@@ -139,7 +139,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
-| GET | \.\.\./notes? | Get all note instances that match the given parameters | Array\<Note\> | <ul> <li> id </li> <li> title (substring) </li> <li> body (substring) </li> <li> tags (substring) </li> </ul> |
+| GET | \.\.\./notes? | Get all note instances that match the given parameters | Array\<Note\> | <ul> <li> id </li> <li> title (substring) </li> <li> body (substring) </li> <li> tags (substring) </li> <li>date (min/max, ISO format)</li> </ul> |
 | GET | \.\.\./notes/ | Get all notes | Array\<Note\> | |
 | GET | \.\.\./notes/\{id\} | Get a note with the given note id | Note | <ul> <li> id </li> </ul> |
 | POST | \.\.\./notes/ | Create a note | | |
