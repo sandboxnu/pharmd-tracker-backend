@@ -1,33 +1,36 @@
 import {UserController} from "../controller/UserController";
+import {Config as config} from "./Config";
+
+const BASE_PATH = "/users";
 
 export const UserRoutes = [
     {
-        method: "get",
-        route: "/users",
+        method: config.GET,
+        route: BASE_PATH,
         controller: UserController,
         action: "filter"
     },
     {
-        method: "get",
-        route: "/users/:id",
+        method: config.GET,
+        route: BASE_PATH + "/:id",
         controller: UserController,
         action: "findById"
     },
     {
-        method: "post",
-        route: "/users",
+        method: config.POST,
+        route: BASE_PATH,
         controller: UserController,
         action: "save"
     },
     {
-        method: "put",
-        route: "/users/:id",
+        method: config.PUT,
+        route: BASE_PATH + "/:id",
         controller: UserController,
         action: "save"
     },
     {
-        method: "delete",
-        route: "/users/:id",
+        method: config.DELETE,
+        route: BASE_PATH + "/:id",
         controller: UserController,
         action: "remove"
     }

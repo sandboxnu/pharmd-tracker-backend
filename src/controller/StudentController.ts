@@ -113,7 +113,7 @@ export class StudentController {
                     // get course from studentCourse
                     return await this.courseRepository.find({
                         where: {
-                            id: studentCourse.courseId
+                            id: studentCourse.course
                         }
                     });
                 })
@@ -133,8 +133,8 @@ export class StudentController {
         try {
             return await this.studentCourseRepository.findOne({
                 where: {
-                    studentId: request.params.studentId,
-                    courseId: request.params.courseId,
+                    student: request.params.studentId,
+                    course: request.params.courseId,
                 }
             });
         } catch (e) {
