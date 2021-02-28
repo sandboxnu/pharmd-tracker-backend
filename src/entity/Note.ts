@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Timestamp } from "typeorm";
 import { Student } from "./Student";
 
 @Entity()
@@ -14,6 +14,9 @@ export class Note {
 
     @Column()
     body: string;
+
+    @Column('timestamptz', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })
+    date: Timestamp;
 
     @Column({
         type: "simple-array"
