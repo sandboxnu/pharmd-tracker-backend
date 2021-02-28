@@ -1,4 +1,4 @@
-import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
+import {Between, Brackets, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Course} from "../entity/Course";
 
@@ -51,13 +51,24 @@ export class CourseController {
             let end: number = request.query["_end"];
             const order = request.query["_order"];
             const sort = request.query["_sort"];
-            const courseName = request.query["name_like"]
-                ? request.query["name_like"].replace("^", "").trim()
+            const maybeCourseNameOrSubject = request.query["name_like"]
+                ? this.trimNameLikeParam(request.query["name_like"])
                 : "";
+            const isNameLikeNumber = request.query["name_like"] && !isNaN(parseInt(this.trimNameLikeParam(request.query["name_like"])));
+            const searchQueryForNumber = isNameLikeNumber
+                ? "= " + request.query["name_like"].replace("^", "").trim()
+                : "IS NULL";
+
             const courses = await this.courseRepository
                 .createQueryBuilder("course")
                 .where(parsedParams)
-                .andWhere("course.name ILIKE :courseName", { courseName: "%" + courseName + "%"})
+                .andWhere(new Brackets(qb => {
+                    qb.where("course.name ILIKE :maybeCourseNameOrSubject",
+                        { maybeCourseNameOrSubject: "%" + maybeCourseNameOrSubject + "%"})
+                        .orWhere("course.subject ILIKE :maybeCourseNameOrSubject",
+                            { maybeCourseNameOrSubject: "%" + maybeCourseNameOrSubject + "%"})
+                        .orWhere("course.number " + searchQueryForNumber)
+                }))
                 .orderBy(sort, order)
                 .limit(end - start)
                 .skip(start)
@@ -105,4 +116,7 @@ export class CourseController {
         }
     }
 
+    private trimNameLikeParam(param) {
+        return param.replace("^", "").trim();
+    }
 }
