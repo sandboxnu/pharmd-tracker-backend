@@ -5,21 +5,11 @@ import {IsInt, Length, Max, Min} from "class-validator";
 import {LetterGrade, Semester} from "./Enums";
 
 @Entity()
-@Unique(["studentId", "examId"])
+@Unique(["student", "exam"])
 export class StudentExam {
 
     @PrimaryGeneratedColumn("uuid")
     id: string;
-
-    @Column({
-        comment: "NUID"
-    })
-    @Length(9, 9)
-    @IsInt()
-    studentId: string;
-
-    @Column()
-    examId: string;
 
     @Column({
         type: "enum",

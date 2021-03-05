@@ -155,7 +155,7 @@ export class StudentController {
                     // get exam from studentExam
                     return await this.examRepository.find({
                         where: {
-                            id: studentExam.examId
+                            id: studentExam.exam
                         }
                     });
                 })
@@ -176,7 +176,7 @@ export class StudentController {
             return await this.studentExamRepository.findOne({
                 where: {
                     studentId: request.params.studentId,
-                    examId: request.params.examId,
+                    exam: request.params.examId,
                 }
             });
         } catch (e) {
@@ -199,7 +199,7 @@ export class StudentController {
                     return await this.studentExamRepository.find({
                         where: {
                             studentId: request.params.studentId,
-                            examId: exam.id,
+                            exam: exam.id,
                         }
                     });
                 })

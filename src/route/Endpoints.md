@@ -111,7 +111,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
-| GET | \.\.\./studentExams? | Get all studentExam instances that match the query parameters | Array\<StudentExam\> | <ul> <li> id </li> <li> studentId </li> <li> examId </li> <li> letterGrade </li> <li> semester </li> <li> year (min/max) </li> <li> percentage (min/max) </li> </ul> |
+| GET | \.\.\./studentExams? | Get all studentExam instances that match the query parameters | Array\<StudentExam\> | <ul> <li> id </li> <li> student </li> <li> exam </li> <li> letterGrade </li> <li> semester </li> <li> year (min/max) </li> <li> percentage (min/max) </li> </ul> |
 | GET | \.\.\./studentExams/ | Get all studentExam instances | Array\<StudentExam\> | |
 | GET | \.\.\./studentExams/\{id\} | Get a studentExam instance given a studentExam id | StudentExam | <ul> <li> id </li> </ul> |
 | POST | \.\.\./studentExams/ | Create a studentExam instance | | |
@@ -125,7 +125,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
-| GET | \.\.\./studentCourses? | Get all studentCourse instances that match the given parameters | Array\<StudentCourse\> | <ul> <li> id </li> <li> studentId </li> <li> courseId </li> <li> percentage (min/max) </li> <li> letterGrade </li> <li> semester </li> <li> year (min/max) </li> </ul> |
+| GET | \.\.\./studentCourses? | Get all studentCourse instances that match the given parameters | Array\<StudentCourse\> | <ul> <li> id </li> <li> student </li> <li> course </li> <li> percentage (min/max) </li> <li> letterGrade </li> <li> semester </li> <li> year (min/max) </li> </ul> |
 | GET | \.\.\./studentCourses/ | Get all studentCourse instances | Array\<StudentCourse\> | |
 | GET | \.\.\./studentCourses/\{id\} | Get a studentCourse instance given a studentCourse id | StudentCourse | <ul> <li> id </li> </ul> |
 | POST | \.\.\./studentCourses/ | Create a studetnCourse instance | | |
