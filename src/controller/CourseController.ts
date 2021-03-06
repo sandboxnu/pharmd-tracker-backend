@@ -47,10 +47,10 @@ export class CourseController {
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
-            let start: number = request.query["_start"];
-            let end: number = request.query["_end"];
-            const order = request.query["_order"];
-            const sort = request.query["_sort"];
+            let start: number = request.query["_start"] ? request.query["_start"] : 0;
+            let end: number = request.query["_end"] ? request.query["_end"] : 0;
+            const order = request.query["_order"] ? request.query["_order"] : "ASC";
+            const sort = request.query["_sort"] ? request.query["_sort"] : "name";
             const maybeCourseNameOrSubjectQuery = CourseController.extractOnlyText(request.query["name_like"]);
             const maybeNumberQuery = CourseController.maybeExtractNumbers(request.query["name_like"]);
 
