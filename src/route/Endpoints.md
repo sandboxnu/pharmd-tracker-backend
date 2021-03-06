@@ -81,9 +81,11 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 [Back to Table of Contents](#table-of-contents)
 
+###### _Note: Both `_start` and `_end` need to be set if either are to be used in `GET /courses?` and will return `_start` - `_end` number of courses._
+
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
-| GET | \.\.\./courses? | Get all courses that match the query parameters | | <ul> <li> id </li> <li> name (substring) </li> <li> subject (substring) </li> <li> number (min/max) </li> <li> _start (int) </li> <li> _end (int)</li> <li> _order (ASC/DESC) </li> <li> _sort (subject/number/name)</li> </ul> |
+| GET | \.\.\./courses? | Get all courses that match the query parameters | | <ul> <li> id </li> <li> name (substring) </li> <li> subject (substring) </li> <li> number (min/max) </li> <li> _start (int) </li> <li> _end (int)</li> <li> _order (ASC/DESC) </li> <li> _sort (subject/number/name)</li> <li> name_like (string) </li> </ul> |
 | GET | \.\.\./courses/ | Get all courses | | |
 | GET | \.\.\./courses/\{id\} | Get course with the given ID | Course | <ul> <li> id </li> </ul> |
 | POST | \.\.\./courses/ | Create a course | | |
