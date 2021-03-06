@@ -22,17 +22,7 @@ export class CourseController {
                         where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
                         break;
                     case 'number':
-                        const hasMin = value.hasOwnProperty('min');
-                        const hasMax = value.hasOwnProperty('max');
-                        if ( hasMin && hasMax ) {
-                            where[param] = Between(value.min, value.max);
-                        } else if (hasMax) {
-                            where[param] = LessThanOrEqual(value.max);
-                        } else if (hasMin) {
-                            where[param] = MoreThanOrEqual(value.min);
-                        } else {
-                            where[param] = Equal(value);
-                        }
+                        where[param] = Between(value[0], value[1]);
                         break;
                     default:
                         break;
