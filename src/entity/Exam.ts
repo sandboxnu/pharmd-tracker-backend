@@ -5,8 +5,8 @@ import {StudentExam} from "./StudentExam";
 @Entity()
 export class Exam {
 
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: bigint;
 
     @Column()
     name: string;
