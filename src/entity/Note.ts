@@ -4,8 +4,8 @@ import { Student } from "./Student";
 @Entity()
 export class Note {
 
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: bigint;
 
     // date created/modified should be automatic for all entities
 
