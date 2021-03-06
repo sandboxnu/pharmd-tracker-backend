@@ -93,7 +93,9 @@ export class StudentController {
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentRepository.findOne({
-                where: {id: request.params.id}
+                where: {
+                    id: request.params.id
+                }
             });
         } catch (e) {
             return e;
@@ -104,16 +106,16 @@ export class StudentController {
         try {
             const studentCourses = await this.studentCourseRepository.find({
                 where: {
-                    studentId: request.params.id,
+                    student: request.params.id,
                 }
             });
 
             const courses = await Promise.all(
                 studentCourses.map(async (studentCourse) => {
                     // get course from studentCourse
-                    return await this.courseRepository.find({
+                    return await this.courseRepository.findOne({
                         where: {
-                            id: studentCourse.course
+                            id: studentCourse.course.id
                         }
                     });
                 })
@@ -146,16 +148,16 @@ export class StudentController {
         try {
             const studentExams = await this.studentExamRepository.find({
                 where: {
-                    studentId: request.params.id,
+                    student: request.params.id
                 }
             });
 
             const exams = await Promise.all(
                 studentExams.map(async (studentExam) => {
                     // get exam from studentExam
-                    return await this.examRepository.find({
+                    return await this.examRepository.findOne({
                         where: {
-                            id: studentExam.exam
+                            id: studentExam.exam.id
                         }
                     });
                 })
@@ -175,7 +177,7 @@ export class StudentController {
         try {
             return await this.studentExamRepository.findOne({
                 where: {
-                    studentId: request.params.studentId,
+                    student: request.params.studentId,
                     exam: request.params.examId,
                 }
             });
@@ -198,7 +200,7 @@ export class StudentController {
                 examsForCourse.map(async (exam) => {
                     return await this.studentExamRepository.find({
                         where: {
-                            studentId: request.params.studentId,
+                            student: request.params.studentId,
                             exam: exam.id,
                         }
                     });

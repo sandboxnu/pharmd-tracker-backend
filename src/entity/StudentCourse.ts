@@ -35,9 +35,9 @@ export class StudentCourse {
     })
     letterGrade: LetterGrade;
 
-    @ManyToOne(type => Student, student => student.studentCourses)
+    @ManyToOne(type => Student, student => student.studentCourses, {eager: true})
     student: Student;
 
-    @ManyToOne(type => Course, course => course.studentCourses)
+    @ManyToOne(type => Course, course => course.studentCourses, {eager: true})
     course: Course;
 }

@@ -37,10 +37,10 @@ export class StudentExam {
     })
     letterGrade: LetterGrade;
 
-    @ManyToOne(type => Student, student => student.studentExams)
+    @ManyToOne(type => Student, student => student.studentExams, {eager:true})
     student: Student;
 
-    @ManyToOne(type => Exam, exam => exam.studentExams)
+    @ManyToOne(type => Exam, exam => exam.studentExams, {eager:true})
     exam: Exam;
 
 }
