@@ -28,7 +28,11 @@ export class StudentCourseController {
                             break;
                         case 'year':
                         case 'percentage':
-                            where[param] = Between(value[0], value[1]);
+                            if (Array.isArray(value)) {
+                                where[param] = Between(value[0], value[1]);
+                            } else {
+                                where[param] = value;
+                            }
                             break;
                         default:
                             break;

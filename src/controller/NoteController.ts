@@ -25,20 +25,24 @@ export class NoteController {
                         break;
                     case 'date':
 
-                        let first;
-                        let second;
-                        const dateOne = new Date(value[0]);
-                        const dateTwo = new Date(value[1]);
+                        if (Array.isArray(value)) {
+                            let first;
+                            let second;
+                            const dateOne = new Date(value[0]);
+                            const dateTwo = new Date(value[1]);
 
-                        if (dateOne < dateTwo) {
-                            first = startOfDay(dateOne);
-                            second = endOfDay(dateTwo);
+                            if (dateOne < dateTwo) {
+                                first = startOfDay(dateOne);
+                                second = endOfDay(dateTwo);
+                            } else {
+                                first = startOfDay(dateTwo);
+                                second = endOfDay(dateOne);
+                            }
+
+                            where[param] = Between(first, second);
                         } else {
-                            first = startOfDay(dateTwo);
-                            second = endOfDay(dateOne);
+                            where[param] = value;
                         }
-
-                        where[param] = Between(first, second);
                         break;
                     case 'tags':
                         where[param] = Like(`%${value}%`);

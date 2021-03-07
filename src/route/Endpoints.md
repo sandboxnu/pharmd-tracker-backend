@@ -33,16 +33,16 @@ Returns all objects where *param1* is *optionOne* or *optionTwo*.
 
 #### Query with Min/Max  
 
-*/objects?param=50&param=50*  
+*/objects?param=50*  
 Returns all objects where *param* is equal to *50*.
 
-*/objects?param=50*  
-This does NOT work. To query a number, it must be formatted like above.
+*/objects?param=50&param=50*  
+Returns all objects where *param* is equal to *50*.
 
 */objects?param=50&param=70*  
 Returns all objects where *param* is between *50* and *70*, inclusive.
 
-If a parameter MUST be queried with min and max, it will be listed next to the parameter name in the tables below, for example: gpa (min/max).
+If a parameter can be queried with min and max, it will be listed next to the parameter name in the tables below, for example: gpa (min/max).
 
 #### About String Queries  
 
