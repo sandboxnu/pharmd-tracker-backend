@@ -1,4 +1,4 @@
-import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
+import {Between, Brackets, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Student} from "../entity/Student";
 import {Course} from "../entity/Course";
@@ -85,10 +85,26 @@ export class StudentController {
                     ? "gradDate"
                     : request.query["_sort"])
                 : "id";
+            const trimmedText = request.query["id_like"] ? "" : "%" + StudentController.trimText(request.query["name_like"]) + "%";
+            const trimmedId = request.query["name_like"] ? "" : "%" + StudentController.trimText(request.query["id_like"]) + "%";
+            const maybeNumbers = !isNaN(parseFloat(trimmedId)) ? "= " + parseFloat(trimmedId) : "IS NULL";
             const parsedParams = await this.parseQuery(request.query);
 
             const students = await this.studentRepository.createQueryBuilder(StudentController.STUDENT_ALIAS)
                 .where(parsedParams)
+                .andWhere(new Brackets(qb => {
+                    qb.where(StudentController.STUDENT_ALIAS + ".id ILIKE :trimmedId",
+                        { trimmedId: trimmedId })
+                        .orWhere(StudentController.STUDENT_ALIAS + ".firstName ILIKE :trimmedText",
+                            { trimmedText: trimmedText })
+                        .orWhere(StudentController.STUDENT_ALIAS + ".lastName ILIKE :trimmedText",
+                            { trimmedText: trimmedText })
+                        .orWhere(StudentController.STUDENT_ALIAS + ".gradDate ILIKE :trimmedText",
+                            { trimmedText: trimmedText })
+                        // .orWhere(StudentController.STUDENT_ALIAS + ".status ILIKE :trimmedText",
+                        //     { trimmedText: trimmedText })
+                        .orWhere(StudentController.STUDENT_ALIAS + ".gpa " + maybeNumbers)
+                }))
                 .orderBy(StudentController.STUDENT_ALIAS + "." + sort, order)
                 .limit(end - start)
                 .skip(start)
@@ -266,4 +282,7 @@ export class StudentController {
         }
     }
 
+    private static trimText(text) {
+        return text ? text.replace("^", "").trim() : "";
+    }
 }
