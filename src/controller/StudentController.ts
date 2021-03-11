@@ -85,9 +85,15 @@ export class StudentController {
                     ? "gradDate"
                     : request.query["_sort"])
                 : "id";
-            const trimmedText = request.query["id_like"] ? "" : "%" + StudentController.trimText(request.query["name_like"]) + "%";
+            // TODO: cleanup firstname, lastname, and cohort query
+            // TODO: implement where clause for cohort enums
+            const nameLikeArray = StudentController.trimText(request.query["name_like"]).split(" ");
+            const trimmedText = request.query["id_like"] ? "" : "%" + nameLikeArray[0] + "%";
+            const maybeLastName = nameLikeArray[1] ? "%" + nameLikeArray[1] + "%" : trimmedText;
             const trimmedId = request.query["name_like"] ? "" : "%" + StudentController.trimText(request.query["id_like"]) + "%";
-            const maybeNumbers = !isNaN(parseFloat(trimmedId)) ? "= " + parseFloat(trimmedId) : "IS NULL";
+            const maybeNumbers = !isNaN(parseFloat(trimmedId.replace("%","")))
+                ? "= " + parseFloat(trimmedId.replace("%",""))
+                : "IS NULL";
             const parsedParams = await this.parseQuery(request.query);
 
             const students = await this.studentRepository.createQueryBuilder(StudentController.STUDENT_ALIAS)
@@ -97,12 +103,12 @@ export class StudentController {
                         { trimmedId: trimmedId })
                         .orWhere(StudentController.STUDENT_ALIAS + ".firstName ILIKE :trimmedText",
                             { trimmedText: trimmedText })
-                        .orWhere(StudentController.STUDENT_ALIAS + ".lastName ILIKE :trimmedText",
-                            { trimmedText: trimmedText })
+                        .orWhere(StudentController.STUDENT_ALIAS + ".lastName ILIKE :maybeLastName",
+                            { maybeLastName: maybeLastName })
                         .orWhere(StudentController.STUDENT_ALIAS + ".gradDate ILIKE :trimmedText",
                             { trimmedText: trimmedText })
-                        // .orWhere(StudentController.STUDENT_ALIAS + ".status ILIKE :trimmedText",
-                        //     { trimmedText: trimmedText })
+                        // .orWhere(StudentController.STUDENT_ALIAS + ".status = :trimmedText",
+                        //     { trimmedText: trimmedText.toUpperCase().replace("%","") })
                         .orWhere(StudentController.STUDENT_ALIAS + ".gpa " + maybeNumbers)
                 }))
                 .orderBy(StudentController.STUDENT_ALIAS + "." + sort, order)
