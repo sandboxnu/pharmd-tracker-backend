@@ -16,6 +16,8 @@ export class StudentController {
     private studentCourseRepository = getRepository(StudentCourse);
     private studentExamRepository = getRepository(StudentExam);
 
+    private static readonly STUDENT_ALIAS = "student";
+
     // get all students
     async all(request: Request, response: Response, next?: NextFunction) {
         try {
@@ -75,10 +77,23 @@ export class StudentController {
 
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
+            let start: number = request.query["_start"] ? request.query["_start"] : 0;
+            let end: number = request.query["_end"] ? request.query["_end"] : 0;
+            const order = request.query["_order"] ? request.query["_order"] : "ASC";
+            const sort = request.query["_sort"]
+                ? (request.query["_sort"] === "cohort"
+                    ? "gradDate"
+                    : request.query["_sort"])
+                : "id";
             const parsedParams = await this.parseQuery(request.query);
-            const students = await this.studentRepository.find({
-                where: parsedParams
-            });
+
+            const students = await this.studentRepository.createQueryBuilder(StudentController.STUDENT_ALIAS)
+                .where(parsedParams)
+                .orderBy(StudentController.STUDENT_ALIAS + "." + sort, order)
+                .limit(end - start)
+                .skip(start)
+                .getMany();
+
             await response.set({
                 'X-Total-Count': students.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
