@@ -1,5 +1,5 @@
 import {StudentExamController} from "../controller/StudentExamController";
-import {Config as config} from "./Config";
+import {Config as config} from "./config/Config";
 
 const BASE_PATH = "/studentExams";
 

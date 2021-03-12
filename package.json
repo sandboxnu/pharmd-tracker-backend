@@ -10,6 +10,7 @@
     "typescript": "3.3.3333"
   },
   "dependencies": {
+    "@types/jest": "^26.0.20",
     "body-parser": "^1.18.1",
     "class-validator": "^0.12.2",
     "date-fns": "^2.17.0",

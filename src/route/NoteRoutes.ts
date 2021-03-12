@@ -1,5 +1,5 @@
 import {NoteController} from "../controller/NoteController";
-import {Config as config} from "./Config";
+import {Config as config} from "./config/Config";
 
 const BASE_PATH = "/notes";
 
