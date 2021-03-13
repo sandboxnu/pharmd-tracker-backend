@@ -6,7 +6,8 @@ let controller;
 const course1 = { subject: "CS", number: "2500", name: "Fundies 1"};
 
 beforeEach(async () => {
-    await TestConnection.create();
+    await TestConnection.create()
+    //TODO: make this singleton
     controller = new CourseController();
 });
 
