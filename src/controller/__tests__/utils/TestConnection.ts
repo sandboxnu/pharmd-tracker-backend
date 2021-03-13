@@ -7,7 +7,7 @@ export const TestConnection = {
         await createConnection({...connectionOptions, name: "default"});
     },
     async close() {
-        await getConnection(namespace).close();
+        await getConnection("default").close();
     },
 };
 

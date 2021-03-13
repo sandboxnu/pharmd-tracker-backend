@@ -1,36 +1,36 @@
 import "reflect-metadata";
-import {TestConnection} from "./config/TestConnection";
+import {TestConnection} from "./utils/TestConnection";
 import { CourseController } from "../CourseController";
 
+let controller;
 const course1 = { subject: "CS", number: "2500", name: "Fundies 1"};
 
 beforeEach(async () => {
     await TestConnection.create();
+    controller = new CourseController();
 });
 
 afterEach(async () => {
     await TestConnection.close();
 });
 
-const mockRequest = (data) => {
+const mockRequest = (body, query, params) => {
     return {
-        body: data,
+        body: body,
+        query: query,
+        params: params,
     };
 };
 
-describe('test suite for the course controller', () => {
-    const controller = new CourseController();
 
-    describe('test the save action for creating courses', () => {
-        const res = {};
-        const req = mockRequest(course1);
-        it('should return a valid course', () => {
-            const course = controller.save(req, res);
-            expect(course["subject"]).toStrictEqual("CS");
+describe('test the save action for creating courses', () => {
+    const res = {};
+    const req = mockRequest(course1, {}, {});
+    it('should return a valid course', () => {
+        return controller.save(req, res).then(result => {
+            expect(result['subject']).toStrictEqual("CS");
+            expect(result["number"]).toStrictEqual("2500");
+            expect(result["name"]).toStrictEqual("Fundies 1");
         });
-
-        // it('should error when course cannot be created', () => {
-        //
-        // });
     });
 });
