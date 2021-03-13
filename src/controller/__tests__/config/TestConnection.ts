@@ -4,7 +4,7 @@ const namespace = "test";
 export const TestConnection = {
     async create() {
         const connectionOptions = await getConnectionOptions(namespace);
-        await createConnection(connectionOptions);
+        await createConnection({...connectionOptions, name: "default"});
     },
     async close() {
         await getConnection(namespace).close();

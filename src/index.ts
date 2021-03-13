@@ -7,7 +7,7 @@ import {Request, Response} from "express";
 
 const createTypeormCon = async () => {
     const connectionOptions = await getConnectionOptions("dev");
-    await createConnection(connectionOptions).then(async () => {
+    await createConnection({...connectionOptions, name: "default"}).then(async () => {
 
         // create express app
         const app = express();
