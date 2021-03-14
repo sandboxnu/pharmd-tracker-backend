@@ -23,9 +23,10 @@ export class CourseController {
                         break;
                     case 'number':
                         if (Array.isArray(value)) {
+                            value.sort()
                             where[param] = Between(value[0], value[1]);
                         } else {
-                            where[param] = value;
+                            where[param] = Equal(value);
                         }
                         break;
                     default:
