@@ -27,7 +27,7 @@ export class Note {
 
     // relations
     
-    @ManyToOne(type => Student, student => student.notes)
+    @ManyToOne(type => Student, student => student.notes, {eager: true})
     student: Student;
 
 }
