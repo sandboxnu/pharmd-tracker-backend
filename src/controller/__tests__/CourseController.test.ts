@@ -43,6 +43,7 @@ describe('test each actions for the course controller', () => {
             const result = await controller.filter(req1, res);
 
             expect(result).toHaveLength(3);
+            expect(res.set).toHaveBeenCalled();
         });
         it('should return 1 course for pagination', async () => {
             const query = {
