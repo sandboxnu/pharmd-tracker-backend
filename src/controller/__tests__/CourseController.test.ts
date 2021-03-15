@@ -1,5 +1,6 @@
 import 'jest-sorted';
 import { TestConnection } from "./utils/TestConnection";
+import { MockFunctions } from "./mocks/MockFunctions";
 import { CourseController } from "../CourseController";
 
 let controller;
@@ -16,18 +17,10 @@ afterEach(async () => {
     await TestConnection.close();
 });
 
-const mockRequest = (body, query, params) => {
-    return {
-        body: body,
-        query: query,
-        params: params,
-    };
-};
-
 describe('test each actions for the course controller', () => {
     describe('test the save action for creating courses', () => {
         const res = {};
-        const req = mockRequest(course1, {}, {});
+        const req = MockFunctions.mockRequest(course1, {}, {});
         it('should return a valid course', async() => {
             const result = await controller.save(req, res);
 
@@ -42,9 +35,9 @@ describe('test each actions for the course controller', () => {
             set: jest.fn()
         };
         const courseList = [course1, course2, course3];
-        const req2 = mockRequest(courseList, {}, {});
+        const req2 = MockFunctions.mockRequest(courseList, {}, {});
         it('should return all courses without any filters', async () => {
-            const req1 = mockRequest({}, {},{});
+            const req1 = MockFunctions.mockRequest({}, {},{});
             await controller.save(req2, res);
 
             const result = await controller.filter(req1, res);
@@ -56,7 +49,7 @@ describe('test each actions for the course controller', () => {
                 _start: 0,
                 _end: 1
             };
-            const req1 = mockRequest({}, query,{});
+            const req1 = MockFunctions.mockRequest({}, query,{});
             await controller.save(req2, res);
 
             const result = await controller.filter(req1, res);
@@ -68,7 +61,7 @@ describe('test each actions for the course controller', () => {
                 _order: 'ASC',
                 _sort: 'number'
             };
-            const req1 = mockRequest({}, query, {});
+            const req1 = MockFunctions.mockRequest({}, query, {});
             await controller.save(req2, res);
 
             const result = await controller.filter(req1, res);
@@ -80,7 +73,7 @@ describe('test each actions for the course controller', () => {
                 _order: 'DESC',
                 _sort: 'name'
             };
-            const req1 = mockRequest({}, query, {});
+            const req1 = MockFunctions.mockRequest({}, query, {});
             await controller.save(req2, res);
 
             const result = await controller.filter(req1, res);
@@ -91,7 +84,7 @@ describe('test each actions for the course controller', () => {
             const query = {
                 name_like: 'cyber course'
             };
-            const req1 = mockRequest({}, query, {});
+            const req1 = MockFunctions.mockRequest({}, query, {});
             await controller.save(req2, res);
 
             const result = await controller.filter(req1, res);
