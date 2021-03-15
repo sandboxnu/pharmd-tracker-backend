@@ -28,12 +28,12 @@ describe('test each actions for the course controller', () => {
     describe('test the save action for creating courses', () => {
         const res = {};
         const req = mockRequest(course1, {}, {});
-        it('should return a valid course', () => {
-            return controller.save(req, res).then(result => {
-                expect(result['subject']).toStrictEqual("CS");
-                expect(result["number"]).toStrictEqual(2500);
-                expect(result["name"]).toStrictEqual("Fundies 1");
-            });
+        it('should return a valid course', async() => {
+            const result = await controller.save(req, res);
+
+            expect(result['subject']).toStrictEqual("CS");
+            expect(result["number"]).toStrictEqual(2500);
+            expect(result["name"]).toStrictEqual("Fundies 1");
         });
     });
 
@@ -50,7 +50,7 @@ describe('test each actions for the course controller', () => {
             const result = await controller.filter(req1, res);
 
             expect(result).toHaveLength(3);
-        })
+        });
         it('should return 1 course for pagination', async () => {
             const query = {
                 _start: 0,
