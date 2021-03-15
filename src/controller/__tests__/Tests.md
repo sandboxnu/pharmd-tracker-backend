@@ -174,8 +174,8 @@ Setting up tests can be a pain, so here are some errors that you may come across
 
 You are likely trying to initialize some `Controller` before `TestConnection.create();` is being called and at that point, there is no database created yet for the Controller to use `getRepository`. This is why it's important to initialize the `Controller` after connection creation in each `beforeEach` as shown [previously](#setting-up-the-test-database-connection).
 
-> Error: expect(received).toStrictEqual(expected) // deep equality
-> Expected: "CS"
+> Error: expect(received).toStrictEqual(expected) // deep equality \
+> Expected: "CS"\
 > Received: undefined
 
 
