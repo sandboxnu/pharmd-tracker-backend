@@ -81,7 +81,7 @@ export class ExamController {
         try {
             const studentExams = await this.studentExamRepository.find({
                 where: {
-                    examId: request.params.id,
+                    exam: request.params.id,
                 }
             });
 
