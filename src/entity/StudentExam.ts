@@ -8,8 +8,8 @@ import {LetterGrade, Semester} from "./Enums";
 @Unique(["student", "exam"])
 export class StudentExam {
 
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: bigint;
 
     @Column({
         type: "enum",

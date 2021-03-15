@@ -8,8 +8,8 @@ import { IsInt, Length} from "class-validator";
 export class Course {
 
 
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: bigint;
 
     @Column()
     @Length(2,4)

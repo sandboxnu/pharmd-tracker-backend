@@ -4,8 +4,8 @@ import {AccessLevel} from "./Enums";
 @Entity()
 export class User {
 
-    @PrimaryGeneratedColumn("uuid")
-    id: number;
+    @PrimaryGeneratedColumn()
+    id: bigint;
 
     @Column()
     firstName: string;

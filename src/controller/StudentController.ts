@@ -58,8 +58,12 @@ export class StudentController {
                             where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
                             break;
                         case 'gpa':
-                            //order of min and max don't matter for Between
-                            where[param] = Between(value[0], value[1]);
+                            if (Array.isArray(value)) {
+                                value.sort()
+                                where[param] = Between(value[0], value[1]);
+                            } else {
+                                where[param] = Equal(value);
+                            }
                             break;
                         default:
                             break;
