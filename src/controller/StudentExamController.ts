@@ -18,8 +18,8 @@ export class StudentExamController {
 
                     switch (param) {
                         case 'id':
-                        case 'studentId':
-                        case 'examId':
+                        case 'student':
+                        case 'exam':
                         //TODO: Create number values for each letterGrade for comparisons
                         case 'letterGrade':
                         case 'semester':
