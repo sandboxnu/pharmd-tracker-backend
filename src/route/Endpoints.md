@@ -33,17 +33,14 @@ Returns all objects where *param1* is *optionOne* or *optionTwo*.
 
 #### Query with Min/Max  
 
-*/objects?param1[min]=50*  
-Returns all objects where *param1* is at least *50*, inclusive.
+*/objects?param=50*  
+Returns all objects where *param* is equal to *50*.
 
-*/objects?param1[max]=70*  
-Returns all objects where *param1* is at most *70*, inclusive.
+*/objects?param=50&param=50*  
+Returns all objects where *param* is equal to *50*.
 
-*/objects?param1[min]=50&param1[max]=70*  
-Returns all objects where *param1* is between *50* and *70*, inclusive. 
-
-*/objects?param1=70*  
-Returns all objects where *param1* is exactly *70*.
+*/objects?param=50&param=70*  
+Returns all objects where *param* is between *50* and *70*, inclusive.
 
 If a parameter can be queried with min and max, it will be listed next to the parameter name in the tables below, for example: gpa (min/max).
 

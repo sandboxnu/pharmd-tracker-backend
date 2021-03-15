@@ -1,6 +1,6 @@
 import { Between, Equal, getRepository, Like, Raw} from "typeorm";
 import { NextFunction, Request, Response } from "express";
-import { startOfDay, endOfDay } from 'date-fns';
+import {startOfDay, endOfDay, min, max} from 'date-fns';
 import { Note } from "../entity/Note";
 
 export class NoteController {
@@ -24,19 +24,18 @@ export class NoteController {
                         where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
                         break;
                     case 'date':
+                        let dateOne;
+                        let dateTwo;
 
-                        let first;
-                        let second;
-                        const dateOne = new Date(value[0]);
-                        const dateTwo = new Date(value[1]);
-
-                        if (dateOne < dateTwo) {
-                            first = startOfDay(dateOne);
-                            second = endOfDay(dateTwo);
+                        if (Array.isArray(value)) {
+                            dateOne = new Date(value[0]);
+                            dateTwo = new Date(value[1]);
                         } else {
-                            first = startOfDay(dateTwo);
-                            second = endOfDay(dateOne);
+                            dateOne = new Date(value);
+                            dateTwo = new Date(value);
                         }
+                        const first = startOfDay(min([dateOne, dateTwo]));
+                        const second = endOfDay(max([dateOne, dateTwo]));
 
                         where[param] = Between(first, second);
                         break;
