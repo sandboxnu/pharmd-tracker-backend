@@ -49,11 +49,9 @@ export class StudentCourseController {
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
-            const studentCourses = await this.studentCourseRepository
-                .createQueryBuilder("studentCourse")
-                .where({...parsedParams})
-                .leftJoinAndSelect("studentCourse.course", "course")
-                .getMany();
+            const studentCourses = await this.studentCourseRepository.find({
+                where: parsedParams
+            });
             await response.set({
                 'X-Total-Count': studentCourses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
@@ -79,6 +77,18 @@ export class StudentCourseController {
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentCourseRepository.save(request.body);
+        } catch (e) {
+            return e;
+        }
+    }
+
+    async update(request: Request, response: Response, next?: NextFunction) {
+        try {
+            const studentCourse = await this.studentCourseRepository.findOne({
+                where: {id: request.params.id}
+            });
+            const updateBody = {...studentCourse, ...request.body};
+            return await this.studentCourseRepository.save(updateBody);
         } catch (e) {
             return e;
         }
