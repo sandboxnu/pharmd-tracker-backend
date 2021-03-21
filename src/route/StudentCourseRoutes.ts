@@ -26,13 +26,13 @@ export const StudentCourseRoutes = [
         method: config.PUT,
         route: BASE_PATH + "/:id",
         controller: StudentCourseController,
-        action: "update"
+        action: "save"
     },
     {
         method: config.PATCH,
         route: BASE_PATH + "/:id",
         controller: StudentCourseController,
-        action: "save"
+        action: "update"
     },
     {
         method: config.DELETE,

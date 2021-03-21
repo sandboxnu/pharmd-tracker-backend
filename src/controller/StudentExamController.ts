@@ -81,6 +81,18 @@ export class StudentExamController {
         }
     }
 
+    async update(request: Request, response: Response, next?: NextFunction) {
+        try {
+            const studentExam = await this.studentExamRepository.findOne({
+                where: {id: request.params.id}
+            });
+            const updateBody = {...studentExam, ...request.body};
+            return await this.studentExamRepository.save(updateBody);
+        } catch (e) {
+            return e;
+        }
+    }
+
     // Delete an existing studentExam
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {

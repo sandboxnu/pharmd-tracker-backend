@@ -93,6 +93,18 @@ export class CourseController {
         }
     }
 
+    async update(request: Request, response: Response, next?: NextFunction) {
+        try {
+            const course = await this.courseRepository.findOne({
+                where: {id: request.params.id}
+            });
+            const updateBody = {...course, ...request.body};
+            return await this.courseRepository.save(updateBody);
+        } catch (e) {
+            return e;
+        }
+    }
+
     // Deletes the course with the given id
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {

@@ -29,6 +29,12 @@ export const UserRoutes = [
         action: "save"
     },
     {
+        method: config.PATCH,
+        route: BASE_PATH + "/:id",
+        controller: UserController,
+        action: "update"
+    },
+    {
         method: config.DELETE,
         route: BASE_PATH + "/:id",
         controller: UserController,

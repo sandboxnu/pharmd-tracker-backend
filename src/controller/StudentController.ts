@@ -249,6 +249,18 @@ export class StudentController {
         }
     }
 
+    async update(request: Request, response: Response, next?: NextFunction) {
+        try {
+            const student = await this.studentRepository.findOne({
+                where: {id: request.params.id}
+            });
+            const updateBody = {...student, ...request.body};
+            return await this.studentRepository.save(updateBody);
+        } catch (e) {
+            return e;
+        }
+    }
+
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentToRemove = await this.studentRepository.findOne(request.params.id);

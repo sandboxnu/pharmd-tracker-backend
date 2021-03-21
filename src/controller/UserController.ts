@@ -74,6 +74,18 @@ export class UserController {
         }
     }
 
+    async update(request: Request, response: Response, next?: NextFunction) {
+        try {
+            const user = await this.userRepository.findOne({
+                where: {id: request.params.id}
+            });
+            const updateBody = {...user, ...request.body};
+            return await this.userRepository.save(updateBody);
+        } catch (e) {
+            return e;
+        }
+    }
+
     // Delete an existing user
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
