@@ -1,4 +1,4 @@
-import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
+import {Between, Equal, getRepository, In, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Student} from "../entity/Student";
 import {Course} from "../entity/Course";
@@ -49,8 +49,10 @@ export class StudentController {
                         case 'originalGradDate':
                         case 'gradDate':
                         case 'leftProgram':
-                        case 'status':
                             where[param] = Equal(value);
+                            break;
+                        case 'status':
+                            where[param] = Array.isArray(value) ? In(value) : Equal(value);
                             break;
                         case 'firstName':
                         case 'lastName':
@@ -58,8 +60,12 @@ export class StudentController {
                             where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
                             break;
                         case 'gpa':
-                            //order of min and max don't matter for Between
-                            where[param] = Between(value[0], value[1]);
+                            if (Array.isArray(value)) {
+                                value.sort()
+                                where[param] = Between(value[0], value[1]);
+                            } else {
+                                where[param] = Equal(value);
+                            }
                             break;
                         default:
                             break;
@@ -93,7 +99,9 @@ export class StudentController {
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentRepository.findOne({
-                where: {id: request.params.id}
+                where: {
+                    id: request.params.id
+                }
             });
         } catch (e) {
             return e;
@@ -104,16 +112,16 @@ export class StudentController {
         try {
             const studentCourses = await this.studentCourseRepository.find({
                 where: {
-                    studentId: request.params.id,
+                    student: request.params.id,
                 }
             });
 
             const courses = await Promise.all(
                 studentCourses.map(async (studentCourse) => {
                     // get course from studentCourse
-                    return await this.courseRepository.find({
+                    return await this.courseRepository.findOne({
                         where: {
-                            id: studentCourse.courseId
+                            id: studentCourse.course.id
                         }
                     });
                 })
@@ -133,8 +141,8 @@ export class StudentController {
         try {
             return await this.studentCourseRepository.findOne({
                 where: {
-                    studentId: request.params.studentId,
-                    courseId: request.params.courseId,
+                    student: request.params.studentId,
+                    course: request.params.courseId,
                 }
             });
         } catch (e) {
@@ -146,16 +154,16 @@ export class StudentController {
         try {
             const studentExams = await this.studentExamRepository.find({
                 where: {
-                    studentId: request.params.id,
+                    student: request.params.id
                 }
             });
 
             const exams = await Promise.all(
                 studentExams.map(async (studentExam) => {
                     // get exam from studentExam
-                    return await this.examRepository.find({
+                    return await this.examRepository.findOne({
                         where: {
-                            id: studentExam.examId
+                            id: studentExam.exam.id
                         }
                     });
                 })
@@ -175,8 +183,8 @@ export class StudentController {
         try {
             return await this.studentExamRepository.findOne({
                 where: {
-                    studentId: request.params.studentId,
-                    examId: request.params.examId,
+                    student: request.params.studentId,
+                    exam: request.params.examId,
                 }
             });
         } catch (e) {
@@ -198,8 +206,8 @@ export class StudentController {
                 examsForCourse.map(async (exam) => {
                     return await this.studentExamRepository.find({
                         where: {
-                            studentId: request.params.studentId,
-                            examId: exam.id,
+                            student: request.params.studentId,
+                            exam: exam.id,
                         }
                     });
                 })

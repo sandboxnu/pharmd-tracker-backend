@@ -1,11 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Timestamp } from "typeorm";
 import { Student } from "./Student";
 
 @Entity()
 export class Note {
 
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: bigint;
 
     // date created/modified should be automatic for all entities
 
@@ -14,6 +14,9 @@ export class Note {
 
     @Column()
     body: string;
+
+    @Column('timestamptz', { nullable: false, default: () => 'CURRENT_TIMESTAMP' })
+    date: Timestamp;
 
     @Column({
         type: "simple-array"
@@ -24,7 +27,7 @@ export class Note {
 
     // relations
     
-    @ManyToOne(type => Student, student => student.notes)
+    @ManyToOne(type => Student, student => student.notes, {eager: true})
     student: Student;
 
 }

@@ -19,8 +19,8 @@ export class StudentCourseController {
 
                     switch (param) {
                         case 'id':
-                        case 'studentId':
-                        case 'courseId':
+                        case 'student':
+                        case 'course':
                         //TODO: Create number values for each letterGrade for comparisons
                         case 'letterGrade':
                         case 'semester':
@@ -28,14 +28,9 @@ export class StudentCourseController {
                             break;
                         case 'year':
                         case 'percentage':
-                            const hasMin = value.hasOwnProperty('min');
-                            const hasMax = value.hasOwnProperty('max');
-                            if ( hasMin && hasMax ) {
-                                where[param] = Between(value.min, value.max);
-                            } else if (hasMax) {
-                                where[param] = LessThanOrEqual(value.max);
-                            } else if (hasMin) {
-                                where[param] = MoreThanOrEqual(value.min);
+                            if (Array.isArray(value)) {
+                                value.sort()
+                                where[param] = Between(value[0], value[1]);
                             } else {
                                 where[param] = Equal(value);
                             }
@@ -54,9 +49,11 @@ export class StudentCourseController {
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
-            const studentCourses = await this.studentCourseRepository.find({
-                where: parsedParams
-            });
+            const studentCourses = await this.studentCourseRepository
+                .createQueryBuilder("studentCourse")
+                .where({...parsedParams})
+                .leftJoinAndSelect("studentCourse.course", "course")
+                .getMany();
             await response.set({
                 'X-Total-Count': studentCourses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']

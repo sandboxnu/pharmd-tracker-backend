@@ -1,21 +1,15 @@
-import {Entity, ManyToOne, Column, Unique, PrimaryGeneratedColumn} from "typeorm";
-import { Student } from "./Student";
-import { Course } from "./Course";
-import {IsInt, Length, Min, Max} from "class-validator";
-import {Semester, LetterGrade} from "./Enums";
+import {Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique} from "typeorm";
+import {Student} from "./Student";
+import {Course} from "./Course";
+import {IsInt, Length, Max, Min} from "class-validator";
+import {LetterGrade, Semester} from "./Enums";
 
 @Entity()
-@Unique(["studentId", "courseId"])
+@Unique(["student", "course"])
 export class StudentCourse {
 
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
-
-    @Column()
-    studentId: string;
-
-    @Column()
-    courseId: string;
+    @PrimaryGeneratedColumn()
+    id: bigint;
 
     @Column({
         type: "enum",
@@ -41,9 +35,9 @@ export class StudentCourse {
     })
     letterGrade: LetterGrade;
 
-    @ManyToOne(type => Student, student => student.studentCourses)
+    @ManyToOne(type => Student, student => student.studentCourses, {eager: true})
     student: Student;
 
-    @ManyToOne(type => Course, course => course.studentCourses)
+    @ManyToOne(type => Course, course => course.studentCourses, {eager: true})
     course: Course;
 }

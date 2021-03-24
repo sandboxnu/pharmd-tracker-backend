@@ -1,4 +1,4 @@
-import {Between, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw, Equal} from "typeorm";
+import {Between, Brackets, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw, Equal} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Course} from "../entity/Course";
 
@@ -22,14 +22,9 @@ export class CourseController {
                         where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
                         break;
                     case 'number':
-                        const hasMin = value.hasOwnProperty('min');
-                        const hasMax = value.hasOwnProperty('max');
-                        if ( hasMin && hasMax ) {
-                            where[param] = Between(value.min, value.max);
-                        } else if (hasMax) {
-                            where[param] = LessThanOrEqual(value.max);
-                        } else if (hasMin) {
-                            where[param] = MoreThanOrEqual(value.min);
+                        if (Array.isArray(value)) {
+                            value.sort()
+                            where[param] = Between(value[0], value[1]);
                         } else {
                             where[param] = Equal(value);
                         }
@@ -47,9 +42,27 @@ export class CourseController {
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
-            const courses = await this.courseRepository.find({
-                where: parsedParams
-            });
+            let start: number = request.query["_start"] ? request.query["_start"] : 0;
+            let end: number = request.query["_end"] ? request.query["_end"] : 0;
+            const order = request.query["_order"] ? request.query["_order"] : "ASC";
+            const sort = request.query["_sort"] ? request.query["_sort"] : "name";
+            const maybeCourseNameOrSubjectQuery = CourseController.extractOnlyText(request.query["name_like"]);
+            const maybeNumberQuery = CourseController.maybeExtractNumbers(request.query["name_like"]);
+
+            const courses = await this.courseRepository
+                .createQueryBuilder("course")
+                .where(parsedParams)
+                .andWhere(new Brackets(qb => {
+                    qb.where("course.name ILIKE :maybeCourseNameOrSubject",
+                        { maybeCourseNameOrSubject: maybeCourseNameOrSubjectQuery })
+                        .orWhere("course.subject ILIKE :maybeCourseNameOrSubject",
+                            { maybeCourseNameOrSubject: maybeCourseNameOrSubjectQuery })
+                }))
+                .andWhere("course.number " + maybeNumberQuery)
+                .orderBy(sort, order)
+                .limit(end - start)
+                .skip(start)
+                .getMany();
             await response.set({
                 'X-Total-Count': courses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
@@ -93,4 +106,24 @@ export class CourseController {
         }
     }
 
+    private static extractOnlyText(text) {
+        const queryText = text
+            ? text.substring(1).replace(/[0-9]/g, "").trim()
+            : "";
+        return text && !isNaN(parseInt(text))
+            ? ""
+            : "%" + queryText + "%";
+    }
+
+    private static maybeExtractNumbers(text) {
+        const IS_NOT_NULL = "IS NOT NULL";
+        if(text) {
+            const parsedNumbers = text.replace(/\D/g, "");
+            return !isNaN(parseInt(parsedNumbers))
+                ? "= " + parsedNumbers
+                : IS_NOT_NULL;
+        }
+
+        return IS_NOT_NULL;
+    }
 }

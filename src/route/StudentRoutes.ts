@@ -1,69 +1,72 @@
 import {StudentController} from "../controller/StudentController";
+import {Config as config} from "./Config";
+
+const BASE_PATH = "/students";
 
 export const StudentRoutes = [
     {
-        method: "get",
-        route: "/students",
+        method: config.GET,
+        route: BASE_PATH,
         controller: StudentController,
         action: "filter"
     },
     {
-        method: "get",
-        route: "/students/:id",
+        method: config.GET,
+        route: BASE_PATH + "/:id",
         controller: StudentController,
         action: "findById"
     },
     {
-        method: "get",
-        route: "/students/:studentId/courses/:courseId/exam-instances",
+        method: config.GET,
+        route: BASE_PATH + "/:studentId/courses/:courseId/exam-instances",
         controller: StudentController,
         action: "getStudentExamByCourse"
     },
     {
-        method: "get",
-        route: "/students/:studentId/courses/:courseId",
+        method: config.GET,
+        route: BASE_PATH + "/:studentId/courses/:courseId",
         controller: StudentController,
         action: "getStudentCourseByIds"
     },
     {
-        method: "get",
-        route: "/students/:id/courses",
+        method: config.GET,
+        route: BASE_PATH + "/:id/courses",
         controller: StudentController,
         action: "getCoursesByStudentId"
     },
     {
-        method: "get",
-        route: "/students/:studentId/exams/:examId",
+        method: config.GET,
+        route: BASE_PATH + "/:studentId/exams/:examId",
         controller: StudentController,
         action: "getStudentExamByIds"
     },
     {
-        method: "get",
-        route: "/students/:id/exams",
+        method: config.GET,
+        route: BASE_PATH + "/:id/exams",
         controller: StudentController,
         action: "getExamsByStudentId"
     },
     {
-        method: "get",
-        route: "/students/:id/notes",
+        method: config.GET,
+        route: BASE_PATH + "/:id/notes",
         controller: StudentController,
         action: "getNotesByStudentId"
     },
     {
-        method: "post",
-        route: "/students",
+        method: config.POST,
+        route: BASE_PATH,
         controller: StudentController,
         action: "save"
     },
     {
-        method: "put",
-        route: "/students/:id",
+        method: config.PUT,
+        route: BASE_PATH + "/:id",
         controller: StudentController,
         action: "save"
     },
     {
-        method: "delete",
-        route: "/students/:id",
+        method: config.DELETE,
+        route: BASE_PATH + "/:id",
         controller: StudentController,
         action: "remove"
     },

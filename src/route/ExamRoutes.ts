@@ -1,38 +1,42 @@
 import {ExamController} from "../controller/ExamController";
+import {Config as config} from "./Config";
+
+const BASE_PATH = "/exams";
 
 export const ExamRoutes = [
     {
-        method: "get",
-        route: "/exams",
+        method: config.GET,
+        route: BASE_PATH,
         controller: ExamController,
         action: "filter"
     },
     {
-        method: "get",
-        route: "/exams/:id",
+        method: config.GET,
+        route: BASE_PATH + "/:id",
         controller: ExamController,
         action: "findById"
     },
     {
-        method: "post",
-        route: "/exams",
-        controller: ExamController,
-    },
-    {
-        method: "put",
-        route: "/exams/:id",
+        method: config.POST,
+        route: BASE_PATH,
         controller: ExamController,
         action: "save"
     },
     {
-        method: "delete",
-        route: "/exams/:id",
+        method: config.PUT,
+        route: BASE_PATH + "/:id",
+        controller: ExamController,
+        action: "save"
+    },
+    {
+        method: config.DELETE,
+        route: BASE_PATH + "/:id",
         controller: ExamController,
         action: "remove"
     },
     {
-        method: "get",
-        route: "/exams/:id/instances",
+        method: config.GET,
+        route: BASE_PATH + "/:id/instances",
         controller: ExamController,
         action: "getStudentExamsByExamId"
     }

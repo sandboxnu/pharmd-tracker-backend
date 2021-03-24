@@ -1,6 +1,7 @@
-import { Equal, getRepository, Like , Raw} from "typeorm";
-import {NextFunction, Request, Response} from "express";
-import {Note} from "../entity/Note";
+import { Between, Equal, getRepository, Like, Raw} from "typeorm";
+import { NextFunction, Request, Response } from "express";
+import {startOfDay, endOfDay, min, max} from 'date-fns';
+import { Note } from "../entity/Note";
 
 export class NoteController {
 
@@ -15,11 +16,28 @@ export class NoteController {
 
                 switch (param) {
                     case 'id':
+                    case 'student':
                         where[param] = Equal(value);
                         break;
                     case 'title':
                     case 'body':
                         where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
+                        break;
+                    case 'date':
+                        let dateOne;
+                        let dateTwo;
+
+                        if (Array.isArray(value)) {
+                            dateOne = new Date(value[0]);
+                            dateTwo = new Date(value[1]);
+                        } else {
+                            dateOne = new Date(value);
+                            dateTwo = new Date(value);
+                        }
+                        const first = startOfDay(min([dateOne, dateTwo]));
+                        const second = endOfDay(max([dateOne, dateTwo]));
+
+                        where[param] = Between(first, second);
                         break;
                     case 'tags':
                         where[param] = Like(`%${value}%`);
@@ -45,7 +63,7 @@ export class NoteController {
                 'Access-Control-Expose-Headers': ['X-Total-Count']
             });
             return notes;
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -53,16 +71,19 @@ export class NoteController {
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.noteRepository.findOne({
-                where: {id: request.params.id}
+                where: { id: request.params.id }
             });
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
 
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
-            return await this.noteRepository.save(request.body);
+            return await this.noteRepository.save({
+                ...request.body,
+                date: new Date(Date.now())
+            });
         } catch (e) {
             return e;
         }
