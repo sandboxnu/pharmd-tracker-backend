@@ -8,25 +8,7 @@ import { StudentExam } from '../entity/StudentExam';
 
 export default class CreateStudents implements Seeder {
 
-    // This deletes all data, regardless of foreign keys. Should never happen in production.
-    async empty(connection: Connection) {
-        console.log('Emptying Note table ...');
-        await connection.getRepository(Note).delete({});
-
-        console.log('Emptying StudentCourse Table ...');
-        await connection.getRepository(StudentCourse).delete({});
-
-        console.log('Emptying StudentExam table ...');
-        await connection.getRepository(StudentExam).delete({});
-
-        console.log('Emptying Student table ...');
-        await connection.getRepository(Student).delete({});
-
-    }
-
     async run(factory: Factory, connection: Connection): Promise<void> {
-        this.empty(connection);
-
         const courses: Course[] = await connection.getRepository(Course).find({});
         let courseCount = 0;
 
@@ -34,43 +16,25 @@ export default class CreateStudents implements Seeder {
         await factory(Student)()
             .map(async (student: Student) => {
                 // Create related entities
-                const notes: Note[] = await factory(Note)().createMany(3);
-                const studentCourses: StudentCourse[] = await factory(StudentCourse)().createMany(10);
-                const studentExams: StudentExam[] = [];
+                let notes: Note[] = await factory(Note)().createMany(3);
+                let studentCourses: StudentCourse[] = [];
+                let studentExams: StudentExam[] = [];
 
                 // Attach entities
-                student.notes = notes;
-                student.studentCourses = studentCourses;
-                notes.forEach((note) => note.student = student);
-                studentCourses.forEach((studentCourse) => {
-                    let currentCourse = courses[courseCount % 35];
+                let i: number;
+                for (i = 0; i < 10; i++) {
+                    let currentCourse = courses[courseCount % (courses.length - 1)];
 
-                    studentCourse.student = student;
-                    studentCourse.course = currentCourse;
-                    if (currentCourse.studentCourses == null) {
-                        currentCourse.studentCourses = [studentCourse];
-                    } else {
-                        currentCourse.studentCourses.push(studentCourse);
+                    let studentCourse = await factory(StudentCourse)().create({ course: currentCourse });
+
+                    for (const exam of currentCourse.exams) {
+                        const studentExam: StudentExam = await factory(StudentExam)().create({ year: studentCourse.year, exam: exam, semester: studentCourse.semester });
+                        studentExams.push(studentExam);
                     }
 
-                    currentCourse.exams.forEach(async (exam) => {
-                        const studentExam: StudentExam = await factory(StudentExam)().create({ year: studentCourse.year });
-
-                        studentExam.exam = exam;
-                        studentExam.student = student;
-                        studentExam.semester = studentCourse.semester;
-
-                        if (exam.studentExams == null) {
-                            exam.studentExams = [studentExam];
-                        } else {
-                            exam.studentExams.push(studentExam);
-                        }
-
-                        studentExams.push(studentExam);
-                    })
-
                     courseCount++;
-                })
+                    studentCourses.push(studentCourse);
+                }
 
                 student.studentExams = studentExams;
                 student.notes = notes;

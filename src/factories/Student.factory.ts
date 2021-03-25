@@ -29,10 +29,10 @@ define(Student, faker => {
     const gradSem = chooseFrom(semesters);
     const gradDateChanged = faker.random.number(1) == 1 ? true : false;
 
-    let id = Math.floor(Math.random() * 1000000000)
+    let id = Math.floor((Math.random() + 1) * 1000000000)
 
     while (id in usedNUIDs) {
-        id = Math.floor(Math.random() * 1000000000);
+        id = Math.floor((Math.random() + 1) * 1000000000);
     }
 
     const lastName = faker.name.lastName();
