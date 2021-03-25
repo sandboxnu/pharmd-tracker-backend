@@ -91,31 +91,23 @@ export class StudentController {
                     ? "gradDate"
                     : request.query["_sort"])
                 : "id";
-            // TODO: cleanup firstname, lastname, and cohort query
-            // TODO: implement where clause for cohort enums
-            const nameLikeArray = StudentController.trimText(request.query["name_like"]).split(" ");
-            const trimmedText = request.query["id_like"] ? "" : "%" + nameLikeArray[0] + "%";
+            const nameLikeArray = request.query["name_like"]
+                ? request.query["name_like"].replace("^", "").trim().split(" ")
+                : "";
+            const trimmedText = StudentController.trimTextWithWildCard(nameLikeArray[0]);
             const maybeLastName = nameLikeArray[1] ? "%" + nameLikeArray[1] + "%" : trimmedText;
-            const trimmedId = request.query["name_like"] ? "" : "%" + StudentController.trimText(request.query["id_like"]) + "%";
-            const maybeNumbers = !isNaN(parseFloat(trimmedId.replace("%","")))
-                ? "= " + parseFloat(trimmedId.replace("%",""))
-                : "IS NULL";
+            const trimmedId = StudentController.trimTextWithWildCard(request.query["id_like"]);
             const parsedParams = await this.parseQuery(request.query);
 
             const students = await this.studentRepository.createQueryBuilder(StudentController.STUDENT_ALIAS)
                 .where(parsedParams)
                 .andWhere(new Brackets(qb => {
                     qb.where(StudentController.STUDENT_ALIAS + ".id ILIKE :trimmedId",
-                        { trimmedId: trimmedId })
+                        { trimmedId: trimmedId === trimmedText ? "%%" : trimmedId })
                         .orWhere(StudentController.STUDENT_ALIAS + ".firstName ILIKE :trimmedText",
                             { trimmedText: trimmedText })
                         .orWhere(StudentController.STUDENT_ALIAS + ".lastName ILIKE :maybeLastName",
                             { maybeLastName: maybeLastName })
-                        .orWhere(StudentController.STUDENT_ALIAS + ".gradDate ILIKE :trimmedText",
-                            { trimmedText: trimmedText })
-                        // .orWhere(StudentController.STUDENT_ALIAS + ".status = :trimmedText",
-                        //     { trimmedText: trimmedText.toUpperCase().replace("%","") })
-                        .orWhere(StudentController.STUDENT_ALIAS + ".gpa " + maybeNumbers)
                 }))
                 .orderBy(StudentController.STUDENT_ALIAS + "." + sort, order)
                 .limit(end - start)
@@ -296,7 +288,7 @@ export class StudentController {
         }
     }
 
-    private static trimText(text) {
-        return text ? text.replace("^", "").trim() : "";
+    private static trimTextWithWildCard(text) {
+        return text ? "%" + text.replace("^", "").trim() + "%" : "";
     }
 }
