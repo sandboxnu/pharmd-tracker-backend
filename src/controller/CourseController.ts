@@ -63,6 +63,7 @@ export class CourseController {
                 .limit(end - start)
                 .skip(start)
                 .getMany();
+
             await response.set({
                 'X-Total-Count': courses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
