@@ -20,6 +20,7 @@ export const ExamRoutes = [
         method: config.POST,
         route: BASE_PATH,
         controller: ExamController,
+        action: "save"
     },
     {
         method: config.PUT,

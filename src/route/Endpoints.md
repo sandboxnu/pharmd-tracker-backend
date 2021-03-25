@@ -33,17 +33,14 @@ Returns all objects where *param1* is *optionOne* or *optionTwo*.
 
 #### Query with Min/Max  
 
-*/objects?param1[min]=50*  
-Returns all objects where *param1* is at least *50*, inclusive.
+*/objects?param=50*  
+Returns all objects where *param* is equal to *50*.
 
-*/objects?param1[max]=70*  
-Returns all objects where *param1* is at most *70*, inclusive.
+*/objects?param=50&param=50*  
+Returns all objects where *param* is equal to *50*.
 
-*/objects?param1[min]=50&param1[max]=70*  
-Returns all objects where *param1* is between *50* and *70*, inclusive. 
-
-*/objects?param1=70*  
-Returns all objects where *param1* is exactly *70*.
+*/objects?param=50&param=70*  
+Returns all objects where *param* is between *50* and *70*, inclusive.
 
 If a parameter can be queried with min and max, it will be listed next to the parameter name in the tables below, for example: gpa (min/max).
 
@@ -113,7 +110,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
-| GET | \.\.\./studentExams? | Get all studentExam instances that match the query parameters | Array\<StudentExam\> | <ul> <li> id </li> <li> studentId </li> <li> examId </li> <li> letterGrade </li> <li> semester </li> <li> year (min/max) </li> <li> percentage (min/max) </li> </ul> |
+| GET | \.\.\./studentExams? | Get all studentExam instances that match the query parameters | Array\<StudentExam\> | <ul> <li> id </li> <li> student </li> <li> exam </li> <li> letterGrade </li> <li> semester </li> <li> year (min/max) </li> <li> percentage (min/max) </li> </ul> |
 | GET | \.\.\./studentExams/ | Get all studentExam instances | Array\<StudentExam\> | |
 | GET | \.\.\./studentExams/\{id\} | Get a studentExam instance given a studentExam id | StudentExam | <ul> <li> id </li> </ul> |
 | POST | \.\.\./studentExams/ | Create a studentExam instance | | |
@@ -127,7 +124,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
-| GET | \.\.\./studentCourses? | Get all studentCourse instances that match the given parameters | Array\<StudentCourse\> | <ul> <li> id </li> <li> studentId </li> <li> courseId </li> <li> percentage (min/max) </li> <li> letterGrade </li> <li> semester </li> <li> year (min/max) </li> </ul> |
+| GET | \.\.\./studentCourses? | Get all studentCourse instances that match the given parameters | Array\<StudentCourse\> | <ul> <li> id </li> <li> student </li> <li> course </li> <li> percentage (min/max) </li> <li> letterGrade </li> <li> semester </li> <li> year (min/max) </li> </ul> |
 | GET | \.\.\./studentCourses/ | Get all studentCourse instances | Array\<StudentCourse\> | |
 | GET | \.\.\./studentCourses/\{id\} | Get a studentCourse instance given a studentCourse id | StudentCourse | <ul> <li> id </li> </ul> |
 | POST | \.\.\./studentCourses/ | Create a studetnCourse instance | | |
