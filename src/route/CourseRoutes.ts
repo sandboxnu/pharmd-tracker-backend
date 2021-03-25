@@ -27,7 +27,14 @@ export const CourseRoutes = [
         route: BASE_PATH + "/:id",
         controller: CourseController,
         action: "save"
-    }, {
+    },
+    {
+        method: config.PATCH,
+        route: BASE_PATH + "/:id",
+        controller: CourseController,
+        action: "update"
+    },
+    {
 
         method: config.DELETE,
         route: BASE_PATH + "/:id",

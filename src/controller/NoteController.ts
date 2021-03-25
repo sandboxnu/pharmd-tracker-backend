@@ -89,6 +89,18 @@ export class NoteController {
         }
     }
 
+    async update(request: Request, response: Response, next?: NextFunction) {
+        try {
+            const note = await this.noteRepository.findOne({
+                where: {id: request.params.id}
+            });
+            const updateBody = {...note, ...request.body};
+            return await this.noteRepository.save(updateBody);
+        } catch (e) {
+            return e;
+        }
+    }
+
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             const noteToRemove = await this.noteRepository.findOne(request.params.id);
