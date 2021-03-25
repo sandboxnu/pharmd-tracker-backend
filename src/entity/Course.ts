@@ -1,7 +1,7 @@
-import {Entity, Column, OneToMany, PrimaryGeneratedColumn, Unique} from "typeorm";
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { Exam } from "./Exam";
 import { StudentCourse } from "./StudentCourse";
-import { IsInt, Length} from "class-validator";
+import { IsInt, Length } from "class-validator";
 
 @Entity()
 @Unique(['subject', 'number'])
@@ -12,7 +12,7 @@ export class Course {
     id: bigint;
 
     @Column()
-    @Length(2,4)
+    @Length(2, 4)
     subject: string;
 
     @Column()
@@ -25,7 +25,7 @@ export class Course {
 
     // relations
 
-    @OneToMany(type => Exam, exam => exam.course)
+    @OneToMany(type => Exam, exam => exam.course, { eager: true })
     exams: Exam[];
 
     @OneToMany(type => StudentCourse, studentCourse => studentCourse.student)

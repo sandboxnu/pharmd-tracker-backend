@@ -9,6 +9,8 @@
       "typescript": "3.3.3333"
    },
    "dependencies": {
+      "@types/faker": "^5.1.7",
+      "@types/lodash": "^4.14.168",
       "body-parser": "^1.18.1",
       "class-validator": "^0.12.2",
       "date-fns": "^2.17.0",
@@ -19,10 +21,12 @@
       "lodash": "^4.17.20",
       "pg": "^7.18.2",
       "reflect-metadata": "^0.1.13",
-      "typeorm": "^0.2.25"
+      "typeorm": "^0.2.25",
+      "typeorm-seeding": "^1.6.1"
    },
    "scripts": {
       "dev": "nodemon",
-      "start": "ts-node src/index.ts"
+      "start": "ts-node src/index.ts",
+      "seed": "ts-node src/seed.ts"
    }
 }
