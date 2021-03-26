@@ -49,14 +49,3 @@ createConnection().then(async () => {
     spinner.start('Data has been seeded!')
     spinner.stopAndPersist();
 });
-
-// TODO
-
-// GENERAL
-// [X] Move utils
-// [X] Reorganize directory structure
-// [X] Remove old mock data
-// [ ] Write a README
-// [X] Fix new lines in console, make nicer
-// [X] Update config
-// [ ] Resolve conflicts from develop (if any)
