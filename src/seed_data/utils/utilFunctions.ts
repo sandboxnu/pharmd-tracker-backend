@@ -23,29 +23,27 @@ export function chooseFrom(options: any[]) {
 }
 
 export function chooseLetterGrade(percentage: number) {
-    if (percentage >= 93) {
-        return LetterGrade.A;
-    } else if (percentage >= 90) {
-        return LetterGrade.A_MINUS;
-    } else if (percentage >= 87) {
-        return LetterGrade.B_PLUS;
-    } else if (percentage >= 83) {
-        return LetterGrade.B;
-    } else if (percentage >= 80) {
-        return LetterGrade.B_MINUS;
-    } else if (percentage >= 77) {
-        return LetterGrade.C_PLUS;
-    } else if (percentage >= 73) {
-        return LetterGrade.C;
-    } else if (percentage >= 70) {
-        return LetterGrade.C_MINUS;
-    } else if (percentage >= 67) {
-        return LetterGrade.D_PLUS;
-    } else if (percentage >= 65) {
-        return LetterGrade.D;
-    } else if (percentage >= 63) {
-        return LetterGrade.D_MINUS;
-    } else {
-        return LetterGrade.F;
+    let orderedBreakpoints: number[] = [93, 90, 87, 83, 80, 77, 73, 70, 67, 65, 63, 0];
+    let conversions: { [key: number]: LetterGrade } = {
+        93: LetterGrade.A,
+        90: LetterGrade.A_MINUS,
+        87: LetterGrade.B_PLUS,
+        83: LetterGrade.B,
+        80: LetterGrade.B_MINUS,
+        77: LetterGrade.C_PLUS,
+        73: LetterGrade.C,
+        70: LetterGrade.C_MINUS,
+        67: LetterGrade.D_PLUS,
+        65: LetterGrade.D,
+        63: LetterGrade.D_MINUS,
+        0: LetterGrade.F
     }
+
+    orderedBreakpoints.forEach((breakpoint: number) => {
+        if (percentage >= breakpoint) {
+            return conversions[breakpoint];
+        }
+    })
+
+    return LetterGrade.F;
 }
