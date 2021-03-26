@@ -53,7 +53,7 @@ createConnection().then(async () => {
 // TODO
 
 // GENERAL
-// [ ] Move utils
+// [X] Move utils
 // [X] Reorganize directory structure
 // [X] Remove old mock data
 // [ ] Write a README

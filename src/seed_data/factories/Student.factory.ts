@@ -1,26 +1,10 @@
 import { define } from "typeorm-seeding";
 import { Student } from "../../entity/Student";
+import { chooseFrom, semesters, statuses, entryTypes, startYears, endYears } from "../utils";
 
 import * as faker from 'faker';
 
 faker.seed(123);
-
-// TODO move to utils
-function chooseFrom(options) {
-    const x = faker.random.number(options.length - 1);
-    return options[x];
-}
-
-// =================================================
-
-// TODO move to consts
-const semesters = ['FL', 'SP', 'SU', 'S1', 'S2'];
-const statuses = ['ENROLLED', 'LEAVE', "DROP_BACK", 'COOP', 'GRADUATED'];
-const entryTypes = ['EA', 'DE'];
-
-// =================================================
-const startYears = [2018, 2017, 2016];
-const endYears = [2020, 2021, 2022];
 
 let usedNUIDs = [];
 

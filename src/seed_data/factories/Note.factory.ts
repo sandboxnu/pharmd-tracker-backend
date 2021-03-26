@@ -1,23 +1,11 @@
 import { define } from "typeorm-seeding";
 import { Note } from "../../entity/Note";
+import { toUpperCase } from "../utils";
 
 import * as faker from 'faker';
 import * as _ from 'lodash';
 
 faker.seed(123);
-
-// TODO move to utils
-function toUpperCase(value) {
-    const words = value.split(' ');
-    var i: number;
-    for (i = 0; i < words.length; i++) {
-        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-    }
-
-    return words.join(' ');
-}
-
-// =================================================
 
 const tagOptions = createTagOptions();
 
