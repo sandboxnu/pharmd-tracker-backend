@@ -58,5 +58,5 @@ createConnection().then(async () => {
 // [ ] Remove old mock data
 // [ ] Write a README
 // [X] Fix new lines in console, make nicer
-// [ ] Update config
+// [X] Update config
 // [ ] Resolve conflicts from develop (if any)
