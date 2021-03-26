@@ -63,6 +63,7 @@ export class CourseController {
                 .limit(end - start)
                 .skip(start)
                 .getMany();
+
             await response.set({
                 'X-Total-Count': courses.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
@@ -88,6 +89,18 @@ export class CourseController {
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.courseRepository.save(request.body);
+        } catch (e) {
+            return e;
+        }
+    }
+
+    async update(request: Request, response: Response, next?: NextFunction) {
+        try {
+            const course = await this.courseRepository.findOne({
+                where: {id: request.params.id}
+            });
+            const updateBody = {...course, ...request.body};
+            return await this.courseRepository.save(updateBody);
         } catch (e) {
             return e;
         }

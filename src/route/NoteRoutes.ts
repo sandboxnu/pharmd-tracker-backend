@@ -23,6 +23,12 @@ export const NoteRoutes = [
         action: "save"
     },
     {
+        method: config.PATCH,
+        route: BASE_PATH + "/:id",
+        controller: NoteController,
+        action: "update"
+    },
+    {
         method: config.GET,
         route: BASE_PATH + "/:id",
         controller: NoteController,

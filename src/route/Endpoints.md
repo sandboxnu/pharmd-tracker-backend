@@ -72,6 +72,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./students/\{id\}/notes | Get all of a student's notes | Array\<Note\> | <ul> <li> id </li> </ul> |
 | POST | \.\.\./students/ | Create a new student | | |
 | PUT | \.\.\./students/\{id\} | Update student with given NUID | | <ul> <li> id </li> </ul> |
+| PATCH | \.\.\./students/\{id\} | Update student with given NUID | | <ul> <li> id </li> </ul> |
 | DELETE | \.\.\./students/\{id\} | Delete student with given NUID | | <ul> <li> id </li> </ul> |
 
 ## Course Endpoints
@@ -87,6 +88,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./courses/\{id\} | Get course with the given ID | Course | <ul> <li> id </li> </ul> |
 | POST | \.\.\./courses/ | Create a course | | |
 | PUT | \.\.\./courses/\{id\} | Update course with the given course id | | <ul> <li> id </li> </ul> |
+| PATCH | \.\.\./courses/\{id\} | Update course with the given course id | | <ul> <li> id </li> </ul> |
 | DELETE | \.\.\./courses/\{id\} | Delete course with the given course id | | <ul> <li> id </li> </ul> |
 
 ## Exam Endpoints
@@ -101,6 +103,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./exams/\{id\}/instances | Get all instances of an Exam given an exam id | Array\<StudentExam\> | <ul> <li> id </li> </ul> |
 | POST | \.\.\./exams/ | Create an exam | | |
 | PUT | \.\.\./exams/\{id\} | Update an exam given an exam id | | <ul> <li> id </li> </ul> |
+| PATCH | \.\.\./exams/\{id\} | Update an exam given an exam id | | <ul> <li> id </li> </ul> |
 | DELETE | \.\.\./exams/\{id\} | Delete an exam given an exam id | | <ul> <li> id </li> </ul> |
 
 
@@ -115,6 +118,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./studentExams/\{id\} | Get a studentExam instance given a studentExam id | StudentExam | <ul> <li> id </li> </ul> |
 | POST | \.\.\./studentExams/ | Create a studentExam instance | | |
 | PUT | \.\.\./studentExams/\{id\} | Update a studentExam instance given a studentExam id | | <ul> <li> id </li> </ul> |
+| PATCH | \.\.\./studentExams/\{id\} | Update a studentExam instance given a studentExam id | | <ul> <li> id </li> </ul> |
 | DELETE | \.\.\./studentExams/\{id\} | Delete a studentExam instance given a studentExam id | | <ul> <li> id </li> </ul> |
 
 
@@ -129,6 +133,7 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./studentCourses/\{id\} | Get a studentCourse instance given a studentCourse id | StudentCourse | <ul> <li> id </li> </ul> |
 | POST | \.\.\./studentCourses/ | Create a studetnCourse instance | | |
 | PUT | \.\.\./studentCourses/\{id\} | Update a studentCourse instance given a studentCourse id | | <ul> <li> id </li> </ul> |
+| PATCH | \.\.\./studentCourses/\{id\} | Update a studentCourse instance given a studentCourse id | | <ul> <li> id </li> </ul> |
 | DELETE | \.\.\./studentCourses/\{id\} | Delete a studentCourse instance given the studentCourse id| | <ul> <li> id </li> </ul> |
 
 
@@ -143,5 +148,6 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 | GET | \.\.\./notes/\{id\} | Get a note with the given note id | Note | <ul> <li> id </li> </ul> |
 | POST | \.\.\./notes/ | Create a note | | |
 | PUT | \.\.\./notes/\{id\} | Update a note given a note id| | <ul> <li> id </li> </ul> |
+| PATCH | \.\.\./notes/\{id\} | Update a note given a note id| | <ul> <li> id </li> </ul> |
 | DELETE | \.\.\./notes/\{id\} | Delete a note given a note id | | <ul> <li> id </li> </ul> |
 

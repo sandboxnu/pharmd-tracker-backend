@@ -104,6 +104,18 @@ export class ExamController {
         }
     }
 
+    async update(request: Request, response: Response, next?: NextFunction) {
+        try {
+            const exam = await this.examRepository.findOne({
+                where: {id: request.params.id}
+            });
+            const updateBody = {...exam, ...request.body};
+            return await this.examRepository.save(updateBody);
+        } catch (e) {
+            return e;
+        }
+    }
+
     // Delete an existing exam
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
