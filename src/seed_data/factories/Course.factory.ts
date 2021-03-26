@@ -9,24 +9,15 @@ faker.seed(123);
 let courseNumbers = [];
 
 function generateCourseNumber() {
-    let num = faker.random.number();
-    if (num < 1000) {
-        num *= 1000;
+    let num = faker.random.number({min: 1000, max: 9999});
+
+    while (num in courseNumbers) {
+        num = faker.random.number({min: 1000, max: 9999});
     }
 
-    let stringNum = num.toString().substring(0, 4);
+    courseNumbers.push(num);
 
-    while (stringNum in courseNumbers) {
-        num = faker.random.number();
-        if (num < 1000) {
-            num *= 1000;
-        }
-        stringNum = num.toString().substring(0, 4);
-    }
-
-    courseNumbers.push(stringNum);
-
-    return parseInt(stringNum);
+    return num;
 }
 
 define(Course, faker => {
