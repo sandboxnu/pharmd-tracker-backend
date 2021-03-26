@@ -91,12 +91,14 @@ export class StudentController {
                     ? "gradDate"
                     : request.query["_sort"])
                 : "id";
+
             const nameLikeArray = request.query["name_like"]
                 ? request.query["name_like"].replace("^", "").trim().split(" ")
                 : "";
             const trimmedText = StudentController.trimTextWithWildCard(nameLikeArray[0]);
             const maybeLastName = nameLikeArray[1] ? "%" + nameLikeArray[1] + "%" : trimmedText;
             const trimmedId = StudentController.trimTextWithWildCard(request.query["id_like"]);
+
             const parsedParams = await this.parseQuery(request.query);
 
             const students = await this.studentRepository.createQueryBuilder(StudentController.STUDENT_ALIAS)
