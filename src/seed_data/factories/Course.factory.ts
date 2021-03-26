@@ -1,5 +1,5 @@
 import { define } from 'typeorm-seeding';
-import { Course } from '../entity/Course';
+import { Course } from '../../entity/Course';
 
 import * as faker from 'faker';
 

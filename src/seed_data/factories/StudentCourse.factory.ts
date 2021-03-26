@@ -1,6 +1,6 @@
 import { define } from "typeorm-seeding";
-import { StudentCourse } from "../entity/StudentCourse";
-import { LetterGrade } from "../entity/Enums";
+import { StudentCourse } from "../../entity/StudentCourse";
+import { LetterGrade } from "../../entity/Enums";
 
 import * as faker from 'faker';
 

@@ -1,15 +1,15 @@
 import { Connection } from 'typeorm';
 import { Seeder, Factory } from 'typeorm-seeding';
-import { Course } from '../entity/Course';
-import { Exam } from '../entity/Exam';
+import { Course } from '../../entity/Course';
+import { Exam } from '../../entity/Exam';
+
+import * as ora from 'ora';
 
 export default class CreateCourses implements Seeder {
-
-    // This deletes all data, regardless of foreign keys. Should never happen in production.
-
-
     async run(factory: Factory, connection: Connection): Promise<void> {
-        console.log('\nCreating Courses and their Exams ...');
+        const spinner = ora();
+        spinner.start('\tCreating Courses and their Exams');
+        
         await factory(Course)()
             .map(async (course: Course) => {
 
@@ -21,6 +21,6 @@ export default class CreateCourses implements Seeder {
 
                 return course;
             })
-            .createMany(36).then(() => console.log('Courses and Exams created!\n'));
+            .createMany(36).then(() => spinner.succeed('Courses and Exams have been created!'));
     }
 }

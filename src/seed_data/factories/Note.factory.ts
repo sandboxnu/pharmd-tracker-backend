@@ -1,5 +1,5 @@
 import { define } from "typeorm-seeding";
-import { Note } from "../entity/Note";
+import { Note } from "../../entity/Note";
 
 import * as faker from 'faker';
 import * as _ from 'lodash';

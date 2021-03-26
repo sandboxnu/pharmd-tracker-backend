@@ -19,6 +19,7 @@
       "faker": "^5.4.0",
       "fs": "0.0.1-security",
       "lodash": "^4.17.20",
+      "ora": "^5.4.0",
       "pg": "^7.18.2",
       "reflect-metadata": "^0.1.13",
       "typeorm": "^0.2.25",
@@ -27,6 +28,6 @@
    "scripts": {
       "dev": "nodemon",
       "start": "ts-node src/index.ts",
-      "seed": "ts-node src/seed.ts"
+      "seed": "ts-node src/seed_data/seed.ts"
    }
 }
