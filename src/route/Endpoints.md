@@ -58,10 +58,12 @@ If the query checks for *starts with* or *substring*, it will be listed next to 
 ## Student Endpoints  
 
 [Back to Table of Contents](#table-of-contents)
+###### _Note: Both `_start` and `_end` need to be set if either are to be used in `GET /students?` and will return `_start` - `_end` number of students. Also, `name_like` will query against the `firstName` and `lastName` columns.
+
 
 | Type | URL | Description | Returns | Parameters |
 |------|-----|-------------|---------|------------|
-| GET | \.\.\./students? | Get all students that match the query parameters | Array\<Student\> | <ul> <li> id </li> <li> firstName (substring) </li> <li> lastName (substring) </li> <li> entryDate </li> <li> entryType </li> <li> originalGradDate </li> <li> gradDate </li> <li> status </li> <li> gpa (min/max) </li> <li> preferredName </li> <li> gradDateChanges </li> <li> entryType </li> <li> hasVisa </li>  <li> isDualDegree </li> <li> leftProgram </li> </ul> |
+| GET | \.\.\./students? | Get all students that match the query parameters | Array\<Student\> | <ul> <li> id </li> <li> firstName (substring) </li> <li> lastName (substring) </li> <li> entryDate </li> <li> entryType </li> <li> originalGradDate </li> <li> gradDate </li> <li> status </li> <li> gpa (min/max) </li> <li> preferredName </li> <li> gradDateChanges </li> <li> entryType </li> <li> hasVisa </li>  <li> isDualDegree </li> <li> leftProgram </li> <li> _start (int) </li> <li> _end (int)</li> <li> _order (ASC/DESC) </li> <li> _sort (id/firstName/lastName/status/gpa/cohort)</li> <li> name_like (string) </li> <li> id_like (string) </li></ul> |
 | GET | \.\.\./students/ | Get all students | Array\<Student\> | |
 | GET | \.\.\./students/\{id\} | Get student with given NUID | Student | <ul> <li> id </li> </ul> |
 | GET | \.\.\./students/\{id\}/courses | Get all of a student's courses | Array\<Course\> | <ul> <li> id </li> </ul> |

@@ -2,7 +2,7 @@ import 'jest-sorted';
 import { TestConnection } from "./utils/TestConnection";
 import { MockFunctions } from "./mocks/MockFunctions";
 import { StudentController } from "../StudentController";
-import {StudentStatus} from "../../entity/Enums";
+import { StudentStatus } from "../../entity/Enums";
 
 let controller;
 const student1 = { id: "123456789",
