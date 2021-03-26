@@ -55,7 +55,7 @@ createConnection().then(async () => {
 // GENERAL
 // [ ] Move utils
 // [X] Reorganize directory structure
-// [ ] Remove old mock data
+// [X] Remove old mock data
 // [ ] Write a README
 // [X] Fix new lines in console, make nicer
 // [X] Update config
