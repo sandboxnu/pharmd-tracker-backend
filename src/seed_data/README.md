@@ -1,4 +1,4 @@
-TLDR: `npm run seed` but be careful because it will delete all your tables' content
+TLDR: Update your ormconfig and then run `npm run seed` but be careful because it will delete all your tables' content
 
 # Contents
 * [So you want to populate your database](#so-you-want-to-populate-your-database)
