@@ -1,6 +1,6 @@
 import { define } from 'typeorm-seeding';
 import { Course } from '../../entity/Course';
-import { subjects, getRandomIntInclusive, toUpperCase } from '../utils'
+import { subjects, toUpperCase } from '../utils'
 
 import * as faker from 'faker';
 
@@ -28,7 +28,7 @@ function generateCourseNumber() {
 }
 
 define(Course, faker => {
-    const subject = subjects[getRandomIntInclusive(0, subjects.length - 1)];
+    const subject = subjects[faker.random.number({min: 0, max: subjects.length - 1})];
     const number = generateCourseNumber();
     const name = toUpperCase(faker.random.words(3));
 
