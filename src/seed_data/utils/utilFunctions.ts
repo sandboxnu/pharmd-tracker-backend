@@ -2,12 +2,11 @@ import { LetterGrade } from '../../entity/Enums';
 
 export function toUpperCase(value: String) {
     const words = value.split(' ');
-    var i: number;
-    for (i = 0; i < words.length; i++) {
-        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-    }
+    const capitalizedWords = words.map((word: String) => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    })
 
-    return words.join(' ');
+    return capitalizedWords.join(' ');
 }
 
 export function chooseLetterGrade(percentage: number) {
