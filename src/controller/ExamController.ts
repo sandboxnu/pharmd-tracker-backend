@@ -1,4 +1,4 @@
-import {getRepository, Raw} from "typeorm";
+import {createQueryBuilder, getRepository, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Exam} from "../entity/Exam";
 import {StudentExam} from "../entity/StudentExam";
@@ -43,7 +43,8 @@ export class ExamController {
         try {
             const parsedParams = await this.parseQuery(request.query);
             const exams = await this.examRepository.find({
-                where: parsedParams
+                where: parsedParams,
+                relations: ["course"]
             });
             await response.set({
                 'X-Total-Count': exams.length,
@@ -59,7 +60,8 @@ export class ExamController {
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.examRepository.findOne({
-                where: {id: request.params.id}
+                where: {id: request.params.id},
+                relations: ["course"]
             });
         } catch(e) {
             return e;
