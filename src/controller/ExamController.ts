@@ -1,4 +1,4 @@
-import {createQueryBuilder, getRepository, Raw} from "typeorm";
+import { getRepository, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Exam} from "../entity/Exam";
 import {StudentExam} from "../entity/StudentExam";

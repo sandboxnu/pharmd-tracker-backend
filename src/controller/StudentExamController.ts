@@ -1,4 +1,4 @@
-import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
+import {Between, Equal, getRepository } from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {StudentExam} from "../entity/StudentExam";
 
