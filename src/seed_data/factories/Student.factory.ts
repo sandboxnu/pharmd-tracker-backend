@@ -11,12 +11,13 @@ let usedNUIDs = [];
 define(Student, faker => {
     const gradYear = chooseFrom(endYears);
     const gradSem = chooseFrom(semesters);
-    const gradDateChanged = faker.random.number(1) == 1 ? true : false;
+    const gradDateChanged = faker.random.boolean();
 
-    let id = Math.floor((Math.random() + 1) * 1000000000)
+    // Nine digit number
+    let id = faker.random.number({min: 100000000, max: 999999999})
 
     while (id in usedNUIDs) {
-        id = Math.floor((Math.random() + 1) * 1000000000);
+        id = id = faker.random.number({min: 100000000, max: 999999999})
     }
 
     const lastName = faker.name.lastName();
@@ -26,7 +27,7 @@ define(Student, faker => {
     const gradDate = gradDateChanged ? (gradYear + 1) : gradYear;
     const status = chooseFrom(statuses);
     const gpa = faker.random.number({ max: 4, min: 2, precision: 0.01 });
-    const preferredName =  faker.random.number(1) == 1 ? faker.name.firstName() : "";
+    const preferredName =  faker.random.boolean() ? faker.name.firstName() : "";
     const gradDateChanges = gradDateChanged ? [gradSem + gradYear] : [];
     const entryType = chooseFrom(entryTypes);
     const hasVisa = faker.random.boolean();
