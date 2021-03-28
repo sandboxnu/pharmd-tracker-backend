@@ -25,7 +25,7 @@ define(Student, faker => {
     const originalGradDate = gradYear;
     const gradDate = gradDateChanged ? (gradYear + 1) : gradYear;
     const status = chooseFrom(statuses);
-    const gpa = faker.random.number({ max: 4, min: 0, precision: 0.01 });
+    const gpa = faker.random.number({ max: 4, min: 2, precision: 0.01 });
     const preferredName =  faker.random.number(1) == 1 ? faker.name.firstName() : "";
     const gradDateChanges = gradDateChanged ? [gradSem + gradYear] : [];
     const entryType = chooseFrom(entryTypes);

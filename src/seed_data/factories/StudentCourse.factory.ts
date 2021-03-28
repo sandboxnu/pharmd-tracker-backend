@@ -9,7 +9,7 @@ faker.seed(123);
 define(StudentCourse, faker => {
     const semester = chooseFrom(semesters);
     const year = chooseFrom(years);
-    const percentage = faker.random.number(100);
+    const percentage = faker.random.number({min: 50, max: 100});
     const letterGrade = chooseLetterGrade(percentage);
 
     const studentCourse = new StudentCourse();
