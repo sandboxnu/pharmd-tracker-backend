@@ -1,4 +1,4 @@
-import {Between, Equal, getRepository, In, Raw} from "typeorm";
+import {Between, Brackets, Equal, getRepository, In, Raw} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Student} from "../entity/Student";
 import {Course} from "../entity/Course";
@@ -15,6 +15,8 @@ export class StudentController {
     private noteRepository = getRepository(Note);
     private studentCourseRepository = getRepository(StudentCourse);
     private studentExamRepository = getRepository(StudentExam);
+
+    private static readonly STUDENT_ALIAS = "student";
 
     // get all students
     async all(request: Request, response: Response, next?: NextFunction) {
@@ -81,10 +83,39 @@ export class StudentController {
 
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
+            let start: number = request.query["_start"] ? request.query["_start"] : 0;
+            let end: number = request.query["_end"] ? request.query["_end"] : 0;
+            const order = request.query["_order"] ? request.query["_order"] : "ASC";
+            const sort = request.query["_sort"]
+                ? (request.query["_sort"] === "cohort"
+                    ? "gradDate"
+                    : request.query["_sort"])
+                : "id";
+
+            const nameLikeArray = request.query["name_like"]
+                ? request.query["name_like"].replace("^", "").trim().split(" ")
+                : "";
+            const trimmedText = StudentController.trimTextWithWildCard(nameLikeArray[0]);
+            const maybeLastName = nameLikeArray[1] ? "%" + nameLikeArray[1] + "%" : trimmedText;
+            const trimmedId = StudentController.trimTextWithWildCard(request.query["id_like"]);
+
             const parsedParams = await this.parseQuery(request.query);
-            const students = await this.studentRepository.find({
-                where: parsedParams
-            });
+
+            const students = await this.studentRepository.createQueryBuilder(StudentController.STUDENT_ALIAS)
+                .where(parsedParams)
+                .andWhere(new Brackets(qb => {
+                    qb.where(StudentController.STUDENT_ALIAS + ".id ILIKE :trimmedId",
+                        { trimmedId: trimmedId === trimmedText ? "%%" : trimmedId })
+                        .orWhere(StudentController.STUDENT_ALIAS + ".firstName ILIKE :trimmedText",
+                            { trimmedText: trimmedText })
+                        .orWhere(StudentController.STUDENT_ALIAS + ".lastName ILIKE :maybeLastName",
+                            { maybeLastName: maybeLastName })
+                }))
+                .orderBy(StudentController.STUDENT_ALIAS + "." + sort, order)
+                .limit(end - start)
+                .skip(start)
+                .getMany();
+
             await response.set({
                 'X-Total-Count': students.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count']
@@ -271,4 +302,7 @@ export class StudentController {
         }
     }
 
+    private static trimTextWithWildCard(text) {
+        return text ? "%" + text.replace("^", "").trim() + "%" : "";
+    }
 }

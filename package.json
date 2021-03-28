@@ -38,7 +38,7 @@
     "dev": "nodemon",
     "start": "ts-node src/index.ts",
     "seed": "ts-node src/seed_data/seed.ts",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "jest": {
     "setupFilesAfterEnv": [
