@@ -38,7 +38,7 @@ describe('test each actions for the course controller', () => {
         const req2 = MockFunctions.mockRequest(courseList, {}, {});
         it('should return all courses without any filters', async () => {
             const req1 = MockFunctions.mockRequest({}, {},{});
-            await controller.save(req2, res);
+            await controller.save(req2, {});
 
             const result = await controller.filter(req1, res);
 
@@ -51,11 +51,12 @@ describe('test each actions for the course controller', () => {
                 _end: 1
             };
             const req1 = MockFunctions.mockRequest({}, query,{});
-            await controller.save(req2, res);
+            await controller.save(req2, {});
 
             const result = await controller.filter(req1, res);
 
             expect(result).toHaveLength(1);
+            expect(res.set).toHaveBeenCalled();
         });
         it('should return courses in ASC order by number column', async () => {
             const query = {
@@ -63,11 +64,13 @@ describe('test each actions for the course controller', () => {
                 _sort: 'number'
             };
             const req1 = MockFunctions.mockRequest({}, query, {});
-            await controller.save(req2, res);
+            await controller.save(req2, {});
 
             const result = await controller.filter(req1, res);
 
             expect(result).toBeSortedBy('number', { descending: false});
+            expect(result).toHaveLength(3);
+            expect(res.set).toHaveBeenCalled();
         });
         it('should return courses in DESC order by name column', async() => {
             const query = {
@@ -75,23 +78,26 @@ describe('test each actions for the course controller', () => {
                 _sort: 'name'
             };
             const req1 = MockFunctions.mockRequest({}, query, {});
-            await controller.save(req2, res);
+            await controller.save(req2, {});
 
             const result = await controller.filter(req1, res);
 
             expect(result).toBeSortedBy('name', { descending: true});
+            expect(result).toHaveLength(3);
+            expect(res.set).toHaveBeenCalled();
         });
         it('should return courses with similar search query', async() => {
             const query = {
                 name_like: 'cyber course'
             };
             const req1 = MockFunctions.mockRequest({}, query, {});
-            await controller.save(req2, res);
+            await controller.save(req2, {});
 
             const result = await controller.filter(req1, res);
 
             expect(result).toHaveLength(1);
             expect(result[0]["name"]).toStrictEqual('some cyber course');
+            expect(res.set).toHaveBeenCalled();
         });
     });
 });
