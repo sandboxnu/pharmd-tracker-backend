@@ -1,16 +1,17 @@
 import { define } from "typeorm-seeding";
 import { Student } from "../../entity/Student";
-import { chooseFrom, semesters, statuses, entryTypes, startYears, endYears } from "../utils";
+import { semesters, statuses, entryTypes, startYears, endYears } from "../utils";
 
 import * as faker from 'faker';
+import { EntryType, StudentStatus } from "../../entity/Enums";
 
 faker.seed(123);
 
 let usedNUIDs = [];
 
 define(Student, faker => {
-    const gradYear = chooseFrom(endYears);
-    const gradSem = chooseFrom(semesters);
+    const gradYear = faker.random.arrayElement(endYears);
+    const gradSem = faker.random.arrayElement(semesters);
     const gradDateChanged = faker.random.boolean();
 
     // Nine digit number
@@ -22,14 +23,14 @@ define(Student, faker => {
 
     const lastName = faker.name.lastName();
     const firstName = faker.name.firstName();
-    const entryDate = chooseFrom(startYears).toString();
-    const originalGradDate = gradYear;
-    const gradDate = gradDateChanged ? (gradYear + 1) : gradYear;
-    const status = chooseFrom(statuses);
+    const entryDate = faker.random.arrayElement(startYears).toString();
+    const originalGradDate = gradYear.toString();
+    const gradDate = gradDateChanged ? (gradYear + 1).toString() : gradYear.toString();
+    const status = faker.random.arrayElement<StudentStatus>(statuses);
     const gpa = faker.random.number({ max: 4, min: 2, precision: 0.01 });
     const preferredName =  faker.random.boolean() ? faker.name.firstName() : "";
     const gradDateChanges = gradDateChanged ? [gradSem + gradYear] : [];
-    const entryType = chooseFrom(entryTypes);
+    const entryType = faker.random.arrayElement<EntryType>(entryTypes);
     const hasVisa = faker.random.boolean();
     const leftProgram = faker.random.boolean();
 

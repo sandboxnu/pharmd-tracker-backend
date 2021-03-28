@@ -17,11 +17,6 @@ export function toUpperCase(value: String) {
     return words.join(' ');
 }
 
-export function chooseFrom(options: any[]) {
-    const x = faker.random.number(options.length - 1);
-    return options[x];
-}
-
 export function chooseLetterGrade(percentage: number) {
     if (percentage >= 93) {
         return LetterGrade.A;
