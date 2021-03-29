@@ -1,12 +1,14 @@
-[
+require('dotenv').config();
+
+module.exports = [
   {
     "name": "dev",
     "type": "postgres",
     "host": "localhost",
     "port": 5432,
-    "username": "",
-    "password": "",
-    "database": "",
+    "username": process.env.POSTGRES_USER,
+    "password": process.env.POSTGRES_PASSWORD,
+    "database": "pharmd",
     "synchronize": true,
     "logging": false,
     "entities": [
@@ -17,6 +19,12 @@
     ],
     "subscribers": [
       "src/subscriber/**/*.ts"
+    ],
+    "seeds": [
+      "src/seed_data/seeds/**/*.ts"
+    ],
+    "factories": [
+      "src/seed_data/factories/**/*.ts"
     ],
     "cli": {
       "entitiesDir": "src/entity",
@@ -29,9 +37,9 @@
     "type": "postgres",
     "host": "localhost",
     "port": 5432,
-    "username": "",
-    "password": "",
-    "database": "",
+    "username": process.env.POSTGRES_USER,
+    "password": process.env.POSTGRES_PASSWORD,
+    "database": "test",
     "synchronize": true,
     "dropSchema": true,
     "logging": false,

@@ -1,0 +1,31 @@
+name: Unit Tests
+
+on: pull_request
+
+jobs:
+  Jest:
+    runs-on: ubuntu-latest
+    container:
+      image: node:lts
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: install modules
+        run: npm install
+      - name: run Jest tests
+        run: npm test
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
