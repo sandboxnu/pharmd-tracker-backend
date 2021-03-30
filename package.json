@@ -30,7 +30,9 @@
   "scripts": {
     "dev": "nodemon",
     "start": "ts-node src/index.ts",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "migrationRun": "ts-node node_modules/typeorm/cli.js migration:run",
+    "migrationRevert": "ts-node node_modules/typeorm/cli.js migration:revert"
   },
   "jest": {
     "setupFilesAfterEnv": [

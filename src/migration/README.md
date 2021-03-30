@@ -1,0 +1,33 @@
+# Migrations
+To prepare for the deployment of our project, we will treat our local `dev` databases as though they are in production. This means that we should be writing migrations whenever we change our database schemas.
+
+A migration is a basic file that has SQL commands for how to run the change (`up`) and how to revert it (`down`). Running a migration uses files generated with timestamps and simply runs all of them sequentially.
+
+The [TypeORM documentation](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#migrations) covers in more depth what migrations are and how they should be used. We recommend reading through their docs before continuing.
+
+Below, we highlight some quirks of the migration process in TypeORM, as well as put some quick commands as a cheatsheet reference for PharmD developers.
+
+## TypeORM Migrations
+TypeORM migrations are a bit interesting because they don't consistently use one of JavaScript or TypeScript. The commands for creating or generating migration files produce `.ts` files, but they must be compiled back to JavaScript before a user can run or revert them. So that we don't have to remember which needs special attention, we've outlined some shortcuts below.
+
+When creating or generating a new migration, it is essential that the developr fills out both the `up` and `down` functions.
+
+## Shortcuts
+* To create a migration from scratch:
+
+        typeorm migration:create
+    * To fill this out, you can either write your own SQL commands or use the [migration API](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#using-migration-api-to-write-migrations) to assemble your queries
+* To automatically generate a migration:
+
+        typeorm migration:generate
+    * If automatically generating the migration, it is recommended to generate a new file after **each** change made to a model.
+* To run all migrations:
+
+        npm run migrationRun
+    * This is a custom command that compiles the TypeScript to JavaScript, as TypeORM requires
+    * This command runs all migrations
+* To revert a migration:
+
+        npm run migrationRevert
+    * This is a custom command that compiles the TypeScript to JavaScript, as TypeORM requires
+    * You need to run this command for *each* migration you want to revert. It will not revert all existing migrations at once.
