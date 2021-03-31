@@ -6,7 +6,7 @@ A migration is a basic file that has SQL commands for how to run the change (`up
 The [TypeORM documentation](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#migrations) covers in more depth what migrations are and how they should be used. We recommend reading through their docs before continuing.
 
 # Migrations and Seeding
-Regarding seeding your database with fake data: we do not store our seed data in a migration. Because the `npm run migrationRun` command runs *all* migrations, it puts the seed data at risk of creating duplicates, erroring out, and stopping the seeding process.
+Regarding seeding your database with fake data: we do not store our seed data in a migration. Because the `npm run typeorm migration:run` command runs *all* migrations, it puts the seed data at risk of creating duplicates, erroring out, and stopping the seeding process.
 
 Ideally, you don't need to seed your database too often. However, if you somehow royally destroy your local database, take the following steps:
 
@@ -25,21 +25,23 @@ TypeORM migrations are a bit interesting because they don't consistently use one
 When creating or generating a new migration, it is essential that the developr fills out both the `up` and `down` functions.
 
 ## Shortcuts
+Across all these commands, the `-c` flag specifies that we want this in the "dev" database. If you named your local database something different, you should use that instead.
+
 * To create a migration from scratch:
 
-        typeorm migration:create -n NameOfMigration
+        npm run typeorm migration:create -- -n NameOfMigration -c dev
     * To fill this out, you can either write your own SQL commands or use the [migration API](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#using-migration-api-to-write-migrations) to assemble your queries
 * To automatically generate a migration:
 
-        typeorm migration:generate
+        npm run typeorm migration:generate -- -n NameOfMigration -c dev
     * If automatically generating the migration, it is recommended to generate a new file after **each** change made to a model.
 * To run all migrations:
 
-        npm run migrationRun
+        npm run typeorm migration:run -- -c dev
     * This is a custom command that compiles the TypeScript to JavaScript, as TypeORM requires
     * This command runs all migrations
 * To revert a migration:
 
-        npm run migrationRevert
+        npm run typeorm migration:revert -- -c dev
     * This is a custom command that compiles the TypeScript to JavaScript, as TypeORM requires
     * You need to run this command for *each* migration you want to revert. It will not revert all existing migrations at once.
