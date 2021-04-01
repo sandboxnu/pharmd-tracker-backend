@@ -37,7 +37,6 @@ class ExamController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
@@ -55,7 +54,6 @@ class ExamController {
     }
 
     // find an exam by the given id
-    // eslint-disable-next-line no-unused-vars
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.examRepository.findOne({
@@ -67,7 +65,6 @@ class ExamController {
     }
 
     // find an exam by the given name
-    // eslint-disable-next-line no-unused-vars
     async findByName(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.examRepository.findOne({
@@ -78,7 +75,6 @@ class ExamController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async getStudentExamsByExamId(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentExams = await this.studentExamRepository.find({
@@ -98,7 +94,6 @@ class ExamController {
     }
 
     // Create or update an exam
-    // eslint-disable-next-line no-unused-vars
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.examRepository.save(request.body);
@@ -107,7 +102,6 @@ class ExamController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async update(request: Request, response: Response, next?: NextFunction) {
         try {
             const exam = await this.examRepository.findOne({
@@ -121,7 +115,6 @@ class ExamController {
     }
 
     // Delete an existing exam
-    // eslint-disable-next-line no-unused-vars
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             const examToRemove = await this.examRepository.findOne(request.params.id);

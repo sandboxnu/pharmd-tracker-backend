@@ -41,7 +41,6 @@ class CourseController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
@@ -79,7 +78,6 @@ class CourseController {
     }
 
     // Gets the course the given id
-    // eslint-disable-next-line no-unused-vars
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.courseRepository.findOne({
@@ -91,7 +89,6 @@ class CourseController {
     }
 
     // Creates a new course
-    // eslint-disable-next-line no-unused-vars
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.courseRepository.save(request.body);
@@ -100,7 +97,6 @@ class CourseController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async update(request: Request, response: Response, next?: NextFunction) {
         try {
             const course = await this.courseRepository.findOne({
@@ -114,7 +110,6 @@ class CourseController {
     }
 
     // Deletes the course with the given id
-    // eslint-disable-next-line no-unused-vars
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             const courseToRemove = await this.courseRepository.findOne({

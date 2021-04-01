@@ -60,7 +60,6 @@ class NoteController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
@@ -77,7 +76,6 @@ class NoteController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.noteRepository.findOne({
@@ -88,7 +86,6 @@ class NoteController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.noteRepository.save({
@@ -100,7 +97,6 @@ class NoteController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async update(request: Request, response: Response, next?: NextFunction) {
         try {
             const note = await this.noteRepository.findOne({
@@ -113,7 +109,6 @@ class NoteController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             const noteToRemove = await this.noteRepository.findOne(request.params.id);

@@ -48,7 +48,6 @@ class StudentExamController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
@@ -66,7 +65,6 @@ class StudentExamController {
     }
 
     // find a studentExam given its unique id
-    // eslint-disable-next-line no-unused-vars
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentExamRepository.findOne({
@@ -78,7 +76,6 @@ class StudentExamController {
     }
 
     // Create or update an exam
-    // eslint-disable-next-line no-unused-vars
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentExamRepository.save(request.body);
@@ -87,7 +84,6 @@ class StudentExamController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async update(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentExam = await this.studentExamRepository.findOne({
@@ -101,7 +97,6 @@ class StudentExamController {
     }
 
     // Delete an existing studentExam
-    // eslint-disable-next-line no-unused-vars
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentExamToRemove = await this.studentExamRepository.findOne(request.params.id);

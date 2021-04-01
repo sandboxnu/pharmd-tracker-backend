@@ -19,6 +19,7 @@
         "jest"
     ],
     "rules": {
+        "no-unused-vars": "warn",
         "indent": ["error", 4],
         "max-len": ["error", { "code" : 120 }],
         "import/prefer-default-export": "off",

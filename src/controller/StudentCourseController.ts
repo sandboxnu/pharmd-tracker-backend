@@ -48,7 +48,6 @@ class StudentCourseController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
@@ -66,7 +65,6 @@ class StudentCourseController {
     }
 
     // find a studentCourse by the given id
-    // eslint-disable-next-line no-unused-vars
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentCourseRepository.findOne({
@@ -78,7 +76,6 @@ class StudentCourseController {
     }
 
     // Create or update a studentCourse
-    // eslint-disable-next-line no-unused-vars
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentCourseRepository.save(request.body);
@@ -87,7 +84,6 @@ class StudentCourseController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async update(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentCourse = await this.studentCourseRepository.findOne({
@@ -101,7 +97,6 @@ class StudentCourseController {
     }
 
     // Delete an existing studentCourse
-    // eslint-disable-next-line no-unused-vars
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentCourseToRemove = await this.studentCourseRepository.findOne(request.params.id);

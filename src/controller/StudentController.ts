@@ -25,7 +25,6 @@ class StudentController {
     private static readonly STUDENT_ALIAS = 'student';
 
     // get all students
-    // eslint-disable-next-line no-unused-vars
     async all(request: Request, response: Response, next?: NextFunction) {
         try {
             const students = await this.studentRepository.find();
@@ -88,7 +87,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const start: number = request.query._start ? request.query._start : 0;
@@ -137,7 +135,6 @@ class StudentController {
     }
 
     // get student by id
-    // eslint-disable-next-line no-unused-vars
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentRepository.findOne({
@@ -150,7 +147,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async getCoursesByStudentId(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentCourses = await this.studentCourseRepository.find({
@@ -180,7 +176,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async getStudentCourseByIds(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentCourseRepository.findOne({
@@ -194,7 +189,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async getExamsByStudentId(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentExams = await this.studentExamRepository.find({
@@ -224,7 +218,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async getStudentExamByIds(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentExamRepository.findOne({
@@ -238,7 +231,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async getStudentExamByCourse(request: Request, response: Response, next?: NextFunction) {
         try {
             const examsForCourse = await this.examRepository.find(
@@ -269,7 +261,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async getNotesByStudentId(request: Request, response: Response, next?: NextFunction) {
         try {
             const notes = await this.noteRepository.find({
@@ -287,7 +278,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async save(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentRepository.save(request.body);
@@ -296,7 +286,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async update(request: Request, response: Response, next?: NextFunction) {
         try {
             const student = await this.studentRepository.findOne({
@@ -309,7 +298,6 @@ class StudentController {
         }
     }
 
-    // eslint-disable-next-line no-unused-vars
     async remove(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentToRemove = await this.studentRepository.findOne(request.params.id);
