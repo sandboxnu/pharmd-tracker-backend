@@ -1,43 +1,45 @@
-import {UserController} from "../controller/UserController";
-import {Config as config} from "./Config";
+import UserController from '../controller/UserController';
+import Config from './Config';
 
-const BASE_PATH = "/users";
+const BASE_PATH = '/users';
 
-export const UserRoutes = [
-    {
-        method: config.GET,
-        route: BASE_PATH,
-        controller: UserController,
-        action: "filter"
-    },
-    {
-        method: config.GET,
-        route: BASE_PATH + "/:id",
-        controller: UserController,
-        action: "findById"
-    },
-    {
-        method: config.POST,
-        route: BASE_PATH,
-        controller: UserController,
-        action: "save"
-    },
-    {
-        method: config.PUT,
-        route: BASE_PATH + "/:id",
-        controller: UserController,
-        action: "save"
-    },
-    {
-        method: config.PATCH,
-        route: BASE_PATH + "/:id",
-        controller: UserController,
-        action: "update"
-    },
-    {
-        method: config.DELETE,
-        route: BASE_PATH + "/:id",
-        controller: UserController,
-        action: "remove"
-    }
+const UserRoutes = [
+  {
+    method: Config.GET,
+    route: BASE_PATH,
+    controller: UserController,
+    action: 'filter',
+  },
+  {
+    method: Config.GET,
+    route: `${BASE_PATH}/:id`,
+    controller: UserController,
+    action: 'findById',
+  },
+  {
+    method: Config.POST,
+    route: BASE_PATH,
+    controller: UserController,
+    action: 'save',
+  },
+  {
+    method: Config.PUT,
+    route: `${BASE_PATH}/:id`,
+    controller: UserController,
+    action: 'save',
+  },
+  {
+    method: Config.PATCH,
+    route: `${BASE_PATH}/:id`,
+    controller: UserController,
+    action: 'update',
+  },
+  {
+    method: Config.DELETE,
+    route: `${BASE_PATH}/:id`,
+    controller: UserController,
+    action: 'remove',
+  },
 ];
+
+export default UserRoutes;

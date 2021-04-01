@@ -1,0 +1,12 @@
+name: Unit Tests
+
+on: pull_request
+
+jobs:
+  Jest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Jest Tests
+        run: npm install
+        run: npm test

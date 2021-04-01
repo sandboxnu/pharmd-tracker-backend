@@ -1,9 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
-import {AccessLevel} from "./Enums";
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { AccessLevel } from './Enums';
 
 @Entity()
 export class User {
-
     @PrimaryGeneratedColumn()
     id: bigint;
 
@@ -14,11 +13,9 @@ export class User {
     lastName: string;
 
     @Column({
-        type: "enum",
-        enum: AccessLevel,
-        default: AccessLevel.READ
+      type: 'enum',
+      enum: AccessLevel,
+      default: AccessLevel.READ,
     })
     accessLevel: AccessLevel;
-
 }
-
