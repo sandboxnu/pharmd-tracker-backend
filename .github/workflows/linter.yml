@@ -8,6 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: install modules
-        run: npm ci
+        run: npm install
       - name: run the linter (go brrr)
         run: npm run lint
