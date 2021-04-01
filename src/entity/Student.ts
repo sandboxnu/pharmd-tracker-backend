@@ -1,8 +1,8 @@
 import {
-  Entity, Column, PrimaryColumn, OneToMany,
+    Entity, Column, PrimaryColumn, OneToMany,
 } from 'typeorm';
 import {
-  IsInt, Length, Min, Max,
+    IsInt, Length, Min, Max,
 } from 'class-validator';
 import { Note } from './Note';
 import { StudentCourse } from './StudentCourse';
@@ -11,10 +11,10 @@ import { EntryType, StudentStatus } from './Enums';
 
 @Entity()
 export class Student {
-  // mandatory columns
+    // mandatory columns
 
     @PrimaryColumn({
-      comment: 'NUID',
+        comment: 'NUID',
     })
     @Length(9, 9)
     @IsInt()
@@ -28,24 +28,24 @@ export class Student {
 
     // TODO: do we want enum so theres validation or just have a string
     @Column({
-      comment: 'semester of entry',
+        comment: 'semester of entry',
     })
     entryDate: string;
 
     @Column({
-      comment: 'original semester of graduation (upon entry)',
+        comment: 'original semester of graduation (upon entry)',
     })
     originalGradDate: string;
 
     @Column({
-      comment: 'semester of graduation',
+        comment: 'semester of graduation',
     })
     gradDate: string;
 
     @Column({
-      type: 'enum',
-      enum: StudentStatus,
-      default: StudentStatus.ENROLLED,
+        type: 'enum',
+        enum: StudentStatus,
+        default: StudentStatus.ENROLLED,
     })
     status: StudentStatus;
 
@@ -57,39 +57,39 @@ export class Student {
     // non-mandatory columns
 
     @Column({
-      nullable: true,
-      default: '',
+        nullable: true,
+        default: '',
     })
     preferredName: string;
 
     @Column({
-      type: 'simple-array',
-      nullable: true,
-      default: [],
+        type: 'simple-array',
+        nullable: true,
+        default: [],
     })
     // TODO: Is this the right way to check length of array?
     @Length(3)
     gradDateChanges: string[];
 
     @Column({
-      type: 'enum',
-      enum: EntryType,
-      default: EntryType.DE,
+        type: 'enum',
+        enum: EntryType,
+        default: EntryType.DE,
     })
     entryType: EntryType;
 
     @Column({
-      default: false,
+        default: false,
     })
     hasVisa: boolean;
 
     @Column({
-      default: false,
+        default: false,
     })
     isDualDegree: boolean;
 
     @Column({
-      default: false,
+        default: false,
     })
     leftProgram: boolean;
 

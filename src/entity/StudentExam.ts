@@ -1,8 +1,8 @@
 import {
-  Entity, ManyToOne, Column, PrimaryGeneratedColumn, Unique,
+    Entity, ManyToOne, Column, PrimaryGeneratedColumn, Unique,
 } from 'typeorm';
 import {
-  IsInt, Length, Max, Min,
+    IsInt, Length, Max, Min,
 } from 'class-validator';
 import { Student } from './Student';
 import { Exam } from './Exam';
@@ -15,9 +15,9 @@ export class StudentExam {
     id: bigint;
 
     @Column({
-      type: 'enum',
-      enum: Semester,
-      default: Semester.FALL,
+        type: 'enum',
+        enum: Semester,
+        default: Semester.FALL,
     })
     semester: Semester;
 
@@ -34,9 +34,9 @@ export class StudentExam {
     // TODO: should courseId be included here or in Exam model?
 
     @Column({
-      type: 'enum',
-      enum: LetterGrade,
-      default: LetterGrade.A,
+        type: 'enum',
+        enum: LetterGrade,
+        default: LetterGrade.A,
     })
     letterGrade: LetterGrade;
 

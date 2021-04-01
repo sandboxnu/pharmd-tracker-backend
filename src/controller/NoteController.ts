@@ -1,9 +1,9 @@
 import {
-  Between, Equal, getRepository, Like, Raw,
+    Between, Equal, getRepository, Like, Raw,
 } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
 import {
-  startOfDay, endOfDay, min, max,
+    startOfDay, endOfDay, min, max,
 } from 'date-fns';
 import { Note } from '../entity/Note';
 
@@ -12,116 +12,116 @@ class NoteController {
 
     // eslint-disable-next-line class-methods-use-this
     async parseQuery(queryObj) {
-      try {
-        const where = {};
-        const paramList = Object.keys(queryObj);
-        for (const param of paramList) {
-          const value = queryObj[param];
+        try {
+            const where = {};
+            const paramList = Object.keys(queryObj);
+            for (const param of paramList) {
+                const value = queryObj[param];
 
-          switch (param) {
-            case 'id':
-            case 'student':
-              where[param] = Equal(value);
-              break;
-            case 'title':
-            case 'body':
-              where[param] = Raw((alias) => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
-              break;
-            case 'date':
-              // eslint-disable-next-line no-case-declarations
-              let dateOne;
-              // eslint-disable-next-line no-case-declarations
-              let dateTwo;
+                switch (param) {
+                case 'id':
+                case 'student':
+                    where[param] = Equal(value);
+                    break;
+                case 'title':
+                case 'body':
+                    where[param] = Raw((alias) => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
+                    break;
+                case 'date':
+                    // eslint-disable-next-line no-case-declarations
+                    let dateOne;
+                    // eslint-disable-next-line no-case-declarations
+                    let dateTwo;
 
-              if (Array.isArray(value)) {
-                dateOne = new Date(value[0]);
-                dateTwo = new Date(value[1]);
-              } else {
-                dateOne = new Date(value);
-                dateTwo = new Date(value);
-              }
-              // eslint-disable-next-line no-case-declarations
-              const first = startOfDay(min([dateOne, dateTwo]));
-              // eslint-disable-next-line no-case-declarations
-              const second = endOfDay(max([dateOne, dateTwo]));
+                    if (Array.isArray(value)) {
+                        dateOne = new Date(value[0]);
+                        dateTwo = new Date(value[1]);
+                    } else {
+                        dateOne = new Date(value);
+                        dateTwo = new Date(value);
+                    }
+                    // eslint-disable-next-line no-case-declarations
+                    const first = startOfDay(min([dateOne, dateTwo]));
+                    // eslint-disable-next-line no-case-declarations
+                    const second = endOfDay(max([dateOne, dateTwo]));
 
-              where[param] = Between(first, second);
-              break;
-            case 'tags':
-              where[param] = Like(`%${value}%`);
-              break;
-            default:
-              break;
-          }
+                    where[param] = Between(first, second);
+                    break;
+                case 'tags':
+                    where[param] = Like(`%${value}%`);
+                    break;
+                default:
+                    break;
+                }
+            }
+            return where;
+        } catch (e) {
+            return e;
         }
-        return where;
-      } catch (e) {
-        return e;
-      }
     }
 
     // eslint-disable-next-line no-unused-vars
     async filter(request: Request, response: Response, next?: NextFunction) {
-      try {
-        const parsedParams = await this.parseQuery(request.query);
-        const notes = await this.noteRepository.find({
-          where: parsedParams,
-        });
-        await response.set({
-          'X-Total-Count': notes.length,
-          'Access-Control-Expose-Headers': ['X-Total-Count'],
-        });
-        return notes;
-      } catch (e) {
-        return e;
-      }
+        try {
+            const parsedParams = await this.parseQuery(request.query);
+            const notes = await this.noteRepository.find({
+                where: parsedParams,
+            });
+            await response.set({
+                'X-Total-Count': notes.length,
+                'Access-Control-Expose-Headers': ['X-Total-Count'],
+            });
+            return notes;
+        } catch (e) {
+            return e;
+        }
     }
 
     // eslint-disable-next-line no-unused-vars
     async findById(request: Request, response: Response, next?: NextFunction) {
-      try {
-        return await this.noteRepository.findOne({
-          where: { id: request.params.id },
-        });
-      } catch (e) {
-        return e;
-      }
+        try {
+            return await this.noteRepository.findOne({
+                where: { id: request.params.id },
+            });
+        } catch (e) {
+            return e;
+        }
     }
 
     // eslint-disable-next-line no-unused-vars
     async save(request: Request, response: Response, next?: NextFunction) {
-      try {
-        return await this.noteRepository.save({
-          ...request.body,
-          date: new Date(Date.now()),
-        });
-      } catch (e) {
-        return e;
-      }
+        try {
+            return await this.noteRepository.save({
+                ...request.body,
+                date: new Date(Date.now()),
+            });
+        } catch (e) {
+            return e;
+        }
     }
 
     // eslint-disable-next-line no-unused-vars
     async update(request: Request, response: Response, next?: NextFunction) {
-      try {
-        const note = await this.noteRepository.findOne({
-          where: { id: request.params.id },
-        });
-        const updateBody = { ...note, ...request.body };
-        return await this.noteRepository.save(updateBody);
-      } catch (e) {
-        return e;
-      }
+        try {
+            const note = await this.noteRepository.findOne({
+                where: { id: request.params.id },
+            });
+            const updateBody = { ...note, ...request.body };
+            return await this.noteRepository.save(updateBody);
+        } catch (e) {
+            return e;
+        }
     }
 
     // eslint-disable-next-line no-unused-vars
     async remove(request: Request, response: Response, next?: NextFunction) {
-      try {
-        const noteToRemove = await this.noteRepository.findOne(request.params.id);
-        await this.noteRepository.remove(noteToRemove);
-        return noteToRemove;
-      } catch (e) {
-        return e;
-      }
+        try {
+            const noteToRemove = await this.noteRepository.findOne(request.params.id);
+            await this.noteRepository.remove(noteToRemove);
+            return noteToRemove;
+        } catch (e) {
+            return e;
+        }
     }
 }
 

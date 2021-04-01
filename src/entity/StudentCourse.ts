@@ -1,8 +1,8 @@
 import {
-  Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique,
+    Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique,
 } from 'typeorm';
 import {
-  IsInt, Length, Max, Min,
+    IsInt, Length, Max, Min,
 } from 'class-validator';
 import { Student } from './Student';
 import { Course } from './Course';
@@ -15,9 +15,9 @@ export class StudentCourse {
     id: bigint;
 
     @Column({
-      type: 'enum',
-      enum: Semester,
-      default: Semester.FALL,
+        type: 'enum',
+        enum: Semester,
+        default: Semester.FALL,
     })
     semester: Semester;
 
@@ -32,9 +32,9 @@ export class StudentCourse {
     percentage: number;
 
     @Column({
-      type: 'enum',
-      enum: LetterGrade,
-      default: LetterGrade.A,
+        type: 'enum',
+        enum: LetterGrade,
+        default: LetterGrade.A,
     })
     letterGrade: LetterGrade;
 

@@ -13,9 +13,9 @@ export class User {
     lastName: string;
 
     @Column({
-      type: 'enum',
-      enum: AccessLevel,
-      default: AccessLevel.READ,
+        type: 'enum',
+        enum: AccessLevel,
+        default: AccessLevel.READ,
     })
     accessLevel: AccessLevel;
 }

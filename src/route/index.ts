@@ -7,13 +7,13 @@ import StudentRoutes from './StudentRoutes';
 import UserRoutes from './UserRoutes';
 
 const Routes = [
-  ...CourseRoutes,
-  ...ExamRoutes,
-  ...NoteRoutes,
-  ...StudentCourseRoutes,
-  ...StudentExamRoutes,
-  ...StudentRoutes,
-  ...UserRoutes,
+    ...CourseRoutes,
+    ...ExamRoutes,
+    ...NoteRoutes,
+    ...StudentCourseRoutes,
+    ...StudentExamRoutes,
+    ...StudentRoutes,
+    ...UserRoutes,
 ];
 
 export default Routes;

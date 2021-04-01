@@ -1,5 +1,5 @@
 import {
-  Entity, Column, ManyToOne, OneToMany, PrimaryGeneratedColumn,
+    Entity, Column, ManyToOne, OneToMany, PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Course } from './Course';
 import { StudentExam } from './StudentExam';

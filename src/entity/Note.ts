@@ -1,5 +1,5 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column, ManyToOne, Timestamp,
+    Entity, PrimaryGeneratedColumn, Column, ManyToOne, Timestamp,
 } from 'typeorm';
 import { Student } from './Student';
 
@@ -20,7 +20,7 @@ export class Note {
     date: Timestamp;
 
     @Column({
-      type: 'simple-array',
+        type: 'simple-array',
     })
     tags: string[];
 

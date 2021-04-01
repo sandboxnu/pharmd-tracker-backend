@@ -1,5 +1,5 @@
 import {
-  Entity, Column, OneToMany, PrimaryGeneratedColumn, Unique,
+    Entity, Column, OneToMany, PrimaryGeneratedColumn, Unique,
 } from 'typeorm';
 import { IsInt, Length } from 'class-validator';
 import { Exam } from './Exam';
