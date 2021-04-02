@@ -34,4 +34,4 @@ const createTypeormCon = async () => {
     }).catch(error => console.log(error));
 }
 
-createTypeormCon();
+createTypeormCon().then(() => console.log("created connection to dev database"));

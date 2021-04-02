@@ -30,7 +30,7 @@
   "scripts": {
     "dev": "nodemon",
     "start": "ts-node src/index.ts",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "jest": {
     "setupFilesAfterEnv": [
