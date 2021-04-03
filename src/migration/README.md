@@ -25,15 +25,15 @@ TypeORM migrations are a bit interesting because they don't consistently use one
 When creating or generating a new migration, it is essential that the developr fills out both the `up` and `down` functions.
 
 ## Shortcuts
-Across all these commands, the `-c` flag specifies that we want this in the "dev" database. If you named your local database something different, you should use that instead.
+Across all these commands, the `-c` flag specifies that we want this in the "dev" database. If you named your local database something different, you should use that instead. The `-n` flag specifies the name of the migration. Because these are using `npm` to run `typeorm` commands, we must include a `--` between the command and the flags.
 
 * To create a migration from scratch:
 
-        npm run typeorm migration:create -- -n NameOfMigration -c dev
+        npm run typeorm migration:create -- -n <NameOfMigration> -c dev
     * To fill this out, you can either write your own SQL commands or use the [migration API](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md#using-migration-api-to-write-migrations) to assemble your queries
 * To automatically generate a migration:
 
-        npm run typeorm migration:generate -- -n NameOfMigration -c dev
+        npm run typeorm migration:generate -- -n <NameOfMigration> -c dev
     * If automatically generating the migration, it is recommended to generate a new file after **each** change made to a model.
 * To run all migrations:
 
