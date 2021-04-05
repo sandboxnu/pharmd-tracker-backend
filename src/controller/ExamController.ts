@@ -1,34 +1,33 @@
-import {getRepository, Raw} from "typeorm";
-import {NextFunction, Request, Response} from "express";
-import {Exam} from "../entity/Exam";
-import {StudentExam} from "../entity/StudentExam";
+import { getRepository, Raw } from 'typeorm';
+import { NextFunction, Request, Response } from 'express';
+import { Exam } from '../entity/Exam';
+import { StudentExam } from '../entity/StudentExam';
 
-
-export class ExamController {
-
+class ExamController {
     private examRepository = getRepository(Exam);
+
     private studentExamRepository = getRepository(StudentExam);
 
-
     // gets assessments that match the given query params
+    // eslint-disable-next-line class-methods-use-this
     async parseQuery(queryObj) {
         try {
-            let where = {};
+            const where = {};
             const paramList = Object.keys(queryObj);
 
             for (const param of paramList) {
                 if (param in queryObj) {
-                    let value = queryObj[param];
+                    const value = queryObj[param];
 
                     switch (param) {
-                        case 'id':
-                            where[param] = value;
-                            break;
-                        case 'name':
-                            where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
-                            break;
-                        default:
-                            break;
+                    case 'id':
+                        where[param] = value;
+                        break;
+                    case 'name':
+                        where[param] = Raw((alias) => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
+                        break;
+                    default:
+                        break;
                     }
                 }
             }
@@ -36,32 +35,31 @@ export class ExamController {
         } catch (e) {
             return e;
         }
-
-    };
+    }
 
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
             const exams = await this.examRepository.find({
-                where: parsedParams
+                where: parsedParams,
             });
             await response.set({
                 'X-Total-Count': exams.length,
-                'Access-Control-Expose-Headers': ['X-Total-Count']
+                'Access-Control-Expose-Headers': ['X-Total-Count'],
             });
             return exams;
         } catch (e) {
             return e;
         }
-    };
+    }
 
     // find an exam by the given id
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.examRepository.findOne({
-                where: {id: request.params.id}
+                where: { id: request.params.id },
             });
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -70,9 +68,9 @@ export class ExamController {
     async findByName(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.examRepository.findOne({
-                where: {name: request.params.name}
+                where: { name: request.params.name },
             });
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -82,15 +80,15 @@ export class ExamController {
             const studentExams = await this.studentExamRepository.find({
                 where: {
                     exam: request.params.id,
-                }
+                },
             });
 
             await response.set({
                 'X-Total-Count': studentExams.length,
-                'Access-Control-Expose-Headers': ['X-Total-Count']
+                'Access-Control-Expose-Headers': ['X-Total-Count'],
             });
             return studentExams;
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -107,9 +105,9 @@ export class ExamController {
     async update(request: Request, response: Response, next?: NextFunction) {
         try {
             const exam = await this.examRepository.findOne({
-                where: {id: request.params.id}
+                where: { id: request.params.id },
             });
-            const updateBody = {...exam, ...request.body};
+            const updateBody = { ...exam, ...request.body };
             return await this.examRepository.save(updateBody);
         } catch (e) {
             return e;
@@ -127,3 +125,5 @@ export class ExamController {
         }
     }
 }
+
+export default ExamController;

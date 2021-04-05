@@ -24,7 +24,7 @@ export enum LetterGrade {
 export enum StudentStatus {
     ENROLLED= 'ENROLLED',
     LEAVE = 'LEAVE',
-    DROP_BACK = "DROP_BACK",
+    DROP_BACK = 'DROP_BACK',
     COOP = 'COOP',
     GRADUATED = 'GRADUATED'
 }
@@ -38,14 +38,14 @@ export enum StudentStatus {
 // Entry type: graduate or undergraduate
 // TODO: ask if this should be called ACPE grad date
 export enum EntryType {
-    EA =  'EA',
+    EA = 'EA',
     DE = 'DE'
 }
 
 // IPPE = Introductory Pharmacy Practice Experiences
 // APPE = Advanced Pharmacy Practice Experiences
 export enum PCFType {
-    PORTFOLIO=  'PORTFOLIO',
+    PORTFOLIO= 'PORTFOLIO',
     CLASSROOM = 'CLASSROOM',
     IPPE = 'IPPE',
     APPE = 'APPE'
