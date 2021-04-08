@@ -27,27 +27,6 @@ const seed = async () => {
                 return;
             });
 
-        // This deletes all data, regardless of foreign keys. Should never happen in production.
-        spinner.start('Emptying StudentExam table');
-        await connection.getRepository(StudentExam).delete({}).then((_) => spinner.succeed());
-
-        spinner.start('Emptying Exam table');
-        await connection.getRepository(Exam).delete({}).then((_) => spinner.succeed());
-
-        spinner.start('Emptying StudentCourse table');
-        await connection.getRepository(StudentCourse).delete({}).then((_) => spinner.succeed());
-
-        spinner.start('Emptying Course table');
-        await connection.getRepository(Course).delete({}).then((_) => spinner.succeed());
-
-        spinner.start('Emptying Note table');
-        await connection.getRepository(Note).delete({}).then((_) => spinner.succeed());
-
-        spinner.start('Emptying Student table');
-        await connection.getRepository(Student).delete({}).then((_) => spinner.succeed());
-
-        console.log();
-
         // Run seeders
         spinner.start('Running seeders');
         spinner.stopAndPersist();
