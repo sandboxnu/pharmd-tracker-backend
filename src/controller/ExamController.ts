@@ -42,7 +42,6 @@ class ExamController {
             const parsedParams = await this.parseQuery(request.query);
             const exams = await this.examRepository.find({
                 where: parsedParams,
-                relations: ["course"]
             });
             await response.set({
                 'X-Total-Count': exams.length,
