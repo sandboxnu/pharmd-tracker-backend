@@ -28,7 +28,7 @@ function generateCourseNumber() {
 }
 
 define(Course, faker => {
-    const subject = subjects[faker.random.number({min: 0, max: subjects.length - 1})];
+    const subject = faker.random.arrayElement(subjects);
     const number = generateCourseNumber();
     const name = toUpperCase(faker.random.words(3));
 
