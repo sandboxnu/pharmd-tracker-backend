@@ -6,8 +6,6 @@ import { IsInt, Length } from "class-validator";
 @Entity()
 @Unique(['subject', 'number'])
 export class Course {
-
-
     @PrimaryGeneratedColumn()
     id: bigint;
 
@@ -28,6 +26,6 @@ export class Course {
     @OneToMany(type => Exam, exam => exam.course, { eager: true })
     exams: Exam[];
 
-    @OneToMany(type => StudentCourse, studentCourse => studentCourse.student)
+    @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.student)
     studentCourses: StudentCourse[];
 }

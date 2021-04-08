@@ -1,33 +1,32 @@
-import {getRepository, Raw} from "typeorm";
-import {NextFunction, Request, Response} from "express";
-import {User} from "../entity/User";
+import { getRepository, Raw } from 'typeorm';
+import { NextFunction, Request, Response } from 'express';
+import { User } from '../entity/User';
 
-export class UserController {
-
+class UserController {
     private userRepository = getRepository(User);
 
-
     // get users that match the given query params
+    // eslint-disable-next-line class-methods-use-this
     async parseQuery(queryObj) {
         try {
-            let where = {};
+            const where = {};
             const paramList = Object.keys(queryObj);
 
             for (const param of paramList) {
                 if (param in queryObj) {
-                    let value = queryObj[param];
+                    const value = queryObj[param];
 
                     switch (param) {
-                        case 'id':
-                        case 'accessLevel':
-                            where[param] = value;
-                            break;
-                        case 'firstName':
-                        case 'lastName':
-                            where[param] = Raw(alias => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
-                            break;
-                        default:
-                            break;
+                    case 'id':
+                    case 'accessLevel':
+                        where[param] = value;
+                        break;
+                    case 'firstName':
+                    case 'lastName':
+                        where[param] = Raw((alias) => `LOWER(${alias}) LIKE '%${value.toLowerCase()}%'`);
+                        break;
+                    default:
+                        break;
                     }
                 }
             }
@@ -35,32 +34,31 @@ export class UserController {
         } catch (e) {
             return e;
         }
-
-    };
+    }
 
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
             const users = await this.userRepository.find({
-                where: parsedParams
+                where: parsedParams,
             });
             await response.set({
                 'X-Total-Count': users.length,
-                'Access-Control-Expose-Headers': ['X-Total-Count']
+                'Access-Control-Expose-Headers': ['X-Total-Count'],
             });
             return users;
         } catch (e) {
             return e;
         }
-    };
+    }
 
     // find a user by the given id
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.userRepository.findOne({
-                where: {id: request.params.id}
+                where: { id: request.params.id },
             });
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -77,9 +75,9 @@ export class UserController {
     async update(request: Request, response: Response, next?: NextFunction) {
         try {
             const user = await this.userRepository.findOne({
-                where: {id: request.params.id}
+                where: { id: request.params.id },
             });
-            const updateBody = {...user, ...request.body};
+            const updateBody = { ...user, ...request.body };
             return await this.userRepository.save(updateBody);
         } catch (e) {
             return e;
@@ -97,3 +95,5 @@ export class UserController {
         }
     }
 }
+
+export default UserController;

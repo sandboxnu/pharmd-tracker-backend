@@ -1,20 +1,23 @@
-import {Entity, ManyToOne, Column, PrimaryGeneratedColumn, Unique} from "typeorm";
-import { Student } from "./Student";
-import { Exam } from "./Exam";
-import {IsInt, Length, Max, Min} from "class-validator";
-import {LetterGrade, Semester} from "./Enums";
+import {
+    Entity, ManyToOne, Column, PrimaryGeneratedColumn, Unique,
+} from 'typeorm';
+import {
+    IsInt, Length, Max, Min,
+} from 'class-validator';
+import { Student } from './Student';
+import { Exam } from './Exam';
+import { LetterGrade, Semester } from './Enums';
 
 @Entity()
-@Unique(["student", "exam"])
+@Unique(['student', 'exam'])
 export class StudentExam {
-
     @PrimaryGeneratedColumn()
     id: bigint;
 
     @Column({
-        type: "enum",
+        type: 'enum',
         enum: Semester,
-        default: Semester.FALL
+        default: Semester.FALL,
     })
     semester: Semester;
 
@@ -23,7 +26,7 @@ export class StudentExam {
     @Length(4)
     year: number;
 
-    @Column({type: "float"})
+    @Column({ type: 'float' })
     @Min(0)
     @Max(100)
     percentage: number;
@@ -31,16 +34,15 @@ export class StudentExam {
     // TODO: should courseId be included here or in Exam model?
 
     @Column({
-        type: "enum",
+        type: 'enum',
         enum: LetterGrade,
-        default: LetterGrade.A
+        default: LetterGrade.A,
     })
     letterGrade: LetterGrade;
 
-    @ManyToOne(type => Student, student => student.studentExams, {eager:true})
+    @ManyToOne(() => Student, (student) => student.studentExams, { eager: true })
     student: Student;
 
-    @ManyToOne(type => Exam, exam => exam.studentExams, {eager:true})
+    @ManyToOne(() => Exam, (exam) => exam.studentExams, { eager: true })
     exam: Exam;
-
 }

@@ -1,13 +1,14 @@
-import {createConnection, getConnection, getConnectionOptions} from "typeorm";
+import { createConnection, getConnection, getConnectionOptions } from 'typeorm';
 
-const namespace = "test";
-export const TestConnection = {
+const namespace = 'test';
+const TestConnection = {
     async create() {
         const connectionOptions = await getConnectionOptions(namespace);
-        await createConnection({...connectionOptions, name: "default"});
+        await createConnection({ ...connectionOptions, name: 'default' });
     },
     async close() {
-        await getConnection("default").close();
+        await getConnection('default').close();
     },
 };
 
+export default TestConnection;

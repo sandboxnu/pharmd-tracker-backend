@@ -1,49 +1,51 @@
-import {ExamController} from "../controller/ExamController";
-import {Config as config} from "./Config";
+import ExamController from '../controller/ExamController';
+import Config from './Config';
 
-const BASE_PATH = "/exams";
+const BASE_PATH = '/exams';
 
-export const ExamRoutes = [
+const ExamRoutes = [
     {
-        method: config.GET,
+        method: Config.GET,
         route: BASE_PATH,
         controller: ExamController,
-        action: "filter"
+        action: 'filter',
     },
     {
-        method: config.GET,
-        route: BASE_PATH + "/:id",
+        method: Config.GET,
+        route: `${BASE_PATH}/:id`,
         controller: ExamController,
-        action: "findById"
+        action: 'findById',
     },
     {
-        method: config.POST,
+        method: Config.POST,
         route: BASE_PATH,
         controller: ExamController,
-        action: "save"
+        action: 'save',
     },
     {
-        method: config.PUT,
-        route: BASE_PATH + "/:id",
+        method: Config.PUT,
+        route: `${BASE_PATH}/:id`,
         controller: ExamController,
-        action: "save"
+        action: 'save',
     },
     {
-        method: config.PATCH,
-        route: BASE_PATH + "/:id",
+        method: Config.PATCH,
+        route: `${BASE_PATH}/:id`,
         controller: ExamController,
-        action: "update"
+        action: 'update',
     },
     {
-        method: config.DELETE,
-        route: BASE_PATH + "/:id",
+        method: Config.DELETE,
+        route: `${BASE_PATH}/:id`,
         controller: ExamController,
-        action: "remove"
+        action: 'remove',
     },
     {
-        method: config.GET,
-        route: BASE_PATH + "/:id/instances",
+        method: Config.GET,
+        route: `${BASE_PATH}/:id/instances`,
         controller: ExamController,
-        action: "getStudentExamsByExamId"
-    }
+        action: 'getStudentExamsByExamId',
+    },
 ];
+
+export default ExamRoutes;
