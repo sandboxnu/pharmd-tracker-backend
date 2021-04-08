@@ -1,5 +1,3 @@
-TLDR: Update your ormconfig and then run `npm run seed` but be careful because it will delete all your tables' content
-
 # Contents
 * [So you want to populate your database](#so-you-want-to-populate-your-database)
 * [Seeding Data](#seeding-data)
@@ -13,7 +11,7 @@ This directory houses our data factories and seeders. Since we can't use actual 
 We are using `typeorm-seeding`, a poorly documented and poorly maintained package that gets the job done.
 
 # Seeding Data
-In order to seed your data, make sure you have the latest version of the `ormconfig` file. Then, run `npm run seed`. Please take note that this command **wipes out your database tables**, so if you have any data you would like to preserve, you should save it elsewhere beforehand. Additionally, this command should never be run on production.
+In order to seed your data, make sure you have the latest version of the `ormconfig` file. Then, follow the instructions in the [Migrations Documentation](../migration/README.md) for emptying your database, seeding it, and running the migrations.
 
 # Factories
 In order to seed our database, we need to define Factory objects that can mass produce our stuff. One of these has been defined for all of our entities except for `Users`. As we continue to flesh out and update our models, we should try our best to update these factories to reflect those changes. All factories can be found in `factories/`. 
