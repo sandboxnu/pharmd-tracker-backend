@@ -1,9 +1,11 @@
-export const MockFunctions = {
+const MockFunctions = {
     mockRequest(body, query, params) {
         return {
-            body: body,
-            query: query,
-            params: params,
+            body,
+            query,
+            params,
         };
-    }
+    },
 };
+
+export default MockFunctions;

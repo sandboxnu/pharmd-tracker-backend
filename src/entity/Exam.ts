@@ -1,10 +1,11 @@
-import {Entity, Column, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import { Course } from "./Course";
-import {StudentExam} from "./StudentExam";
+import {
+    Entity, Column, ManyToOne, OneToMany, PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Course } from './Course';
+import { StudentExam } from './StudentExam';
 
 @Entity()
 export class Exam {
-
     @PrimaryGeneratedColumn()
     id: bigint;
 
@@ -13,9 +14,9 @@ export class Exam {
 
     // relations
 
-    @OneToMany(type => StudentExam, studentExam => studentExam.student)
+    @OneToMany(() => StudentExam, (studentExam) => studentExam.student)
     studentExams: StudentExam[];
 
-    @ManyToOne(type => Course, course => course.exams)
+    @ManyToOne(() => Course, (course) => course.exams)
     course: Course;
 }
