@@ -39,6 +39,11 @@ There is also a `babel.config.js` file in the project's root directory if any co
 ### Jest Naming Conventions
 All tests relating to the `Controllers` are placed in the `__tests__` folder as Jest uses that naming convention to find any test files.  On a granular level, any new test files should be named `<fileName>.test.ts` (e.g. `CourseController.test.ts` for the `CourseController` class). This is to follow up with the previous naming conventions, but also helps Jest determine which file should be tested.
 
+### Running Tests
+There's a couple ways to run these hip and cool tests.
+1. Simply running `npm test` in terminal will run all the test files
+2. Depending on your IDE, there should be a green triangle icon on the left side of each unit test to run individually.
+
 ### Setting Up the Test Database Connection
 The exported module from `__tests__/utils/TestConnection.ts` handles spinning up and tearing down of the test database configured in the `ormconfig.json`. There are currently 2 functions that covers this respectively, `create()` and `close()`.
 
@@ -183,6 +188,7 @@ If something is undefined, it might be because you didn't use `async/await` and 
 \
 \
 Remember to run `npm i`!!
+\
 Feel free to add any instances/solutions here that you feel can be shared with others!
 
 ## Other packages added with Jest
