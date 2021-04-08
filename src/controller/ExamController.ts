@@ -42,7 +42,6 @@ class ExamController {
             const parsedParams = await this.parseQuery(request.query);
             const exams = await this.examRepository.find({
                 where: parsedParams,
-                relations: ["course"]
             });
             await response.set({
                 'X-Total-Count': exams.length,
@@ -57,9 +56,8 @@ class ExamController {
     // find an exam by the given id
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
-            return await this.examRepository.findOne(
-                where: {id: request.params.id},
-                relations: ["course"
+            return await this.examRepository.findOne({
+                where: { id: request.params.id },
             });
         } catch (e) {
             return e;
