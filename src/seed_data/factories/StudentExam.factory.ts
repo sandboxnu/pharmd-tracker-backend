@@ -1,12 +1,8 @@
 import { define } from 'typeorm-seeding';
 import { StudentExam } from '../../entity/StudentExam';
-import { chooseLetterGrade, semesters } from '../utils';
+import { chooseLetterGrade } from '../utils';
 
-import * as faker from 'faker';
-
-faker.seed(123);
-
-define(StudentExam, faker => {
+define(StudentExam, (faker) => {
     const percentage = faker.random.number({ max: 100, min: 50, precision: 0.01 });
     const letterGrade = chooseLetterGrade(percentage);
 
@@ -15,4 +11,4 @@ define(StudentExam, faker => {
     studentExam.letterGrade = letterGrade;
 
     return studentExam;
-})
+});

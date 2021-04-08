@@ -1,29 +1,21 @@
-import { define } from "typeorm-seeding";
-import { Note } from "../../entity/Note";
-import { toUpperCase } from "../utils";
-
-import * as faker from 'faker';
+import { define } from 'typeorm-seeding';
 import * as _ from 'lodash';
+import { Note } from '../../entity/Note';
+import { toUpperCase } from '../utils';
 
-faker.seed(123);
-
-const tagOptions = createTagOptions();
-
-function createTagOptions() {
-    return _.times(10, function (n) {
-        return faker.lorem.word();
-    });
+function createTagOptions(faker) {
+    return _.times(10, () => faker.lorem.word());
 }
 
-function chooseTags() {
+function chooseTags(faker) {
     const numTags = faker.random.number(3);
-    return faker.random.arrayElements(tagOptions, numTags);
+    return faker.random.arrayElements(createTagOptions(faker), numTags);
 }
 
-define(Note, faker => {
+define(Note, (faker) => {
     const title = toUpperCase(faker.lorem.words(3));
     const body = faker.lorem.paragraph(4);
-    const tags = chooseTags();
+    const tags = chooseTags(faker);
 
     const note = new Note();
     note.title = title;
@@ -31,4 +23,4 @@ define(Note, faker => {
     note.tags = tags;
 
     return note;
-})
+});
