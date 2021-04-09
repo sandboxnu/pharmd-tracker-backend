@@ -9,3 +9,4 @@ temp/
 ormconfig.json
 package-lock.json
 package.json
+src/migration/*
