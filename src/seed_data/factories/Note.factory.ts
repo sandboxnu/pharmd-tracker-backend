@@ -9,7 +9,18 @@ function createTagOptions(faker) {
 
 function chooseTags(faker) {
     const numTags = faker.random.number(3);
-    return faker.random.arrayElements(createTagOptions(faker), numTags);
+    let tagOptions = createTagOptions(faker);
+    let tags = [];
+    var i: number;
+    for (i = 0; i < numTags; i++) {
+        const tagNum = faker.random.number(tagOptions.length - 1);
+        const tag = tagOptions[tagNum];
+        if (!tags.includes(tag)) {
+            tags.push(tag);
+        }
+    }
+
+    return tags;
 }
 
 define(Note, (faker) => {
