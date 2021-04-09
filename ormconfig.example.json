@@ -7,7 +7,7 @@
     "username": "",
     "password": "",
     "database": "",
-    "synchronize": true,
+    "synchronize": false,
     "logging": false,
     "entities": [
       "src/entity/**/*.ts"
