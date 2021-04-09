@@ -46,6 +46,7 @@
     "seed": "ts-node src/seed_data/seed.ts",
     "empty": "ts-node src/seed_data/empty.ts",
     "test": "jest --runInBand",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "lint": "eslint . --ext .ts --fix"
   },
   "jest": {
