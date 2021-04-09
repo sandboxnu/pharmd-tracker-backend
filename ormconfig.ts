@@ -4,12 +4,12 @@ module.exports = [
     {
         name: 'dev',
         type: 'postgres',
-        host: 'localhost',
+        host: process.env.POSTGRES_HOST,
         port: 5432,
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PASSWORD,
         database: 'pharmd',
-        synchronize: true,
+        synchronize: false,
         logging: false,
         entities: [
             'src/entity/**/*.ts',
@@ -35,7 +35,7 @@ module.exports = [
     {
         name: 'test',
         type: 'postgres',
-        host: 'postgres',
+        host: process.env.POSTGRES_HOST,
         port: 5432,
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PASSWORD,
