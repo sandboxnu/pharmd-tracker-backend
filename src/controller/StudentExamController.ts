@@ -1,41 +1,44 @@
-import {Between, Equal, getRepository } from "typeorm";
-import {NextFunction, Request, Response} from "express";
-import {StudentExam} from "../entity/StudentExam";
+import {
+    Between, Equal, getRepository,
+} from 'typeorm';
+import { NextFunction, Request, Response } from 'express';
+import { StudentExam } from '../entity/StudentExam';
 
-export class StudentExamController {
-
+class StudentExamController {
     private studentExamRepository = getRepository(StudentExam);
 
     // gets studentExams that match the given query params
+    // eslint-disable-next-line class-methods-use-this
     async parseQuery(queryObj) {
         try {
-            let where = {};
+            const where = {};
             const paramList = Object.keys(queryObj);
 
             for (const param of paramList) {
                 if (param in queryObj) {
-                    let value = queryObj[param];
+                    const value = queryObj[param];
 
                     switch (param) {
-                        case 'id':
-                        case 'student':
-                        case 'exam':
-                        //TODO: Create number values for each letterGrade for comparisons
-                        case 'letterGrade':
-                        case 'semester':
-                            where[param] = value;
-                            break;
-                        case 'year':
-                        case 'percentage':
-                            if (Array.isArray(value)) {
-                                value.sort();
-                                where[param] = Between(value[0], value[1]);
-                            } else {
-                                where[param] = Equal(value);
-                            }
-                            break;
-                        default:
-                            break;
+                    case 'id':
+                    case 'student':
+                    case 'exam':
+                        // TODO: Create number values for each letterGrade for comparisons
+                        // eslint-disable-next-line no-fallthrough
+                    case 'letterGrade':
+                    case 'semester':
+                        where[param] = value;
+                        break;
+                    case 'year':
+                    case 'percentage':
+                        if (Array.isArray(value)) {
+                            value.sort();
+                            where[param] = Between(value[0], value[1]);
+                        } else {
+                            where[param] = Equal(value);
+                        }
+                        break;
+                    default:
+                        break;
                     }
                 }
             }
@@ -43,7 +46,7 @@ export class StudentExamController {
         } catch (e) {
             return e;
         }
-    };
+    }
 
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
@@ -53,13 +56,13 @@ export class StudentExamController {
             });
             await response.set({
                 'X-Total-Count': studentExams.length,
-                'Access-Control-Expose-Headers': ['X-Total-Count']
+                'Access-Control-Expose-Headers': ['X-Total-Count'],
             });
             return studentExams;
         } catch (e) {
             return e;
         }
-    };
+    }
 
     // find a studentExam given its unique id
     async findById(request: Request, response: Response, next?: NextFunction) {
@@ -84,9 +87,9 @@ export class StudentExamController {
     async update(request: Request, response: Response, next?: NextFunction) {
         try {
             const studentExam = await this.studentExamRepository.findOne({
-                where: {id: request.params.id}
+                where: { id: request.params.id },
             });
-            const updateBody = {...studentExam, ...request.body};
+            const updateBody = { ...studentExam, ...request.body };
             return await this.studentExamRepository.save(updateBody);
         } catch (e) {
             return e;
@@ -103,5 +106,6 @@ export class StudentExamController {
             return e;
         }
     }
-
 }
+
+export default StudentExamController;
