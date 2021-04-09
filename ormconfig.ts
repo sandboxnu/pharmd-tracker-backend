@@ -8,7 +8,7 @@ module.exports = [
         port: 5432,
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PASSWORD,
-        database: 'pharmd',
+        database: process.env.POSTGRES_DB_DEV,
         synchronize: false,
         logging: false,
         entities: [
@@ -39,7 +39,7 @@ module.exports = [
         port: 5432,
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PASSWORD,
-        database: 'test',
+        database: process.env.POSTGRES_DB_TEST,
         synchronize: true,
         dropSchema: true,
         logging: false,

@@ -28,12 +28,17 @@ Here is a helpful list of psql commands: https://www.postgresqltutorial.com/psql
 
 ## Setting Up Your Config File
 
-In the pharmd-tracker-backend directory, you should see a file called `ormconfig.example.json`, an example of what your config file should look like.
-To create your config file:
-1. Duplicate the `ormconfig.example.json` file.
-2. Rename the copied file `ormconfig.json`. This will be your config file.
-3. In `ormconfig.json`, fill in values for `"username"` and `"password"` with the credentials of the user your created above. 
-For `"database"`, use the database name you used above.   
+In the pharmd-tracker-backend directory, you should see a file called `ormconfig.ts`. \
+To set up your config file:
+1. Create a `.env` file at the project root directory
+2. Put your secrets in the `.env` file for `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB_DEV`, `POSTGRES_DB_TEST`, and `POSTGRES_HOST` like so
+   >POSTGRES_USER=exampleuser\
+   POSTGRES_PASSWORD=examplepassword\
+   POSTGRES_HOST=localhost\
+   POSTGRES_DB_DEV=exampledb\
+   POSTGRES_DB_TEST=exampletestdb
+   
+Note: `POSTGRES_HOST` must be set to `localhost` for connection to work properly on local machine.\
 (The `"host"` and the `"port"` have been filled out as `"localhost"` and `"5432"` because these are postgres' default values. 
 If you changed these values while setting up postgres, you will also need to change their values in this file.)
 
