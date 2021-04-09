@@ -9,10 +9,10 @@ function createTagOptions(faker) {
 
 function chooseTags(faker) {
     const numTags = faker.random.number(3);
-    let tagOptions = createTagOptions(faker);
-    let tags = [];
-    var i: number;
-    for (i = 0; i < numTags; i++) {
+    const tagOptions = createTagOptions(faker);
+    const tags = [];
+    let i: number;
+    for (i = 0; i < numTags; i += 1) {
         const tagNum = faker.random.number(tagOptions.length - 1);
         const tag = tagOptions[tagNum];
         if (!tags.includes(tag)) {
