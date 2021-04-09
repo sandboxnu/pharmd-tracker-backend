@@ -1,43 +1,45 @@
-import {StudentCourseController} from "../controller/StudentCourseController";
-import {Config as config} from "./Config";
+import StudentCourseController from '../controller/StudentCourseController';
+import Config from './Config';
 
-const BASE_PATH = "/studentCourses";
+const BASE_PATH = '/studentCourses';
 
-export const StudentCourseRoutes = [
+const StudentCourseRoutes = [
     {
-        method: config.GET,
+        method: Config.GET,
         route: BASE_PATH,
         controller: StudentCourseController,
-        action: "filter"
+        action: 'filter',
     },
     {
-        method: config.GET,
-        route: BASE_PATH + "/:id",
+        method: Config.GET,
+        route: `${BASE_PATH}/:id`,
         controller: StudentCourseController,
-        action: "findById"
+        action: 'findById',
     },
     {
-        method: config.POST,
+        method: Config.POST,
         route: BASE_PATH,
         controller: StudentCourseController,
-        action: "save"
+        action: 'save',
     },
     {
-        method: config.PUT,
-        route: BASE_PATH + "/:id",
+        method: Config.PUT,
+        route: `${BASE_PATH}/:id`,
         controller: StudentCourseController,
-        action: "save"
+        action: 'save',
     },
     {
-        method: config.PATCH,
-        route: BASE_PATH + "/:id",
+        method: Config.PATCH,
+        route: `${BASE_PATH}/:id`,
         controller: StudentCourseController,
-        action: "update"
+        action: 'update',
     },
     {
-        method: config.DELETE,
-        route: BASE_PATH + "/:id",
+        method: Config.DELETE,
+        route: `${BASE_PATH}/:id`,
         controller: StudentCourseController,
-        action: "remove"
-    }
+        action: 'remove',
+    },
 ];
+
+export default StudentCourseRoutes;

@@ -5,6 +5,12 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.13.5",
     "@types/node": "^8.10.61",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.2",
     "jest": "^26.6.3",
     "jest-sorted": "^1.0.11",
     "nodemon": "^2.0.6",
@@ -31,7 +37,8 @@
     "dev": "nodemon",
     "start": "ts-node src/index.ts",
     "test": "jest --runInBand",
-    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "lint": "eslint . --ext .ts --fix"
   },
   "jest": {
     "setupFilesAfterEnv": [

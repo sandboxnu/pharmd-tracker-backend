@@ -1,43 +1,45 @@
-import {NoteController} from "../controller/NoteController";
-import {Config as config} from "./Config";
+import NoteController from '../controller/NoteController';
+import Config from './Config';
 
-const BASE_PATH = "/notes";
+const BASE_PATH = '/notes';
 
-export const NoteRoutes = [
+const NoteRoutes = [
     {
-        method: config.GET,
+        method: Config.GET,
         route: BASE_PATH,
         controller: NoteController,
-        action: "filter"
+        action: 'filter',
     },
     {
-        method: config.POST,
+        method: Config.POST,
         route: BASE_PATH,
         controller: NoteController,
-        action: "save"
+        action: 'save',
     },
     {
-        method: config.PUT,
-        route: BASE_PATH + "/:id",
+        method: Config.PUT,
+        route: `${BASE_PATH}/:id`,
         controller: NoteController,
-        action: "save"
+        action: 'save',
     },
     {
-        method: config.PATCH,
-        route: BASE_PATH + "/:id",
+        method: Config.PATCH,
+        route: `${BASE_PATH}/:id`,
         controller: NoteController,
-        action: "update"
+        action: 'update',
     },
     {
-        method: config.GET,
-        route: BASE_PATH + "/:id",
+        method: Config.GET,
+        route: `${BASE_PATH}/:id`,
         controller: NoteController,
-        action: "findById"
+        action: 'findById',
     },
     {
-        method: config.DELETE,
-        route: BASE_PATH + "/:id",
+        method: Config.DELETE,
+        route: `${BASE_PATH}/:id`,
         controller: NoteController,
-        action: "remove"
+        action: 'remove',
     },
 ];
+
+export default NoteRoutes;
