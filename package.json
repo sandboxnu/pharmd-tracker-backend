@@ -18,6 +18,13 @@
     "typescript": "3.3.3333"
   },
   "dependencies": {
+    "@types/faker": "^5.1.7",
+    "@types/lodash": "^4.14.168",
+    "faker": "^5.4.0",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.20",
+    "ora": "^5.4.0",
+    "typeorm-seeding": "^1.6.1",
     "@babel/core": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-typescript": "^7.13.0",
@@ -36,6 +43,8 @@
   "scripts": {
     "dev": "nodemon",
     "start": "ts-node src/index.ts",
+    "seed": "ts-node src/seed_data/seed.ts",
+    "empty": "ts-node src/seed_data/empty.ts",
     "test": "jest --runInBand",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "lint": "eslint . --ext .ts --fix"

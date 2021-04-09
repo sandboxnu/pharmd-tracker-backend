@@ -25,7 +25,7 @@ export class Course {
 
     // relations
 
-    @OneToMany(() => Exam, (exam) => exam.course)
+    @OneToMany(() => Exam, (exam) => exam.course, { eager: true })
     exams: Exam[];
 
     @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.student)
