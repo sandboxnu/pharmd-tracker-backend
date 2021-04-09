@@ -6,7 +6,7 @@ jobs:
   Jest:
     runs-on: ubuntu-latest
     container:
-      image: node:lts
+      image: node:12.22.1-alpine3.10
     services:
       postgres:
         image: postgres:13

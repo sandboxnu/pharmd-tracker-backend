@@ -1,0 +1,12 @@
+Enums.ts
+.idea/
+.vscode/
+node_modules/
+build/
+tmp/
+temp/
+.env
+ormconfig.json
+package-lock.json
+package.json
+src/migration/*

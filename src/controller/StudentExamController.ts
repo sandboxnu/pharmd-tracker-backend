@@ -1,4 +1,4 @@
-import {Between, Equal, getRepository, LessThanOrEqual, MoreThanOrEqual, Raw} from "typeorm";
+import {Between, Equal, getRepository } from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {StudentExam} from "../entity/StudentExam";
 
@@ -28,7 +28,7 @@ export class StudentExamController {
                         case 'year':
                         case 'percentage':
                             if (Array.isArray(value)) {
-                                value.sort()
+                                value.sort();
                                 where[param] = Between(value[0], value[1]);
                             } else {
                                 where[param] = Equal(value);
@@ -49,7 +49,7 @@ export class StudentExamController {
         try {
             const parsedParams = await this.parseQuery(request.query);
             const studentExams = await this.studentExamRepository.find({
-                where: parsedParams
+                where: parsedParams,
             });
             await response.set({
                 'X-Total-Count': studentExams.length,
@@ -65,9 +65,9 @@ export class StudentExamController {
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.studentExamRepository.findOne({
-                where: {id: request.params.id}
+                where: { id: request.params.id },
             });
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
