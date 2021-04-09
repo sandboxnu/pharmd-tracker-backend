@@ -23,11 +23,11 @@ The backend's testing suite is set up with the [Jest](https://jestjs.io/) framew
 The context of this documentation is mainly for testing the Controllers in the backend and not much for the endpoints/routes. Since we want to set up unit tests, it would make more sense to test the code functionality in the Controller that doesn't rely on the API layer that simply passes the necessary arguments to a Controller's action. The API layer is also in itself a thin layer and testing whether the server can receive requests wouldn't reveal much to us.
 
 ## TypeORM Config Setup
-With the new testing framework being added to the backend, the unit tests will connect to an entirely different connection from the `ormconfig.json` file. This is to separate database connection between development and testing.
+With the new testing framework being added to the backend, the unit tests will connect to an entirely different connection from the `ormconfig.ts` file. This is to separate database connection between development and testing.
 
 The ormconfig file should have 2 config objects that are each named `dev` used during development and for the server and `test` used specifically for the unit tests. Both of these connection configs are mostly the same except `test` will have the `dropSchema` turned on.
 
-Configs like `username` and `password` can be the same but you likely would want to name the `database` differently between `dev` and `test` to not mess up any data you have saved locally.
+Configs like `username` and `password` can be the same but you likely would want to name the `database` differently between `dev` and `test` with `POSTGRES_DB_DEV` and `POSTGRES_DB_TEST` from `.env` respectively to not mess up any data you have saved locally.
 **Also, make sure that the Postgres database for `test` is created on your computer if this is your first time setting up!**
 
 ### Babel and TypeScript
