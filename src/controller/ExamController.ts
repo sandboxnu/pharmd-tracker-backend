@@ -57,8 +57,8 @@ class ExamController {
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
             return await this.examRepository.findOne({
-                where: {id: request.params.id},
-                relations: ["course"]
+                where: { id: request.params.id },
+                relations: ['course'],
             });
         } catch (e) {
             return e;
