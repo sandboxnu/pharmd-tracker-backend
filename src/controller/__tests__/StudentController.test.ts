@@ -10,7 +10,7 @@ const student1 = {
     lastName: 'ross',
     firstName: 'bob',
     entryDate: '09/18',
-    gradDate: '05/22',
+    gradDate: '2022',
     originalGradDate: 'Spring 2022',
     status: StudentStatus.ENROLLED,
     gpa: 3.50,
@@ -20,7 +20,7 @@ const student2 = {
     lastName: 'squarepants',
     firstName: 'spongebob',
     entryDate: '09/19',
-    gradDate: '05/23',
+    gradDate: '2023',
     originalGradDate: 'Spring 2022',
     status: StudentStatus.ENROLLED,
     gpa: 3.69,
@@ -30,7 +30,7 @@ const student3 = {
     lastName: 'smith',
     firstName: 'morty',
     entryDate: '09/19',
-    gradDate: '05/22',
+    gradDate: '2022',
     originalGradDate: 'Spring 2022',
     status: StudentStatus.ENROLLED,
     gpa: 2.9,
@@ -115,6 +115,28 @@ describe('test each action in the student controller', () => {
             expect(res.set).toHaveBeenCalled();
             expect(result).toHaveLength(1);
             expect(result[0].id).toStrictEqual('000111222');
+        });
+        it('should return all students in same cohort', async () => {
+            const query = {
+                gradDate: ['2022', '2023'],
+            };
+            const reqWithQuery = MockFunctions.mockRequest({}, query, {});
+            await controller.save(req1, {});
+
+            const result = await controller.filter(reqWithQuery, res);
+            expect(res.set).toHaveBeenCalled();
+            expect(result).toHaveLength(3);
+        });
+        it('should return all students in single cohort', async () => {
+            const query = {
+                gradDate: '2022',
+            };
+            const reqWithQuery = MockFunctions.mockRequest({}, query, {});
+            await controller.save(req1, {});
+
+            const result = await controller.filter(reqWithQuery, res);
+            expect(res.set).toHaveBeenCalled();
+            expect(result).toHaveLength(2);
         });
     });
 });
