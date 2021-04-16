@@ -1,3 +1,9 @@
+# Documentation Quick Links
+* [Testing](src/controller/__tests__/Tests.md)
+* [Migrations](src/migration/README.md)
+* [API Endpoints](src/route/Endpoints.md)
+* [Dev Database Seeding](src/seed_data/README.md)
+
 # Setting Up
 
 ### General Outline:
