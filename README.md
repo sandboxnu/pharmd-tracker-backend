@@ -4,6 +4,8 @@
 * [API Endpoints](src/route/Endpoints.md)
 * [Dev Database Seeding](src/seed_data/README.md)
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/0cafca23b82a02de1156)
+
 # Setting Up
 
 ### General Outline:
