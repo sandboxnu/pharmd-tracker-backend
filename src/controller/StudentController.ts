@@ -57,6 +57,8 @@ class StudentController {
                     case 'entryDate':
                     case 'originalGradDate':
                     case 'gradDate':
+                        where[param] = Array.isArray(value) ? In(value) : Equal(value);
+                        break;
                     case 'leftProgram':
                         where[param] = Equal(value);
                         break;
