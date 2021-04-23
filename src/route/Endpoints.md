@@ -1,5 +1,7 @@
 # Endpoint Guide
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/0cafca23b82a02de1156)
+
 Important Notes!  
 
 For endpoints that contain a {param}, the Parameters column lists *paramInURL: correspondingModelAttribute*. If a corresponding model attribute isn't listed, that means the parameter and attribute share the same name.  

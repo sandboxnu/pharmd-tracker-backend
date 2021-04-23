@@ -51,9 +51,14 @@ class StudentExamController {
     async filter(request: Request, response: Response, next?: NextFunction) {
         try {
             const parsedParams = await this.parseQuery(request.query);
-            const studentExams = await this.studentExamRepository.find({
-                where: parsedParams,
-            });
+            const studentExams = await this.studentExamRepository
+                .createQueryBuilder('studentExam')
+                .where(parsedParams)
+                .leftJoinAndSelect("studentExam.student", "student")
+                .leftJoinAndSelect("studentExam.exam", "exam")
+                .leftJoinAndSelect("exam.course", "course")
+                .getMany()
+            ;
             await response.set({
                 'X-Total-Count': studentExams.length,
                 'Access-Control-Expose-Headers': ['X-Total-Count'],
@@ -67,9 +72,14 @@ class StudentExamController {
     // find a studentExam given its unique id
     async findById(request: Request, response: Response, next?: NextFunction) {
         try {
-            return await this.studentExamRepository.findOne({
-                where: { id: request.params.id },
-            });
+            return await this.studentExamRepository
+                .createQueryBuilder('studentExam')
+                .where({id: request.params.id})
+                .leftJoinAndSelect("studentExam.student", "student")
+                .leftJoinAndSelect("studentExam.exam", "exam")
+                .leftJoinAndSelect("exam.course", "course")
+                .getOne()
+            ;
         } catch (e) {
             return e;
         }
